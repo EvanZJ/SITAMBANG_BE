@@ -72,60 +72,53 @@ export default {
 </script>
 
 <template>
-<NavBar title="Pembayaran Transfer Bank"/>
-<div id="all" class="bg-white">
-    <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid">
-            <h2 class="text-white">{{ navTitle }}</h2>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<NavBar title="Pembayaran e-Wallet"/>
+<div id="undernav">
+    <div id="window" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
+        <div id="title" class="text-black m-3">
+            <h2>Pemesanan</h2>
         </div>
-    </nav>
-    <!-- <NavBar></NavBar> -->
-    <div id="undernav">
-        <div id="window" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
-            <div id="title" class="text-black m-3">
-                <h2>Pemesanan</h2>
-            </div>
-            <p class="ms-3">
-                Silakan melakukan transfer ke salah satu rekening berikut:
-            </p>
-            <div id="info-pembayaran" class="row mx-5 mb-3">
-                <div id="info-bank" class="col-8">
-                    <div id="tabel-rek" class="">
-                        <table class="table">
-                            <thead class="thead-light">
-                                <tr>
-                                <th scope="col">Nama Wallet</th>
-                                <th scope="col">Nomor Wallet</th>
-                                <th scope="col">Nama Pemilik</th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="rekening in eWalletList">
-                                <tr>
-                                <th scope="row">{{ rekening.namaWallet }}</th>
-                                <td>{{ rekening.noWallet }}</td>
-                                <td>{{ rekening.namaPemilik }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="detail-pembayaran" class="col-4 d-flex align-items-center justify-content-center">
-                    <div id="isi-detail" class="border border-bg-black rounded p-3">
-                        <p>Total Harga Pemesanan:</p>
-                        <p class="fw-bold">Rp{{ toCurrency(totalPrice) }}</p>
-                        <p>Metode Pembayaran:</p>
-                        <p class="fw-bold">{{ metode }}</p>
-                    </div>
+        <p class="ms-3">
+            Silakan melakukan transfer ke salah satu e-Wallet berikut:
+        </p>
+        <div id="info-pembayaran" class="row mx-5 mb-3">
+            <div id="info-bank" class="col-8">
+                <div id="tabel-rek" class="">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col">Nama Wallet</th>
+                            <th scope="col">Nomor Wallet</th>
+                            <th scope="col">Nama Pemilik</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="rekening in eWalletList">
+                            <tr>
+                            <th scope="row">{{ rekening.namaWallet }}</th>
+                            <td>{{ rekening.noWallet }}</td>
+                            <td>{{ rekening.namaPemilik }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- d-flex justify-content-between mx-5 mb-5 -->
-            <div class="row mx-5 mb-5">
-                <div id="container-back" class="col-8">
-                    <a href="/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
+            <div id="detail-pembayaran" class="col-4 d-flex align-items-center justify-content-center">
+                <div id="isi-detail" class="border border-bg-black rounded p-3">
+                    <p>Total Harga Pemesanan:</p>
+                    <p class="fw-bold">Rp{{ toCurrency(totalPrice) }}</p>
+                    <p>Metode Pembayaran:</p>
+                    <p class="fw-bold">{{ metode }}</p>
                 </div>
-                <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn btn-primary px-4">Unggah Bukti Pembayaran</button>     
-                </div>
+            </div>
+        </div>
+        <!-- d-flex justify-content-between mx-5 mb-5 -->
+        <div class="row mx-5 mb-5">
+            <div id="container-back" class="col-8">
+                <a href="/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
+            </div>
+            <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-primary px-4">Unggah Bukti Pembayaran</button>     
             </div>
         </div>
     </div>

@@ -61,5 +61,14 @@ Route::get('/info-pembayaran-e-wallet', function () {
     return Inertia::render('Pemesanan/InfoPembayaranEWallet');
 })->middleware(['auth', 'verified'])->name('info-pembayaran-e-wallet');
 
+Route::get('/info-pembayaran-tunai', function () {
+    return Inertia::render('Pemesanan/InfoPembayaranTunai');
+})->middleware(['auth', 'verified'])->name('info-pembayaran-tunai');
+
+Route::get('/pemesanan-berhasil', function () {
+    return Inertia::render('Pemesanan/PemesananBerhasil');
+})->middleware(['auth', 'verified'])->name('pemesanan-berhasil');
+
+
 
 require __DIR__.'/auth.php';
