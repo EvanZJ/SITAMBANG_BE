@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Stock;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class StockController extends Controller
+class Test extends Controller
 {
-        /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $stocks = Stock::all();
-        return Inertia::render('Stock', [
-            'stocks' => $stocks,
-        ]);
+        //
     }
 
     /**
@@ -28,7 +24,7 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('stocks.create');
+        //
     }
 
     /**
@@ -39,16 +35,7 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'kondisi' => 'required',
-        ]);
-
-        $input = $request->all();
-
-        Stock::create($input);
-
-        return redirect()->route('stocks.index');
+        //
     }
 
     /**
@@ -59,8 +46,7 @@ class StockController extends Controller
      */
     public function show($id)
     {
-        $stock = Stock::findOrFail($id);
-        return view('stocks.show', compact('stock', 'stock'));
+        //
     }
 
     /**
@@ -71,8 +57,7 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        $stock = Stock::find($id);
-        return view('stocks.edit', compact('stock', 'stock'));
+        //
     }
 
     /**
@@ -84,18 +69,7 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $stock = Stock::findOrFail($id);
-
-        $this->validate($request, [
-            'name' => 'required',
-            'kondisi' => 'required',
-        ]);
-
-        $input = $request->all();
-
-        $stock->fill($input)->save();
-
-        return redirect()->route('stocks.index');
+        //
     }
 
     /**
@@ -106,10 +80,6 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        $stock = Stock::findOrFail($id);
-
-        $stock->delete();
-        
-        return redirect()->route('stocks.index');
+        //
     }
 }

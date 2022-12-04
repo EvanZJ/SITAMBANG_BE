@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/inertia-vue3';
-import Navbar from '@/Components/Navbar.vue';
+import Navbar from '@/Components/NavBarPenjual.vue';
 </script>
 
 <template>
