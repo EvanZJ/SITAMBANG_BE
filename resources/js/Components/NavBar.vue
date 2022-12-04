@@ -20,7 +20,7 @@
         <div class="menu-list" v-if="menu">
             <a href="/">Riwayat Transaksi</a>
             <a href="/">Informasi Barang</a>
-            <a href="/pemesanan">Pemesanan</a>
+            <a href="/pembeli/pemesanan">Pemesanan</a>
         </div>
     </div>
 </template>
