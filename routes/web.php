@@ -28,6 +28,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/debug', function () {
+    return view('debug');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -46,9 +50,8 @@ Route::get('/pemesanan', [
     PemesananController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('pemesanan.index');
 
-Route::get('/pilih-pembayaran', function () {
-    return Inertia::render('Pemesanan/PilihPembayaran');
-})->middleware(['auth', 'verified'])->name('pilih-pembayaran');
+Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])
+->middleware(['auth', 'verified'])->name('pemesanan.pilih_pembayaran');
 
 Route::get('/konfirmasi-pemesanan', function () {
     return Inertia::render('Pemesanan/KonfirmasiPemesanan');

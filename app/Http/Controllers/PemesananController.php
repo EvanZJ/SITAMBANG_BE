@@ -17,7 +17,12 @@ class PemesananController extends Controller
         $stocks = Stock::all();
         return Inertia::render('Pemesanan/Pemesanan', [
             'stocks' => $stocks,
+            'token' => csrf_token(),
         ]);
+    }
+
+    public function pilih_pembayaran(Request $r){
+        dd($r);
     }
 
     /**

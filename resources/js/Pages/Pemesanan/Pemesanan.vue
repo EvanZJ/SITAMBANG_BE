@@ -2,7 +2,11 @@
 import NavBar from '../../components/Navbar.vue'
 </script>
 
+
 <template>
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
 <NavBar title="Pemesanan"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <div id="all" class="bg-white">
@@ -13,31 +17,35 @@ import NavBar from '../../components/Navbar.vue'
             </div>
 
             <div id="barang-beli" class="text-black m-5">
-                <ul v-for="(barang, index) in stocks" :key="index">
-                    <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">
-                        <div class="">{{ barang.name }}, {{ toCurrency(barang.harga) }}/kg</div>
-                        <div class="">Stock: {{ barang.total_persediaan }}</div>
-                        <div class="">
-                            Buy:
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" :id="index"
-                            min="0" :max="barang.total_persediaan">
-                        </div>
-                    </li>
-                </ul>
+                
+                <form action="/pilih-pembayaran" method="POST">
+                    <input type="hidden" name="_token" :value="token">
+                    <ul v-for="(barang, index) in stocks" :key="index">
+                            <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">
+                                <div class="">{{ barang.name }}, {{ toCurrency(barang.harga) }}/kg</div>
+                                <div class="">Stock: {{ barang.total_persediaan }}</div>    
+                                <div class="">
+                                    Buy:
+                                    <input type="number" class="form-control" :name="'beli'+index"
+                                    min="0" :max="barang.total_persediaan">
+                                </div>
+                            </li>
+                    </ul>
+                    <div class="form-group">
+                        <input style="cursor:pointer" type="submit" class="btn btn-primary px-4" id="submit" value="Next">
+                    </div>
+                </form>
             </div>
-            <div class="d-flex flex-row-reverse me-5 mb-5">
-                <a href="/pilih-pembayaran" class="btn btn-primary px-4">Next</a>
-            </div>
-            
         </div>
     </div>
 </div>
 </template>
 
-<script>
+<script>    
 export default {
     props:[
-        'stocks'
+        'stocks',
+        'token',
     ],
     components:{
         NavBar
@@ -65,8 +73,8 @@ export default {
                 barang.beli=0;
                 barang.stock--;
             }
-        }
-    },
+        },
+    }
 }
 </script>
 
