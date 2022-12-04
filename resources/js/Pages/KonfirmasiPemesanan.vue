@@ -35,12 +35,8 @@ export default {
         if (typeof value !== "number") {
             return value;
         }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
     },
     getInfoUrl(metodePembayaran){
         if(metodePembayaran.toLowerCase() == 'transfer bank'){
@@ -111,7 +107,7 @@ export default {
                 </div>
             </div>
             <div class="d-flex justify-content-between mx-5 mb-5">
-                <a href="/pilih-pemesanan" class="btn btn-danger px-4">Back</a>
+                <a href="/pilih-pembayaran" class="btn btn-danger px-4">Back</a>
                 <a :href="getInfoUrl(metode)" class="btn btn-primary px-4">Konfirmasi</a>     
             </div>
         </div>
