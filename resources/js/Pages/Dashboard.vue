@@ -23,3 +23,9 @@ import Navbar from '@/Components/Navbar.vue';
         </div>
     </div>
 </template>
+
+<style type="css">
+a{
+
+}
+</style>
