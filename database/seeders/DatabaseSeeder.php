@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
-        User::factory(5)->unverified()->create();
+        User::factory(10)->create();
+        User::factory(0)->unverified()->create();
         Karyawan::factory(10)->create();
         Karyawan::factory(3)->admin()->create();
         AlatTambak::factory(5)->create();
         Stock::factory(5)->create();
-        Pemesanan::factory(5)->create();
-        Riwayat::factory(5)->create();
+        Pemesanan::factory(1000)->create();
+        Riwayat::factory(500)->create();
         berisi::factory(5)->create();
         bertanggungjawab::factory(5)->create();
         // \App\Models\User::factory()->create([
