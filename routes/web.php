@@ -33,7 +33,7 @@ Route::prefix('karyawan')->group(function () {
     Route::post('/login', [KaryawanController::class, 'login'])->name('karyawan.login');
     Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
     Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
-});
+})->middleware(['auth', 'karyawan', 'verified']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

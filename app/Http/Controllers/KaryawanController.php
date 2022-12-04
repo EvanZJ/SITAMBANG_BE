@@ -11,10 +11,15 @@ use Illuminate\Http\Request;
 class KaryawanController extends Controller
 {
     public function create(){
-        return Inertia::render('Auth/LoginKaryawan', [
-            'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
-        ]);
+        if (!Auth::guard('karyawan')->check()) {
+            return Inertia::render('Auth/LoginKaryawan', [
+                'canResetPassword' => Route::has('password.request'),
+                'status' => session('status'),
+            ]);
+        }
+        else{
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
     }
 
     public function login(Request $request){
