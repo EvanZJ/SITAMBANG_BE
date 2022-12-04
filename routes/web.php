@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
 use Faker\Calculator\Inn;
@@ -41,9 +42,9 @@ Route::get('/stock', [
     StockController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('stock.index');
 
-Route::get('/pemesanan', function () {
-    return Inertia::render('Pemesanan/Pemesanan');
-})->middleware(['auth', 'verified'])->name('pemesanan');
+Route::get('/pemesanan', [
+    PemesananController::class, 'index'
+])->middleware(['auth', 'verified'])->name('pemesanan.index');
 
 Route::get('/pilih-pembayaran', function () {
     return Inertia::render('Pemesanan/PilihPembayaran');
