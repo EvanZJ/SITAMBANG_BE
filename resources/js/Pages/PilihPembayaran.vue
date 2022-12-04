@@ -57,7 +57,7 @@ import NavBar from '../components/Navbar.vue'
                     <div class="form-check me-3">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
                         <label class="form-check-label" for="flexRadioDefault3">
-                            E-Wallet
+                            e-Wallet
                         </label>
                     </div>
                 </div>

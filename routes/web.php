@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+// Routing pemesanan dan sambungannya
 Route::get('/pemesanan', function () {
     return Inertia::render('Pemesanan');
 })->middleware(['auth', 'verified'])->name('pemesanan');
@@ -48,6 +48,10 @@ Route::get('/pilih-pembayaran', function () {
 Route::get('/konfirmasi-pemesanan', function () {
     return Inertia::render('KonfirmasiPemesanan');
 })->middleware(['auth', 'verified'])->name('konfirmasi-pemesanan');
+
+Route::get('/info-pembayaran-bank', function () {
+    return Inertia::render('InfoPembayaranBank');
+})->middleware(['auth', 'verified'])->name('info-pembayaran-bank');
 
 
 require __DIR__.'/auth.php';
