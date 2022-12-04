@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
@@ -32,6 +33,10 @@ Route::get('/', function () {
     ]);
 });
 
+
+Route::get('/debug', function () {
+    return view('debug');
+});
 Route::prefix('karyawan')->group(function () {
     Route::get('/login', [KaryawanController::class, 'create'])->name('karyawan.login');
     Route::post('/login', [KaryawanController::class, 'login'])->name('karyawan.login');
@@ -67,13 +72,12 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/pemesanan', function () {
-    return Inertia::render('Pemesanan/Pemesanan');
-})->middleware(['auth', 'verified'])->name('pemesanan');
+Route::get('/pemesanan', [
+    PemesananController::class, 'index'
+])->middleware(['auth', 'verified'])->name('pemesanan.index');
 
-Route::get('/pilih-pembayaran', function () {
-    return Inertia::render('Pemesanan/PilihPembayaran');
-})->middleware(['auth', 'verified'])->name('pilih-pembayaran');
+Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])
+->middleware(['auth', 'verified'])->name('pemesanan.pilih_pembayaran');
 
 Route::get('/konfirmasi-pemesanan', function () {
     return Inertia::render('Pemesanan/KonfirmasiPemesanan');
@@ -86,6 +90,15 @@ Route::get('/info-pembayaran-bank', function () {
 Route::get('/info-pembayaran-e-wallet', function () {
     return Inertia::render('Pemesanan/InfoPembayaranEWallet');
 })->middleware(['auth', 'verified'])->name('info-pembayaran-e-wallet');
+
+Route::get('/info-pembayaran-tunai', function () {
+    return Inertia::render('Pemesanan/InfoPembayaranTunai');
+})->middleware(['auth', 'verified'])->name('info-pembayaran-tunai');
+
+Route::get('/pemesanan-berhasil', function () {
+    return Inertia::render('Pemesanan/PemesananBerhasil');
+})->middleware(['auth', 'verified'])->name('pemesanan-berhasil');
+
 
 
 require __DIR__.'/auth.php';
