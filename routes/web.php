@@ -45,5 +45,9 @@ Route::get('/pilih-pembayaran', function () {
     return Inertia::render('PilihPembayaran');
 })->middleware(['auth', 'verified'])->name('pilih-pembayaran');
 
+Route::get('/konfirmasi-pemesanan', function () {
+    return Inertia::render('KonfirmasiPemesanan');
+})->middleware(['auth', 'verified'])->name('konfirmasi-pemesanan');
+
 
 require __DIR__.'/auth.php';
