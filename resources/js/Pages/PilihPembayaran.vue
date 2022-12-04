@@ -2,51 +2,8 @@
 import NavBar from '../components/Navbar.vue'
 </script>
 
-<script>
-export default {
-  data() {
-    return {
-        navTitle:'Pemesanan',
-        date:'10-05-2022 14:32:21',
-        metode: 'Transfer',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-    }
-  },
-  props: {
-    isAdmin: String,
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
-    },
-  },
-}
-</script>
-
 <template>
+<NavBar title="Pilih Cara Pembayaran"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -113,6 +70,50 @@ export default {
     </div>
 </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+        navTitle:'Pemesanan',
+        date:'10-05-2022 14:32:21',
+        metode: 'Transfer',
+        purchases: [
+            {   
+                nama:'Udang', 
+                harga:80000,
+                kuantitas: 2,
+                total:160000
+            },
+            {   
+                nama:'Lobster', 
+                harga:150000,
+                kuantitas: 1,
+                total:150000
+            },
+        ],
+        totalPrice: 310000,
+        buyerName:'Udin',
+    }
+  },
+  props: {
+    isAdmin: String,
+  },
+  methods: {
+    toCurrency(value) {
+        if (typeof value !== "number") {
+            return value;
+        }
+        var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        });
+        // cut off the $ sign
+        return formatter.format(value).substring(1,);
+    },
+  },
+}
+</script>
 
 <style scoped>
 </style>
