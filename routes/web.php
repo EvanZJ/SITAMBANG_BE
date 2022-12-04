@@ -42,19 +42,19 @@ Route::get('/stock', [
 ])->middleware(['auth', 'verified'])->name('stock.index');
 
 Route::get('/pemesanan', function () {
-    return Inertia::render('Pemesanan');
+    return Inertia::render('Pemesanan/Pemesanan');
 })->middleware(['auth', 'verified'])->name('pemesanan');
 
 Route::get('/pilih-pembayaran', function () {
-    return Inertia::render('PilihPembayaran');
+    return Inertia::render('Pemesanan/PilihPembayaran');
 })->middleware(['auth', 'verified'])->name('pilih-pembayaran');
 
 Route::get('/konfirmasi-pemesanan', function () {
-    return Inertia::render('KonfirmasiPemesanan');
+    return Inertia::render('Pemesanan/KonfirmasiPemesanan');
 })->middleware(['auth', 'verified'])->name('konfirmasi-pemesanan');
 
 Route::get('/info-pembayaran-bank', function () {
-    return Inertia::render('InfoPembayaranBank');
+    return Inertia::render('Pemesanan/InfoPembayaranBank');
 })->middleware(['auth', 'verified'])->name('info-pembayaran-bank');
 
 
