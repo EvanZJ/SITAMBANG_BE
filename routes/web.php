@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,13 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::prefix('karyawan')->group(function () {
+    Route::get('/login', [KaryawanController::class, 'create'])->name('karyawan.login');
+    Route::post('/login', [KaryawanController::class, 'login'])->name('karyawan.login');
+    Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
+    Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
 });
 
 Route::get('/dashboard', function () {
