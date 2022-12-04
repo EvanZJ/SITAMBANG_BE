@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
+use Faker\Calculator\Inn;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,13 +37,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 Route::get('/stock', [
     StockController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('stock.index');
 
+Route::get('/pemesanan', function () {
+    return Inertia::render('Pemesanan');
+})->middleware(['auth', 'verified'])->name('pemesanan');
 
+Route::get('/pilih-pembayaran', function () {
+    return Inertia::render('PilihPembayaran');
+})->middleware(['auth', 'verified'])->name('pilih-pembayaran');
 
+Route::get('/konfirmasi-pemesanan', function () {
+    return Inertia::render('KonfirmasiPemesanan');
+})->middleware(['auth', 'verified'])->name('konfirmasi-pemesanan');
+
+Route::get('/info-pembayaran-bank', function () {
+    return Inertia::render('InfoPembayaranBank');
+})->middleware(['auth', 'verified'])->name('info-pembayaran-bank');
 
 
 require __DIR__.'/auth.php';
