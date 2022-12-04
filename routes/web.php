@@ -53,6 +53,32 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/riwayat-transaksi', [PembeliController::class, 'riwayatTransaksi'])->name('pembeli.riwayat-transaksi');
     Route::get('/get-pagination', [PembeliController::class, 'getPagination'])->name('pembeli.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('pembeli.stock');
+    Route::get('/pemesanan', [
+        PemesananController::class, 'index'
+    ])->name('pemesanan.index');
+    
+    Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
+    
+    Route::get('/konfirmasi-pemesanan', function () {
+        return Inertia::render('Pemesanan/KonfirmasiPemesanan');
+    })->name('konfirmasi-pemesanan');
+    
+    Route::get('/info-pembayaran-bank', function () {
+        return Inertia::render('Pemesanan/InfoPembayaranBank');
+    })->name('info-pembayaran-bank');
+    
+    Route::get('/info-pembayaran-e-wallet', function () {
+        return Inertia::render('Pemesanan/InfoPembayaranEWallet');
+    })->name('info-pembayaran-e-wallet');
+    
+    Route::get('/info-pembayaran-tunai', function () {
+        return Inertia::render('Pemesanan/InfoPembayaranTunai');
+    })->name('info-pembayaran-tunai');
+    
+    Route::get('/pemesanan-berhasil', function () {
+        return Inertia::render('Pemesanan/PemesananBerhasil');
+    })->name('pemesanan-berhasil');
+
 })->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
@@ -103,34 +129,5 @@ Route::post('/stock/delete/{id}', [
 Route::get('/pemesanan', function () {
     return Inertia::render('Pemesanan');
 })->middleware(['auth', 'verified'])->name('pemesanan');
-
-Route::get('/pemesanan', [
-    PemesananController::class, 'index'
-])->middleware(['auth', 'verified'])->name('pemesanan.index');
-
-Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])
-->middleware(['auth', 'verified'])->name('pemesanan.pilih_pembayaran');
-
-Route::get('/konfirmasi-pemesanan', function () {
-    return Inertia::render('Pemesanan/KonfirmasiPemesanan');
-})->middleware(['auth', 'verified'])->name('konfirmasi-pemesanan');
-
-Route::get('/info-pembayaran-bank', function () {
-    return Inertia::render('Pemesanan/InfoPembayaranBank');
-})->middleware(['auth', 'verified'])->name('info-pembayaran-bank');
-
-Route::get('/info-pembayaran-e-wallet', function () {
-    return Inertia::render('Pemesanan/InfoPembayaranEWallet');
-})->middleware(['auth', 'verified'])->name('info-pembayaran-e-wallet');
-
-Route::get('/info-pembayaran-tunai', function () {
-    return Inertia::render('Pemesanan/InfoPembayaranTunai');
-})->middleware(['auth', 'verified'])->name('info-pembayaran-tunai');
-
-Route::get('/pemesanan-berhasil', function () {
-    return Inertia::render('Pemesanan/PemesananBerhasil');
-})->middleware(['auth', 'verified'])->name('pemesanan-berhasil');
-
-
 
 require __DIR__.'/auth.php';
