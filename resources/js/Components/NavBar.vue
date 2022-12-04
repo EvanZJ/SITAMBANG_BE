@@ -18,16 +18,16 @@
     </nav>
     <div class="overlay">
         <div class="menu-list" v-if="menu">
-            <div v-on:click="route()">
-
-            </div>
+            <a href="/">Riwayat Transaksi</a>
+            <a href="/">Informasi Barang</a>
+            <a href="/pemesanan">Pemesanan</a>
         </div>
     </div>
 </template>
-
+ 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-
+ 
 export default {
     data(){
         return{
@@ -44,7 +44,7 @@ export default {
     }
 }
 </script>
-
+ 
 <style scoped>
     nav{
         display: flex;
@@ -75,5 +75,11 @@ export default {
     .overlay{
         position: absolute;
         height: 91%;
+    }
+    a{
+        color: white;
+        text-decoration: none;
+        font-size: 18pt;
+        padding-right: 20px;
     }
 </style>
