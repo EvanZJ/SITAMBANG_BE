@@ -17,7 +17,8 @@ class AlatTambakFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->randomElement(['Aerator', 'DO Meter', 'PH Meter']),
+            'kondisi' => fake()->randomElement(['Normal', 'Performa Tinggi', 'Kurang Baik']),
         ];
     }
 }

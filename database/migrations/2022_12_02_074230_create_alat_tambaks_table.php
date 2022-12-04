@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('alat_tambaks', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->required();
+            $table->string('kondisi');
             $table->timestamps();
         });
     }

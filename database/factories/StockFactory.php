@@ -17,7 +17,10 @@ class StockFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->randomElement(['Udang', 'Lobster', 'Kepiting']),
+            'description' => fake()->text(),
+            'harga' => rand(1,5)*10000,
+            'total_persediaan' => rand(1,99),
         ];
     }
 }
