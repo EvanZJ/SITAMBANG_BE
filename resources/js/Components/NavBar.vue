@@ -18,9 +18,9 @@
     </nav>
     <div class="overlay">
         <div class="menu-list" v-if="menu">
-            <router-link class="routing" to="">Riwayat Transaksi</router-link>
-            <router-link class="routing" to="">Informasi Barang</router-link>
-            <router-link class="routing" to="">Pemesanan</router-link>
+            <router-link class="routing" to="/">Riwayat Transaksi</router-link>
+            <router-link class="routing" to="/">Informasi Barang</router-link>
+            <router-link class="routing" to="/pemesanan">Pemesanan</router-link>
         </div>
     </div>
 </template>
