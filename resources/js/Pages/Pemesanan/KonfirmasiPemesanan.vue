@@ -8,7 +8,7 @@ export default {
     return {
         navTitle:'Pemesanan',
         date:'10-05-2022 14:32:21',
-        metode: 'Transfer Bank',
+        metode: 'e-Wallet',
         purchases: [
             {   
                 nama:'Udang', 
