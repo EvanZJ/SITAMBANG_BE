@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockController;
 use Faker\Calculator\Inn;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Routing pemesanan dan sambungannya
+Route::get('/stock', [
+    StockController::class, 'index'
+])->middleware(['auth', 'verified'])->name('stock.index');
+
 Route::get('/pemesanan', function () {
     return Inertia::render('Pemesanan/Pemesanan');
 })->middleware(['auth', 'verified'])->name('pemesanan');

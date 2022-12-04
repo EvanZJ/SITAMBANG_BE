@@ -1,17 +1,18 @@
 <template lang="">
     <NavBar title="Informasi Barang"/>
     <div class="container">
-        <div class="isi-item">
+        {{ stocks }}
+        <div class="isi-item" v-for="(stock, idx) in stocks" :key="idx">
             <div class="d-flex row">
                 <h1 class="">
-                    1. Udang
+                    {{ idx+1 }}. {{ stock.name }}
                 </h1>
             </div>
             <div class="d-flex row detail-item justify-content-between">
                 <div class="d-flex fix">
                     <div class="row">
                         <div class="col">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque vero velit illo doloribus neque architecto saepe eaque! Sequi tempore saepe perspiciatis nostrum. Alias ratione ipsam quisquam nemo nam consectetur repellendus.
+                            {{ stock.description }}
                         </div>
                         <div class="col">
                             <router-link to="/editstock" class="router-link">
@@ -23,65 +24,10 @@
                                 Jumlah Barang Tersedia
                             </div>
                             <div class="row button-isi detil">
-                                40KG
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="isi-item">
-            <div class="d-flex row">
-                <h1 class="">
-                    2. Lobster
-                </h1>
-            </div>
-            <div class="d-flex row detail-item justify-content-between">
-                <div class="d-flex fix">
-                    <div class="row">
-                        <div class="col">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque vero velit illo doloribus neque architecto saepe eaque! Sequi tempore saepe perspiciatis nostrum. Alias ratione ipsam quisquam nemo nam consectetur repellendus.
-                        </div>
-                        <div class="col">
-                            <router-link to="/editstock">
-                                <div class="row button-isi">
-                                    Edit Stock
-                                </div>
-                            </router-link>
-                            <div class="row button-isi">
-                                Jumlah Barang Tersedia
+                                {{ stock.total_persediaan }} Kg
                             </div>
                             <div class="row button-isi detil">
-                                40KG
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="isi-item">
-            <div class="d-flex row">
-                <h1 class="">
-                    3. Kepiting 
-                </h1>
-            </div>
-            <div class="d-flex row detail-item justify-content-between">
-                <div class="d-flex fix">
-                    <div class="row">
-                        <div class="col">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque vero velit illo doloribus neque architecto saepe eaque! Sequi tempore saepe perspiciatis nostrum. Alias ratione ipsam quisquam nemo nam consectetur repellendus.
-                        </div>
-                        <div class="col">
-                            <router-link to="/editstock">
-                                <div class="row button-isi">
-                                    Edit Stock
-                                </div>
-                            </router-link>
-                            <div class="row button-isi">
-                                Jumlah Barang Tersedia
-                            </div>
-                            <div class="row button-isi detil">
-                                40KG
+                                {{ toCurrency(stock.harga) }}/Kg
                             </div>
                         </div>
                     </div>
@@ -101,6 +47,18 @@ import NavBar from '../components/NavBarPenjual.vue'
 export default {
     components:{
         NavBar
+    },
+    props:[
+        'stocks'
+    ],
+    methods:{
+        toCurrency(value) {
+        if (typeof value !== "number") {
+            return value;
+        }
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value)
+    },
     }
 }
 </script>
