@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+//import PreNavBar from '../../Components/PreNavBar.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -26,6 +27,7 @@ const submit = () => {
 </script>
 
 <template>
+    <!-- <PreNavBar /> -->
     <GuestLayout>
         <Head title="Log in" />
 
