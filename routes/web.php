@@ -3,7 +3,9 @@
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\PembeliController;
 use Faker\Calculator\Inn;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +21,8 @@ use Inertia\Inertia;
 |
 */
 
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -33,10 +37,27 @@ Route::prefix('karyawan')->group(function () {
     Route::post('/login', [KaryawanController::class, 'login'])->name('karyawan.login');
     Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
     Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
-})->middleware(['auth', 'karyawan', 'verified']);
+    Route::get('/riwayat-transaksi', [KaryawanController::class, 'riwayatTransaksi'])->name('karyawan.riwayat-transaksi');
+    Route::get('/stock', [StockController::class, 'index'])->name('karyawan.stock');
+})->middleware(['auth', 'verified', 'karyawan']);
+
+
+Route::prefix('pembeli')->group(function() {
+    Route::get('/dashboard', [PembeliController::class, 'dashboard'])->name('pembeli.dashboard');
+    Route::get('/riwayat-transaksi', [PembeliController::class, 'riwayatTransaksi'])->name('pembeli.riwayat-transaksi');
+    Route::get('/stock', [StockController::class, 'index'])->name('pembeli.stock');
+})->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    if (Auth::guard('web')->check()) {
+       return redirect()->route('pembeli.dashboard');
+    }
+    else if (Auth::guard('karyawan')->check()) {
+        return redirect()->route('karyawan.dashboard');
+    }
+    else{
+        return redirect()->route('login');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -45,9 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/stock', [
-    StockController::class, 'index'
-])->middleware(['auth', 'verified'])->name('stock.index');
 
 Route::get('/pemesanan', function () {
     return Inertia::render('Pemesanan/Pemesanan');

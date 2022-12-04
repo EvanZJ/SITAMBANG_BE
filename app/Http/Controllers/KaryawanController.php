@@ -18,21 +18,37 @@ class KaryawanController extends Controller
             ]);
         }
         else{
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->route('karyawan.dashboard');
         }
     }
 
     public function login(Request $request){
         if(Auth::guard('karyawan')->attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->route('karyawan.dashboard');
         }
         else{
-            return redirect()->route('login')->with('error', 'Email atau password salah');
+            return redirect()->route('karyawan.login')->with('error', 'Email atau password salah');
         }
     }
 
     public function logout(){
         Auth::guard('karyawan')->logout();
         return redirect()->route('login');
+    }
+
+    public function riwayatTransaksi(){
+        return Inertia::render('RiwayatTransaksi');
+    }
+
+    public function dashboard(){
+        if (Auth::guard('karyawan')->check()) {
+            return Inertia::render('Dashboard', [
+                'isPembeli' => false,
+                'isKaryawan' => true,
+            ]);
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
     }
 }
