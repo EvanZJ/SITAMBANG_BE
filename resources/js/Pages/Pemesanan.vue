@@ -10,7 +10,7 @@
             <div id="barang-beli" class="text-black m-5">
                 <ul v-for="(barang, index) in barangList">
                     <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">
-                        <div class="">{{ barang.nama }}, Rp{{ toCurrency(barang.harga) }}/kg</div>
+                        <div class="">{{ barang.nama }}, {{ toCurrency(barang.harga) }}/kg</div>
                         <div class="">Stock: {{ barang.stock }}</div>
                         <div class="">
                             Buy:
@@ -64,12 +64,8 @@ export default {
         if (typeof value !== "number") {
             return value;
         }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
     },
     incrementBeli(barang){
         barang.beli++;
