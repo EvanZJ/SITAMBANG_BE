@@ -42,11 +42,26 @@ export default {
         // cut off the $ sign
         return formatter.format(value).substring(1,);
     },
+    getInfoUrl(metodePembayaran){
+        if(metodePembayaran.toLowerCase() == 'transfer bank'){
+            return 'info-pembayaran-bank';
+        }
+        
+        if(metodePembayaran.toLowerCase() == 'e-wallet'){
+            return 'info-pembayaran-e-wallet';
+        }
+
+        if(metodePembayaran.toLowerCase() == 'tunai'){
+            return 'info-pembayaran-tunai';
+        }
+
+    }
   },
 }
 </script>
 
 <template>
+<NavBar title="Konfirmasi Pemesanan"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -96,8 +111,8 @@ export default {
                 </div>
             </div>
             <div class="d-flex justify-content-between mx-5 mb-5">
-                <button type="button" class="btn btn-danger px-4">Back</button>
-                <button type="button" class="btn btn-primary px-4">Konfirmasi</button>     
+                <a href="/pilih-pemesanan" class="btn btn-danger px-4">Back</a>
+                <a :href="getInfoUrl(metode)" class="btn btn-primary px-4">Konfirmasi</a>     
             </div>
         </div>
     </div>
