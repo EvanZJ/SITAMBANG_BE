@@ -121,7 +121,7 @@ export default {
             <!-- d-flex justify-content-between mx-5 mb-5 -->
             <div class="row mx-5 mb-5">
                 <div id="container-back" class="col-8">
-                    <a href="/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
+                    <a href="/pilih/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
                 </div>
                 <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
                     <button type="button" class="btn btn-primary px-4">Unggah Bukti Pembayaran</button>     
