@@ -11,6 +11,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    no_telp: '',
     terms: false,
 });
 
@@ -40,6 +41,22 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+
+            <div>
+                <InputLabel for="no_telp" value="Nomor Telpon" />
+
+                <TextInput
+                    id="no_telp"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.no_telp"
+                    required
+                    autofocus
+                    autocomplete="no_telp"
+                />
+
+                <InputError class="mt-2" :message="form.errors.no_telp" />
             </div>
 
             <div class="mt-4">
@@ -102,3 +119,7 @@ const submit = () => {
         </form>
     </GuestLayout>
 </template>
+
+<style>
+
+</style>
