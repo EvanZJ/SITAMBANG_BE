@@ -38,6 +38,7 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
     Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
     Route::get('/riwayat-transaksi', [KaryawanController::class, 'riwayatTransaksi'])->name('karyawan.riwayat-transaksi');
+    Route::get('/get-pagination', [KaryawanController::class, 'getPagination'])->name('karyawan.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('karyawan.stock');
 })->middleware(['auth', 'verified', 'karyawan']);
 
@@ -45,6 +46,7 @@ Route::prefix('karyawan')->group(function () {
 Route::prefix('pembeli')->group(function() {
     Route::get('/dashboard', [PembeliController::class, 'dashboard'])->name('pembeli.dashboard');
     Route::get('/riwayat-transaksi', [PembeliController::class, 'riwayatTransaksi'])->name('pembeli.riwayat-transaksi');
+    Route::get('/get-pagination', [PembeliController::class, 'getPagination'])->name('pembeli.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('pembeli.stock');
 })->middleware(['auth', 'verified']);
 
