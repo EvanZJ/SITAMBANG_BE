@@ -56,6 +56,7 @@ export default {
             barang.stock--;
         }
     }
+
   },
 }
 </script>
@@ -76,15 +77,17 @@ export default {
             </div>
 
             <div id="barang-beli" class="text-black m-5">
-                <ul v-for="barang in barangList">
+                <ul v-for="(barang, index) in barangList">
                     <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">
                         <div class="">{{ barang.nama }}, Rp{{ toCurrency(barang.harga) }}/kg</div>
                         <div class="">Stock: {{ barang.stock }}</div>
                         <div class="">
                             Buy:
-                            <button @click="decrementBeli(barang)" class="mx-2">-</button>
+                            <!-- <button @click="decrementBeli(barang)" class="mx-2">-</button>
                             {{ barang.beli }} Kg
-                            <button @click="incrementBeli(barang)" class="mx-2">+</button>
+                            <button @click="incrementBeli(barang)" class="mx-2">+</button> -->
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" :id="index"
+                            min="0" :max="barang.stock">
                         </div>
                     </li>
                 </ul>
