@@ -18,6 +18,7 @@ class StockController extends Controller
         $stocks = Stock::all();
         return Inertia::render('Stock', [
             'stocks' => $stocks,
+            'csrf' => csrf_token(),
         ]);
     }
 
@@ -28,7 +29,9 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('stocks.create');
+        return Inertia::render('TambahProdukView', [
+            'csrf' => csrf_token(),
+        ]);
     }
 
     /**
@@ -41,14 +44,16 @@ class StockController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'kondisi' => 'required',
+            'description' => 'required',
+            'harga' => 'required',
+            'total_persediaan' => 'required',
         ]);
 
         $input = $request->all();
 
         Stock::create($input);
 
-        return redirect()->route('stocks.index');
+        return redirect()->route('stock.index');
     }
 
     /**
@@ -71,8 +76,11 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        $stock = Stock::find($id);
-        return view('stocks.edit', compact('stock', 'stock'));
+        $stock = Stock::findOrFail($id);
+        return Inertia::render('EditStock', [
+            'stock' => $stock,
+            'csrf' => csrf_token(),
+        ]);
     }
 
     /**
@@ -88,14 +96,16 @@ class StockController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'kondisi' => 'required',
+            'description' => 'required',
+            'harga' => 'required',
+            'total_persediaan' => 'required',
         ]);
 
         $input = $request->all();
 
         $stock->fill($input)->save();
 
-        return redirect()->route('stocks.index');
+        return redirect()->route('stock.index');
     }
 
     /**
@@ -110,6 +120,6 @@ class StockController extends Controller
 
         $stock->delete();
         
-        return redirect()->route('stocks.index');
+        return redirect()->route('stock.index');
     }
 }

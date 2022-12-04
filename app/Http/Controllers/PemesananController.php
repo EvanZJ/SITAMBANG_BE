@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Stock;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class PemesananController extends Controller
@@ -13,7 +14,15 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        //
+        $stocks = Stock::all();
+        return Inertia::render('Pemesanan/Pemesanan', [
+            'stocks' => $stocks,
+            'token' => csrf_token(),
+        ]);
+    }
+
+    public function pilih_pembayaran(Request $r){
+        dd($r);
     }
 
     /**
