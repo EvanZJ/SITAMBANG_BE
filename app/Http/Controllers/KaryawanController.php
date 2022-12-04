@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Riwayat;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
@@ -37,7 +38,13 @@ class KaryawanController extends Controller
     }
 
     public function riwayatTransaksi(){
-        return Inertia::render('RiwayatTransaksi');
+        if (Auth::guard('karyawan')->check()) {
+            return Inertia::render('RiwayatTransaksiKaryawan');
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
+        // dd(json_encode($riwayatTransaksi));
     }
 
     public function dashboard(){
@@ -46,6 +53,16 @@ class KaryawanController extends Controller
                 'isPembeli' => false,
                 'isKaryawan' => true,
             ]);
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
+    }
+
+    public function getPagination(){
+        if (Auth::guard('karyawan')->check()) {
+            $riwayatTransaksi = Riwayat::paginate(10);
+            return $riwayatTransaksi;
         }
         else{
             return redirect()->route('karyawan.login');

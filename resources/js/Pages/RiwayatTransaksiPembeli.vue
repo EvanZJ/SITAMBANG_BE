@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 const riwayatTransaksi = ref({});
 const getResults = async (page = 1) => {
-    const response = await fetch(`http://127.0.0.1:8000/karyawan/get-pagination?page=${page}`);
+    const response = await fetch(`http://127.0.0.1:8000/pembeli/get-pagination?page=${page}`);
     riwayatTransaksi.value = await response.json();
 }
 getResults();
