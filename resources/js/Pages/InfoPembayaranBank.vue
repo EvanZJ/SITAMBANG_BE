@@ -76,6 +76,7 @@ export default {
 </script>
 
 <template>
+<NavBar title="Pembayaran Transfer Bank"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
