@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('riwayats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pemesanans_id')->required();
-            $table->foreign('pemesanans_id')->references('id')->on('pemesanans');
+            $table->unsignedBigInteger('pemesanan_id')->required();
+            $table->foreign('pemesanan_id')->references('id')->on('pemesanans');
             $table->date('date')->required();
             $table->integer('total')->required();
+            $table->string('bukti_path');
             $table->timestamps();
         });
     }
