@@ -1,7 +1,7 @@
 <template lang="">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <NavBar title="Informasi Barang"/>
     <div class="container">
-        {{ stocks }}
         <div class="isi-item" v-for="(stock, idx) in stocks" :key="idx">
             <div class="d-flex row">
                 <h1 class="">
@@ -15,11 +15,13 @@
                             {{ stock.description }}
                         </div>
                         <div class="col">
-                            <router-link to="/editstock" class="router-link">
-                                <div class="row button-isi">
-                                    Edit Stock
-                                </div>
-                            </router-link>
+                            <a :href="'/stock/edit/'+stock.id" class="row button-isi btn btn-primary">
+                                Edit Stock
+                            </a>
+                            <form method="POST" :action="'/stock/delete/'+stock.id">
+                                <input type="hidden" name="_token" :value="csrf">
+                                <button type="submit" class="row button-isi btn btn-primary">Delete Stock</button>
+                            </form>
                             <div class="row button-isi">
                                 Jumlah Barang Tersedia
                             </div>
@@ -34,11 +36,9 @@
                 </div>
             </div>
         </div>
-        <router-link to="/tambahproduk">
             <div class="tempat-button">
-                <button type="button" class="btn btn-primary">Tambah Produk</button>
+                <a href="/stock/create" type="button" class="btn btn-primary">Tambah Produk</a>
             </div>
-        </router-link>
         <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae dignissimos, repellendus maiores enim nam ut nesciunt odit maxime quaerat totam recusandae cum delectus voluptate exercitationem ipsa assumenda doloribus dolor labore? Vel facilis, itaque voluptas accusamus tenetur asperiores reiciendis assumenda! Voluptatum, quis? Est tempora, earum modi ut placeat iusto corrupti odit sint dolores maxime ducimus impedit incidunt ratione facilis rerum vitae repellendus officia neque dolorem cumque quia quis nobis nihil? Soluta doloribus blanditiis consequuntur vitae saepe quibusdam sit iure, ab maxime distinctio suscipit at delectus, totam illo nulla eos amet, tempora doloremque unde commodi accusamus cum. Eius animi accusantium maxime ipsum alias eaque quis cum est deserunt! Laboriosam sapiente aspernatur rerum reiciendis quia necessitatibus fugit. Necessitatibus dolore dicta consectetur? Ullam fugit eaque adipisci odio nesciunt pariatur repudiandae fuga, provident quas quos similique corporis accusantium eum aspernatur dolor illum molestias blanditiis sint quia amet! Explicabo eum totam fugit esse consectetur non tempore enim minima accusantium. Sint delectus iste architecto a consectetur, ex reprehenderit facere itaque aut? Et ex velit in vel perspiciatis placeat iure ipsam ipsa distinctio eius laborum sequi harum doloribus quia architecto accusantium cumque, aliquam laboriosam consequatur veritatis saepe rem aliquid perferendis illo! Exercitationem architecto harum quisquam repellat, aliquid labore temporibus eveniet cum, alias placeat accusamus quae quos debitis distinctio minima dolorum eius et, nihil numquam laudantium delectus repellendus eligendi reiciendis illo. Velit provident doloribus eius distinctio nihil consectetur cupiditate ipsa maiores rem eaque laborum perferendis iusto tempora pariatur sapiente excepturi officia odit, dolorum itaque perspiciatis fugit nulla voluptatibus autem suscipit. Nostrum ullam quo, praesentium quos fuga quasi sapiente laboriosam? Nemo ullam itaque libero, quam repudiandae molestiae esse? Sequi nesciunt dicta omnis maxime, debitis rem impedit accusamus sapiente facere voluptatem harum magni laboriosam quasi deleniti repellendus velit obcaecati sint possimus saepe assumenda distinctio. Ab libero delectus nam nesciunt doloremque sint dignissimos quam ex. Aliquam rerum natus harum at ut aspernatur commodi animi, debitis labore repellat quidem corporis aperiam adipisci, quod praesentium optio aut laboriosam, cupiditate itaque exercitationem minima sunt. Dignissimos commodi cum voluptate voluptates eius autem illo nisi error maxime quo enim reiciendis fugit ea sapiente numquam provident, minima recusandae excepturi modi harum aspernatur vel corporis quae. Iusto aspernatur earum libero nihil, ut rem, numquam eaque delectus sunt enim ratione rerum accusamus? Harum est aliquam dolor dicta consequatur ab atque consectetur, quasi quo nesciunt veritatis labore perferendis iure nostrum iusto alias ea beatae voluptates dolore eligendi assumenda maiores et a odio! Eius, iusto, veritatis illo commodi suscipit magnam sit quasi cum culpa obcaecati veniam quidem vel exercitationem libero est tempore nam animi incidunt! Recusandae corporis distinctio hic beatae sunt, sapiente pariatur obcaecati optio? Dignissimos sint consequuntur aspernatur? Repudiandae iure culpa quisquam molestiae dignissimos repellat! Corporis, deleniti temporibus. Amet, sint voluptas culpa esse iusto nostrum, laborum ex nemo sequi ducimus minima. Temporibus molestiae sint modi in tempora, dolore corporis reprehenderit adipisci? Possimus quisquam numquam qui aliquam nobis laboriosam adipisci esse minima blanditiis? Quo similique consequatur odit, dignissimos iste sint? Beatae distinctio ad eius sequi magni molestiae atque voluptate repellat soluta maiores. -->
     </div>
 </template>
@@ -49,7 +49,7 @@ export default {
         NavBar
     },
     props:[
-        'stocks'
+        'stocks', 'csrf',
     ],
     methods:{
         toCurrency(value) {
@@ -96,6 +96,7 @@ export default {
         padding-left: 75%;
         padding-top: 2%;
         padding-bottom: 2%;
+        margin: 5px;
     }
     .detil{
         font-size: 20px;
