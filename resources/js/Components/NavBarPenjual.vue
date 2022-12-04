@@ -24,6 +24,12 @@
             <router-link class="routing" to="/verifikasiPemesanan">Verifikasi Pemesanan</router-link>
             <router-link class="routing" to="">Data Karyawan</router-link>
             <router-link class="routing" to="">Data Pembeli</router-link>
+            <a class="routing" href="/history-penjual">Riwayat Transaksi</a>
+            <a class="routing" href="/kondisiAlat">Kondisi Peralatan Tambak</a>
+            <a class="routing" href="/stock">Informasi Barang</a>
+            <a class="routing" href="/verifikasiPemesanan">Verifikasi Pemesanan</a>
+            <a class="routing" href="">Data Karyawan</a>
+            <a class="routing" href="">Data Pembeli</a>
         </div>
     </div>
 </template>

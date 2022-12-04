@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from '../components/Navbar.vue'
+import NavBar from '../../components/Navbar.vue'
 </script>
 
 <script>
@@ -8,7 +8,7 @@ export default {
     return {
         navTitle:'Pemesanan',
         date:'10-05-2022 14:32:21',
-        metode: 'Transfer Bank',
+        metode: 'e-Wallet',
         purchases: [
             {   
                 nama:'Udang', 
@@ -35,18 +35,29 @@ export default {
         if (typeof value !== "number") {
             return value;
         }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
     },
+    getInfoUrl(metodePembayaran){
+        if(metodePembayaran.toLowerCase() == 'transfer bank'){
+            return 'info-pembayaran-bank';
+        }
+        
+        if(metodePembayaran.toLowerCase() == 'e-wallet'){
+            return 'info-pembayaran-e-wallet';
+        }
+
+        if(metodePembayaran.toLowerCase() == 'tunai'){
+            return 'info-pembayaran-tunai';
+        }
+
+    }
   },
 }
 </script>
 
 <template>
+<NavBar title="Konfirmasi Pemesanan"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -96,8 +107,8 @@ export default {
                 </div>
             </div>
             <div class="d-flex justify-content-between mx-5 mb-5">
-                <button type="button" class="btn btn-danger px-4">Back</button>
-                <button type="button" class="btn btn-primary px-4">Konfirmasi</button>     
+                <a href="/pilih-pembayaran" class="btn btn-danger px-4">Back</a>
+                <a :href="getInfoUrl(metode)" class="btn btn-primary px-4">Konfirmasi</a>     
             </div>
         </div>
     </div>

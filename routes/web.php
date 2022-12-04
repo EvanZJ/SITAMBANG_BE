@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockController;
+use Faker\Calculator\Inn;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,5 +44,30 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/stock', [
+    StockController::class, 'index'
+])->middleware(['auth', 'verified'])->name('stock.index');
+
+Route::get('/pemesanan', function () {
+    return Inertia::render('Pemesanan/Pemesanan');
+})->middleware(['auth', 'verified'])->name('pemesanan');
+
+Route::get('/pilih-pembayaran', function () {
+    return Inertia::render('Pemesanan/PilihPembayaran');
+})->middleware(['auth', 'verified'])->name('pilih-pembayaran');
+
+Route::get('/konfirmasi-pemesanan', function () {
+    return Inertia::render('Pemesanan/KonfirmasiPemesanan');
+})->middleware(['auth', 'verified'])->name('konfirmasi-pemesanan');
+
+Route::get('/info-pembayaran-bank', function () {
+    return Inertia::render('Pemesanan/InfoPembayaranBank');
+})->middleware(['auth', 'verified'])->name('info-pembayaran-bank');
+
+Route::get('/info-pembayaran-e-wallet', function () {
+    return Inertia::render('Pemesanan/InfoPembayaranEWallet');
+})->middleware(['auth', 'verified'])->name('info-pembayaran-e-wallet');
+
 
 require __DIR__.'/auth.php';

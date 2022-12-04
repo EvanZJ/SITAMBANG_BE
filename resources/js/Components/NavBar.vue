@@ -24,10 +24,10 @@
         </div>
     </div>
 </template>
-
+ 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-
+ 
 export default {
     data(){
         return{
@@ -44,7 +44,7 @@ export default {
     }
 }
 </script>
-
+ 
 <style scoped>
     nav{
         display: flex;

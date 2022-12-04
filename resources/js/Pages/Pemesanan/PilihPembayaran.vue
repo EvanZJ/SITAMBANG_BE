@@ -1,52 +1,9 @@
 <script setup>
-import NavBar from '../components/Navbar.vue'
-</script>
-
-<script>
-export default {
-  data() {
-    return {
-        navTitle:'Pemesanan',
-        date:'10-05-2022 14:32:21',
-        metode: 'Transfer',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-    }
-  },
-  props: {
-    isAdmin: String,
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
-    },
-  },
-}
+import NavBar from '../../components/Navbar.vue'
 </script>
 
 <template>
+<NavBar title="Pilih Cara Pembayaran"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -100,19 +57,59 @@ export default {
                     <div class="form-check me-3">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
                         <label class="form-check-label" for="flexRadioDefault3">
-                            E-Wallet
+                            e-Wallet
                         </label>
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-between mx-5 mb-5">
-                <button type="button" class="btn btn-danger px-4">Back</button>
-                <button type="button" class="btn btn-primary px-4">Next</button>
+                <a href="/pemesanan" class="btn btn-danger px-4">Back</a>
+                <a href="/konfirmasi-pemesanan" class="btn btn-primary px-4">Next</a>
             </div>
         </div>
     </div>
 </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+        navTitle:'Pemesanan',
+        date:'10-05-2022 14:32:21',
+        metode: 'Transfer',
+        purchases: [
+            {   
+                nama:'Udang', 
+                harga:80000,
+                kuantitas: 2,
+                total:160000
+            },
+            {   
+                nama:'Lobster', 
+                harga:150000,
+                kuantitas: 1,
+                total:150000
+            },
+        ],
+        totalPrice: 310000,
+        buyerName:'Udin',
+    }
+  },
+  props: {
+    isAdmin: String,
+  },
+  methods: {
+    toCurrency(value) {
+        if (typeof value !== "number") {
+            return value;
+        }
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
+    },
+  },
+}
+</script>
 
 <style scoped>
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from '../components/Navbar.vue'
+import NavBar from '../../components/Navbar.vue'
 </script>
 
 <script>
@@ -8,7 +8,7 @@ export default {
     return {
         navTitle:'Pemesanan',
         date:'10-05-2022 14:32:21',
-        metode: 'Transfer Bank',
+        metode: 'e-Wallet',
         purchases: [
             {   
                 nama:'Udang', 
@@ -25,35 +25,35 @@ export default {
         ],
         totalPrice: 310000,
         buyerName:'Udin',
-        rekeningList:[
+        eWalletList:[
             {
-                namaBank: 'BNI',
-                noRek: '0123456789',
+                namaWallet: 'BNI',
+                noWallet: '0123456789',
                 namaPemilik: 'Pemilik Udang'
             },
             {
-                namaBank: 'BCA',
-                noRek: '0123456789',
+                namaWallet: 'BCA',
+                noWallet: '0123456789',
                 namaPemilik: 'Pemilik Udang'
             },
             {
-                namaBank: 'BRI',
-                noRek: '0123456789',
+                namaWallet: 'BRI',
+                noWallet: '0123456789',
                 namaPemilik: 'Pemilik Udang'
             },
             {
-                namaBank: 'Mandiri',
-                noRek: '0123456789',
+                namaWallet: 'Mandiri',
+                noWallet: '0123456789',
                 namaPemilik: 'Pemilik Udang'
             },
             {
-                namaBank: 'DANAMON',
-                noRek: '0123456789',
+                namaWallet: 'DANAMON',
+                noWallet: '0123456789',
                 namaPemilik: 'Pemilik Udang'
             },
             {
-                namaBank: 'CIMB-NIAGA',
-                noRek: '0123456789',
+                namaWallet: 'CIMB-NIAGA',
+                noWallet: '0123456789',
                 namaPemilik: 'Pemilik Udang'
             }
         ],
@@ -64,18 +64,15 @@ export default {
         if (typeof value !== "number") {
             return value;
         }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
     },
   },
 }
 </script>
 
 <template>
+<NavBar title="Pembayaran Transfer Bank"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -97,15 +94,15 @@ export default {
                         <table class="table">
                             <thead class="thead-light">
                                 <tr>
-                                <th scope="col">Nama Bank</th>
-                                <th scope="col">Nomor Rekening</th>
+                                <th scope="col">Nama Wallet</th>
+                                <th scope="col">Nomor Wallet</th>
                                 <th scope="col">Nama Pemilik</th>
                                 </tr>
                             </thead>
-                            <tbody v-for="rekening in rekeningList">
+                            <tbody v-for="rekening in eWalletList">
                                 <tr>
-                                <th scope="row">{{ rekening.namaBank }}</th>
-                                <td>{{ rekening.noRek }}</td>
+                                <th scope="row">{{ rekening.namaWallet }}</th>
+                                <td>{{ rekening.noWallet }}</td>
                                 <td>{{ rekening.namaPemilik }}</td>
                                 </tr>
                             </tbody>
@@ -124,7 +121,7 @@ export default {
             <!-- d-flex justify-content-between mx-5 mb-5 -->
             <div class="row mx-5 mb-5">
                 <div id="container-back" class="col-8">
-                    <button type="button" class="btn btn-danger px-4">Back</button>
+                    <a href="/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
                 </div>
                 <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
                     <button type="button" class="btn btn-primary px-4">Unggah Bukti Pembayaran</button>     
