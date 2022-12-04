@@ -18,7 +18,7 @@ import NavBar from '../../components/Navbar.vue'
 
             <div id="barang-beli" class="text-black m-5">
                 
-                <form action="/pilih-pembayaran" method="POST">
+                <form action="/pembeli/pilih-pembayaran" method="POST">
                     <input type="hidden" name="_token" :value="token">
                     <ul v-for="(barang, index) in stocks" :key="index">
                             <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">

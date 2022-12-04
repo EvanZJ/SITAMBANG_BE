@@ -53,9 +53,10 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/riwayat-transaksi', [PembeliController::class, 'riwayatTransaksi'])->name('pembeli.riwayat-transaksi');
     Route::get('/get-pagination', [PembeliController::class, 'getPagination'])->name('pembeli.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('pembeli.stock');
+    
     Route::get('/pemesanan', [
         PemesananController::class, 'index'
-    ])->name('pemesanan.index');
+    ])->name('pembeli.index');
     
     Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
     
@@ -126,8 +127,5 @@ Route::post('/stock/edit/{id}', [
 Route::post('/stock/delete/{id}', [
     StockController::class, 'destroy'
 ])->middleware(['auth', 'verified'])->name('stock.delete');
-Route::get('/pemesanan', function () {
-    return Inertia::render('Pemesanan');
-})->middleware(['auth', 'verified'])->name('pemesanan');
 
 require __DIR__.'/auth.php';
