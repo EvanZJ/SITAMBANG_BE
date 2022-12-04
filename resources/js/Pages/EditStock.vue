@@ -1,7 +1,9 @@
 <template lang="">
     <NavBar />
     <div class="container">
-        <div class="isi-item">
+      {{ stock }}
+        <form method="POST" :action="'/stock/edit/'+stock.id" class="isi-item">
+        <input type="hidden" name="_token" :value="csrf">
             <h1>
                 Update Stok
             </h1>
@@ -13,12 +15,20 @@
                   <div class="col-9">
                     <div class="p-1">
                         <div class="input-group mb-3">
-                            <select class="form-select" id="inputGroupSelect01">
-                              <option selected>Nama Produk</option>
-                              <option value="1">Udang</option>
-                              <option value="2">Kepiting</option>
-                              <option value="3">Lobster</option>
-                            </select>
+                             <input type="text" name="name" class="form-control" placeholder="Nama Produk" :value="stock.name">
+                             {{ stock.name }}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-2">
+                  <div class="col-3">
+                    <div class="p-2 ">Deskripsi : </div>
+                  </div>
+                  <div class="col-9">
+                    <div class="p-1">
+                        <div class="input-group mb-3">
+                          <textarea rows="5" name="description" class="form-control" placeholder="Deskripsi" :value="stock.description"></textarea>
                         </div>
                     </div>
                   </div>
@@ -30,7 +40,7 @@
                     <div class="col-9">
                       <div class="p-1">
                         <div class="input-group mb-3">
-                            <input type="number" class="form-control" placeholder="KG" aria-label="Username" aria-describedby="addon-wrapping">
+                            <input type="number" name="total_persediaan" class="form-control" placeholder="KG" :value="stock.total_persediaan">
                         </div>
                       </div>
                     </div>
@@ -42,18 +52,17 @@
                     <div class="col-9">
                       <div class="p-1">
                         <div class="input-group mb-3">
-                            <input type="number" class="form-control" placeholder="Rupiah" aria-label="Username" aria-describedby="addon-wrapping">
+                            <input type="number" name="harga" class="form-control" placeholder="Rupiah" :value="stock.harga">
                         </div>
                       </div>
                     </div>
                   </div>
             </div>
-        </div>
-        <router-link to="/stockPenjual">
-            <button type="button" class="btn btn-primary btn-submit">
-                Ubah Stok
-            </button>
-        </router-link>
+            <button type="submit" class="btn btn-primary btn-submit">
+              Ubah Stok
+              </button>
+        </form>
+            
     </div>
 </template>
 <script>
@@ -61,7 +70,10 @@ import NavBar from '../components/NavBarPenjual.vue'
 export default {
     components:{
         NavBar
-    }
+    },
+    props:[
+      'stock', 'csrf',
+    ],
 }
 </script>
 <style lang="css">

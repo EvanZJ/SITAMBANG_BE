@@ -71,6 +71,36 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/debug', function(){
+    return view('debug');
+});
+
+Route::get('/stock', [
+    StockController::class, 'index'
+])->middleware(['auth', 'verified'])->name('stock.index');
+
+Route::get('/stock/create', [
+    StockController::class, 'create'
+])->middleware(['auth', 'verified'])->name('stock.create');
+
+Route::post('/stock/create', [
+    StockController::class, 'store'
+])->middleware(['auth', 'verified'])->name('stock.store');
+
+Route::get('/stock/edit/{id}', [
+    StockController::class, 'edit'
+])->middleware(['auth', 'verified'])->name('stock.edit');
+
+Route::post('/stock/edit/{id}', [
+    StockController::class, 'update'
+])->middleware(['auth', 'verified'])->name('stock.update');
+
+Route::post('/stock/delete/{id}', [
+    StockController::class, 'destroy'
+])->middleware(['auth', 'verified'])->name('stock.delete');
+Route::get('/pemesanan', function () {
+    return Inertia::render('Pemesanan');
+})->middleware(['auth', 'verified'])->name('pemesanan');
 
 Route::get('/pemesanan', [
     PemesananController::class, 'index'
