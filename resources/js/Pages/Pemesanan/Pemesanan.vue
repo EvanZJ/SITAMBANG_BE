@@ -1,3 +1,7 @@
+<script setup>
+import NavBar from '../../components/Navbar.vue'
+</script>
+
 <template>
 <NavBar title="Pemesanan"/>
 <div id="all" class="bg-white">
@@ -30,7 +34,6 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBar.vue'
 export default {
   data() {
     return {
