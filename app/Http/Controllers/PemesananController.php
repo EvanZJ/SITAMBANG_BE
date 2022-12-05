@@ -65,7 +65,7 @@ class PemesananController extends Controller
         }
         else{
             $r->session()->put('data_pembelian', $data_pembelian);
-            $r->session()->put('total_harga', $total_harga);
+            $r->session()->put('total_harga',$total_harga);
             $r->session()->forget('msg');
             return redirect(route('pemesanan.pilih_pembayaran'))
             // ->with([
@@ -86,7 +86,21 @@ class PemesananController extends Controller
     }
 
     public function proses_pilih_pembayaran(Request $r){
-        dd($r);
+        $r->session()->put('caraPembelian', $r['caraPembayaran']);
+        // dd($r['caraPembayaran']);
+        // dd($r->session());
+        return redirect(route('pemesanan.konfirmasi_pemesanan'));
+        // dd($r);
+
+    }
+
+    public function konfirmasi_pemesanan(){
+        // dd(session('caraPembelian'));
+        return Inertia::render('Pemesanan/KonfirmasiPemesanan', [
+            'data_pembelian' => session('data_pembelian'),
+            'total_harga' => session('total_harga'),
+            'metode_pembayaran' => session('caraPembelian'),
+        ]);
     }
 
     /**

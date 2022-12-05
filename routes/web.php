@@ -74,10 +74,7 @@ Route::prefix('pembeli')->group(function() {
     Route::post('/proses-pilih-pembayaran', [ PemesananController::class, 'proses_pilih_pembayaran'])->name('pemesanan.proses_pilih_pembayaran');
     Route::get('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
 
-    Route::get('/konfirmasi-pemesanan', function () {
-        return Inertia::render('Pemesanan/KonfirmasiPemesanan');
-    })->name('konfirmasi-pemesanan');
-    
+    Route::get('/konfirmasi-pemesanan', [ PemesananController::class, 'konfirmasi_pemesanan'])->name('pemesanan.konfirmasi_pemesanan');
     Route::get('/info-pembayaran-bank', function () {
         return Inertia::render('Pemesanan/InfoPembayaranBank');
     })->name('info-pembayaran-bank');
