@@ -81,6 +81,7 @@ class PemesananController extends Controller
         return Inertia::render('Pemesanan/PilihPembayaran', [
             'data_pembelian' => session('data_pembelian'),
             'total_harga' => session('total_harga'),
+            'metode_pembayaran' => session('caraPembelian'),
             'token' => csrf_token(),
         ]);
     }
