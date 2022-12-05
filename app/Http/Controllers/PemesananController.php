@@ -22,7 +22,43 @@ class PemesananController extends Controller
     }
 
     public function pilih_pembayaran(Request $r){
-        dd($r);
+
+        $stocks = Stock::all();
+        $total_stock = count($stocks);
+
+        // menyimpan data pembelian berupa id stock dan total beli
+        $data_pembelian=[];
+        $total_harga = 0;
+        for($i = 1; $i <= $total_stock; $i++){
+            $total_beli = $r['beli'.$i];
+            if(!is_numeric($total_beli)){
+                // berarti dia null (bukan number)
+                continue;
+            }
+            // is numberic
+            if($total_beli > 0){
+                //  ada yang di beli
+                $boughted_stock = $stocks->where('id', '=', $i)[$i-1]; // weird stuff, but it works
+                
+                $total_harga+= $boughted_stock['harga'] * $total_beli;
+
+                $data_pembelian[$i]=[
+                    'stock' => $boughted_stock,
+                    'total_pembelian' => $total_beli
+                ];
+            }
+        }
+        if($total_harga==0){
+            // oo dia submit tapi ga beli apa apa
+            redirect('/pembeli/pemesanan');
+        }
+        $r->session()->put('data_pembelian', $data_pembelian);
+
+        // render
+        return Inertia::render('Pemesanan/PilihPembayaran', [
+            'data_pembelian' => $data_pembelian,
+            'total_harga' => $total_harga,
+        ]);
     }
 
     /**
