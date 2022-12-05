@@ -85,6 +85,10 @@ class PemesananController extends Controller
         ]);
     }
 
+    public function proses_pilih_pembayaran(Request $r){
+        dd($r);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
