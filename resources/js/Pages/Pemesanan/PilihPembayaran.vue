@@ -39,19 +39,22 @@ import NavBar from '../../components/NavBar.vue'
                 <form action="/pembeli/proses-pilih-pembayaran" method="POST">
                     <input type="hidden" name="_token" :value="token">
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault1" value="Tunai">
+                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault1" value="Tunai" 
+                        v-bind:checked="metode_pembayaran=='Tunai'">
                         <label class="form-check-label" for="flexRadioDefault1">
                             Tunai
                         </label>
                     </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault2"  value="Transfer Bank">
+                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault2"  value="Transfer Bank"
+                        v-bind:checked="metode_pembayaran=='Transfer Bank'">
                         <label class="form-check-label" for="flexRadioDefault2">
                             Transfer Bank
                         </label>
                     </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault3"  value="e-Wallet">
+                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault3"  value="e-Wallet"
+                        v-bind:checked="metode_pembayaran=='e-Wallet'">
                         <label class="form-check-label" for="flexRadioDefault3">
                             e-Wallet
                         </label>
@@ -73,6 +76,7 @@ export default {
         // isAdmin: String,
         'data_pembelian',
         'total_harga',
+        'metode_pembayaran',
         'token',
     ],
     methods: {
