@@ -58,8 +58,8 @@ Route::prefix('pembeli')->group(function() {
         PemesananController::class, 'index'
     ])->name('pembeli.index');
     
-    Route::post('/proses-pemesanan', [ PemesananController::class, 'proses_pemesanan'])->name('pemesanan.proses');
-    
+    Route::post('/proses-pemesanan', [ PemesananController::class, 'proses_pemesanan'])->name('pemesanan.proses_pemesanan');
+    Route::post('/proses-pilih-pembayaran', [ PemesananController::class, 'proses_pilih_pembayaran'])->name('pemesanan.proses_pilih_pembayaran');
     Route::get('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
 
     Route::get('/konfirmasi-pemesanan', function () {
