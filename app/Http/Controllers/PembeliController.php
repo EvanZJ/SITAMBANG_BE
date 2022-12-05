@@ -43,7 +43,7 @@ class PembeliController extends Controller
     }
 
     public function detail(Request $request){
-        if(Auth::guard('web')->check()){
+        if(Auth::guard('web')->check() | Auth::guard('karyawan')->check()){
             $data = Pemesanan::where('id', $request->id)->get();
             $product = $data[0]->Berisi()->get();
             $list_product = [];
@@ -57,6 +57,8 @@ class PembeliController extends Controller
                 'product' => $product,
                 'list_product' => $list_product,
                 'nama' => $nama,
+                'isPembeli' => true,
+                'isKaryawan' => false,
             ]);
         }
         else{

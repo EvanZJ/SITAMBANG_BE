@@ -44,6 +44,7 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
     Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
     Route::get('/riwayat-transaksi', [KaryawanController::class, 'riwayatTransaksi'])->name('karyawan.riwayat-transaksi');
+    Route::get('/detail/{id}', [KaryawanController::class, 'detailTransaksi'])->name('karyawan.detail-transaksi');
     Route::get('/get-pagination', [KaryawanController::class, 'getPagination'])->name('karyawan.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('stock.index');
     Route::get('/stock/create', [StockController::class, 'create'])->name('stock.create');
@@ -57,6 +58,19 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/alat/edit/{id}', [AlatTambakController::class, 'edit'])->name('alat.edit');
     Route::post('/alat/edit/{id}', [AlatTambakController::class, 'update'])->name('alat.update');
     Route::post('/alat/delete/{id}', [AlatTambakController::class, 'destroy'])->name('alat.delete');
+    Route::get('/data/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::get('/get-pagination/karyawan', [KaryawanController::class, 'getPaginationKaryawan'])->name('karyawan.get-pagination-karyawan');
+    Route::get('/data/karyawan/create', [KaryawanController::class, 'createKaryawan'])->name('karyawan.create');
+    Route::post('/data/karyawan/create', [KaryawanController::class, 'storeKaryawan'])->name('karyawan.store');
+    Route::get('/data/karyawan/edit/{id}', [KaryawanController::class, 'editKaryawan'])->name('karyawan.edit');
+    Route::post('/data/karyawan/edit/{id}', [KaryawanController::class, 'updateKaryawan'])->name('karyawan.update');
+    Route::post('/data/karyawan/delete/{id}', [KaryawanController::class, 'destroyKaryawan'])->name('karyawan.delete');
+    Route::get('/data/pembeli', [KaryawanController::class, 'indexPembeli'])->name('pembeli.index');
+    Route::get('/get-pagination/pembeli', [KaryawanController::class, 'getPaginationPembeli'])->name('pembeli.get-pagination-pembeli');
+    Route::get('/data/pembeli/edit/{id}', [KaryawanController::class, 'editPembeli'])->name('pembeli.edit');
+    Route::post('/data/pembeli/edit/{id}', [KaryawanController::class, 'updatePembeli'])->name('pembeli.update');
+    Route::post('/data/pembeli/delete/{id}', [KaryawanController::class, 'destroyPembeli'])->name('pembeli.delete');
+    
 })->middleware(['auth', 'verified', 'karyawan']);
 
 

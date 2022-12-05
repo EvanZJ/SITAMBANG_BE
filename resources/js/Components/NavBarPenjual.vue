@@ -18,19 +18,38 @@
     </nav>
     <div class="overlay">
         <div class="menu-list" v-if="menu">
-            <a href="/karyawan/riwayat-transaksi">Riwayat Transaksi</a>
-            <router-link class="routing" to="/history-penjual">Riwayat Transaksi</router-link>
-            <router-link class="routing" to="/kondisiAlat">Kondisi Peralatan Tambak</router-link>
-            <router-link class="routing" to="/stockPenjual">Informasi Barang</router-link>
-            <router-link class="routing" to="/verifikasiPemesanan">Verifikasi Pemesanan</router-link>
-            <router-link class="routing" to="">Data Karyawan</router-link>
-            <router-link class="routing" to="">Data Pembeli</router-link>
-            <a class="routing" href="/history-penjual">Riwayat Transaksi</a>
-            <a class="routing" href="/alat">Kondisi Peralatan Tambak</a>
-            <a class="routing" href="/stock">Informasi Barang</a>
-            <a class="routing" href="/verifikasiPemesanan">Verifikasi Pemesanan</a>
-            <a class="routing" href="">Data Karyawan</a>
-            <a class="routing" href="">Data Pembeli</a>
+            <table>
+                <tr>
+                    <td>
+                        <a href="/karyawan/riwayat-transaksi">Riwayat Transaksi</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/karyawan/alat">Kondisi Peralatan Tambak</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/karyawan/stock">Informasi Barang</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/verifikasiPemesanan">Verifikasi Pemesanan</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/karyawan/data/karyawan">Data Karyawan</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/karyawan/data/pembeli">Data Pembeli</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </template>
@@ -82,7 +101,8 @@ export default {
     }
     .overlay{
         position: absolute;
-        height: 91%;
+        z-index: 999999999;
+        height: 100%;
     }
     a{
         color: white;
