@@ -22,17 +22,17 @@ import NavBar from '../../components/Navbar.vue'
                         <th scope="col">Total</th>
                         </tr>
                     </thead>
-                    <tbody v-for="barang in purchases">
+                    <tbody v-for="data in data_pembelian">
                         <tr>
-                        <th scope="row">{{ barang.nama }}</th>
-                        <td>Rp{{ toCurrency(barang.harga) }}</td>
-                        <td>{{ barang.kuantitas }}</td>
-                        <td>Rp{{ toCurrency(barang.total) }}</td>
+                        <th scope="row">{{ data.stock.name }}</th>
+                        <td>{{ toCurrency(data.stock.harga) }}</td>
+                        <td>{{ data.total_pembelian }}</td>
+                        <td>{{ toCurrency(data.total_pembelian * data.stock.harga) }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <div id="total-biaya">
-                    <p>Total: Rp{{ toCurrency(totalPrice) }}</p>
+                    <p>Total: {{ toCurrency(total_harga) }}</p>
                 </div>
             </div>
             <div id="bullet list" class="d-flex">
@@ -66,41 +66,20 @@ import NavBar from '../../components/Navbar.vue'
 
 <script>
 export default {
-  data() {
-    return {
-        navTitle:'Pemesanan',
-        date:'10-05-2022 14:32:21',
-        metode: 'Transfer',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-    }
-  },
-  props: {
-    isAdmin: String,
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
-        return formatter.format(value);
+    props: [
+        // isAdmin: String,
+        'data_pembelian',
+        'total_harga'
+    ],
+    methods: {
+        toCurrency(value) {
+            if (typeof value !== "number") {
+                return value;
+            }
+            var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+            return formatter.format(value);
+        },
     },
-  },
 }
 </script>
 
