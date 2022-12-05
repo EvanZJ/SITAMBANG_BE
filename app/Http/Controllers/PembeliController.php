@@ -34,10 +34,30 @@ class PembeliController extends Controller
 
     public function getPagination(){
         if (Auth::guard('web')->check()) {
-            $riwayatTransaksi = Riwayat::select('riwayats.*')
-                                       ->join('pemesanans', 'pemesanans.id', '=', 'riwayats.pemesanan_id')
-                                       ->where('pemesanans.user_id', '=', Auth::user()->id)->paginate(10);
+            $riwayatTransaksi = Pemesanan::where('user_id', Auth::user()->id)->paginate(10);
             return $riwayatTransaksi;
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function detail(Request $request){
+        if(Auth::guard('web')->check()){
+            $data = Pemesanan::where('id', $request->id)->get();
+            $product = $data[0]->Berisi()->get();
+            $list_product = [];
+            foreach ($product as $p){
+                $list_product[] = $p->Stock()->get()[0];
+            }
+            $nama = $data[0]->User()->get()[0];
+            // dd($product, $list_product, $data);
+            return Inertia::render('DetailTransaksi',[
+                'data' => $data,
+                'product' => $product,
+                'list_product' => $list_product,
+                'nama' => $nama,
+            ]);
         }
         else{
             return redirect()->route('login');

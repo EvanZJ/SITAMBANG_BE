@@ -19,8 +19,8 @@ class BerisiFactory extends Factory
     public function definition()
     {
         return [
-            'pemesanan_id' => fake()->randomElement(Pemesanan::pluck('id')->take(10)->toArray()),
-            'stock_id' => fake()->randomElement(Stock::pluck('id')->take(10)->toArray()),
+            'pemesanan_id' => fake()->randomElement(Pemesanan::pluck('id')->take(1000)->toArray()),
+            'stock_id' => fake()->randomElement(Stock::pluck('id')->take(20)->toArray()),
             'kuantitas' => rand(1,10),
         ];
     }

@@ -1,5 +1,9 @@
 <script setup>
+<<<<<<< HEAD
+import NavBar from '@/Components/NavBar.vue';
+=======
 import NavBar from '../../components/NavBar.vue'
+>>>>>>> d55bceb785d13e5e825c87a8c1b939ba043766df
 </script>
 
 

@@ -13,5 +13,9 @@ class Stock extends Model
         'harga',
         'description',
     ];
+
+    public function Berisi(){
+        return $this->hasMany(berisi::class);
+    }
     use HasFactory;
 }

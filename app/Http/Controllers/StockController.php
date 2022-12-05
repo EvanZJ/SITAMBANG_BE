@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,10 +16,25 @@ class StockController extends Controller
     public function index()
     {
         $stocks = Stock::all();
-        return Inertia::render('Stock', [
-            'stocks' => $stocks,
-            'csrf' => csrf_token(),
-        ]);
+        if (Auth::guard('web')->check()) {
+            return Inertia::render('Stock', [
+                'stocks' => $stocks,
+                'isPembeli' => true,
+                'isKaryawan' => false,
+                'csrf' => csrf_token(),
+            ]);
+        }
+        else if (Auth::guard('karyawan')->check()) {
+            return Inertia::render('Stock', [
+                'stocks' => $stocks,
+                'isPembeli' => false,
+                'isKaryawan' => true,
+                'csrf' => csrf_token(),
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
     /**
