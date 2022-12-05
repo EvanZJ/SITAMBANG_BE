@@ -4,9 +4,9 @@ use App\Http\Controllers\AlatTambakController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
+use Faker\Calculator\Inn;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\PembeliController;
-use Faker\Calculator\Inn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -111,14 +111,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-Route::get('/debug', function(){
-    return view('debug');
-});
-
-
-//alat route
-
-
 
 require __DIR__.'/auth.php';
