@@ -51,12 +51,12 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/stock/edit/{id}', [StockController::class, 'edit'])->name('stock.edit');
     Route::post('/stock/edit/{id}', [StockController::class, 'update'])->name('stock.update');
     Route::post('/stock/delete/{id}', [StockController::class, 'destroy'])->name('stock.delete');
-    Route::get('/alat', [AlatTambakController::class, 'index'])('alat.index');
-    Route::get('/alat/create', [AlatTambakController::class, 'create'])('alat.create');
-    Route::post('/alat/create', [AlatTambakController::class, 'store'])('alat.store');
-    Route::get('/alat/edit/{id}', [AlatTambakController::class, 'edit'])('alat.edit');
-    Route::post('/alat/edit/{id}', [AlatTambakController::class, 'update'])('alat.update');
-    Route::post('/alat/delete/{id}', [AlatTambakController::class, 'destroy'])('alat.delete');
+    Route::get('/alat', [AlatTambakController::class, 'index'])->name('alat.index');
+    Route::get('/alat/create', [AlatTambakController::class, 'create'])->name('alat.create');
+    Route::post('/alat/create', [AlatTambakController::class, 'store'])->name('alat.store');
+    Route::get('/alat/edit/{id}', [AlatTambakController::class, 'edit'])->name('alat.edit');
+    Route::post('/alat/edit/{id}', [AlatTambakController::class, 'update'])->name('alat.update');
+    Route::post('/alat/delete/{id}', [AlatTambakController::class, 'destroy'])->name('alat.delete');
 })->middleware(['auth', 'verified', 'karyawan']);
 
 
