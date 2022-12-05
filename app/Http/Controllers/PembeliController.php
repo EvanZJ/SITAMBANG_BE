@@ -41,4 +41,26 @@ class PembeliController extends Controller
             return redirect()->route('login');
         }
     }
+
+    public function detail(Request $request){
+        if(Auth::guard('web')->check()){
+            $data = Pemesanan::where('id', $request->id)->get();
+            $product = $data[0]->Berisi()->get();
+            $list_product = [];
+            foreach ($product as $p){
+                $list_product[] = $p->Stock()->get()[0];
+            }
+            $nama = $data[0]->User()->get()[0];
+            // dd($product, $list_product, $data);
+            return Inertia::render('DetailTransaksi',[
+                'data' => $data,
+                'product' => $product,
+                'list_product' => $list_product,
+                'nama' => $nama,
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
 }

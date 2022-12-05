@@ -30,7 +30,7 @@ getResults();
                         <tbody>
                           <tr v-for="post in riwayatTransaksi.data" :key="post.id">
                             <th scope="row">{{ post.created_at }}</th>
-                            <td>{{ post.totalPembayaran }}</td>
+                            <td>{{ toCurrency(post.totalPembayaran) }}</td>
                             <td>{{ post.caraPembayaran }}</td>
                             <td><a :href="'/pembeli/detail/' + post.id">
                                 Detail
@@ -54,6 +54,15 @@ export default {
     components: {
         Bootstrap5Pagination,
         Navbar,
+    },
+    methods: {
+        toCurrency(value) {
+            if (typeof value !== "number") {
+                return value;
+            }
+            var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+            return formatter.format(value);
+        },
     }
 }
 </script>

@@ -24,4 +24,8 @@ class Pemesanan extends Model
     public function Karyawan(){
         return $this->belongsTo(Karyawan::class);
     }
+
+    public function Berisi(){
+        return $this->hasMany(Berisi::class);
+    }
 }
