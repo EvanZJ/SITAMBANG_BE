@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlatTambakController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
 use Faker\Calculator\Inn;
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/debug', function(){
     return view('debug');
 });
-
+//stock route
 Route::get('/stock', [
     StockController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('stock.index');
@@ -64,6 +65,8 @@ Route::post('/stock/edit/{id}', [
 Route::post('/stock/delete/{id}', [
     StockController::class, 'destroy'
 ])->middleware(['auth', 'verified'])->name('stock.delete');
+
+//pemesanan route
 Route::get('/pemesanan', function () {
     return Inertia::render('Pemesanan');
 })->middleware(['auth', 'verified'])->name('pemesanan');
@@ -79,6 +82,32 @@ Route::get('/konfirmasi-pemesanan', function () {
 Route::get('/info-pembayaran-bank', function () {
     return Inertia::render('InfoPembayaranBank');
 })->middleware(['auth', 'verified'])->name('info-pembayaran-bank');
+
+
+//alat route
+Route::get('/alat', [
+    AlatTambakController::class, 'index'
+])->middleware(['auth', 'verified'])->name('alat.index');
+
+Route::get('/alat/create', [
+    AlatTambakController::class, 'create'
+])->middleware(['auth', 'verified'])->name('alat.create');
+
+Route::post('/alat/create', [
+    AlatTambakController::class, 'store'
+])->middleware(['auth', 'verified'])->name('alat.store');
+
+Route::get('/alat/edit/{id}', [
+    AlatTambakController::class, 'edit'
+])->middleware(['auth', 'verified'])->name('alat.edit');
+
+Route::post('/alat/edit/{id}', [
+    AlatTambakController::class, 'update'
+])->middleware(['auth', 'verified'])->name('alat.update');
+
+Route::post('/alat/delete/{id}', [
+    AlatTambakController::class, 'destroy'
+])->middleware(['auth', 'verified'])->name('alat.delete');
 
 
 require __DIR__.'/auth.php';
