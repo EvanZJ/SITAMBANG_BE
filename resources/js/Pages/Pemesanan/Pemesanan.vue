@@ -18,15 +18,15 @@ import NavBar from '../../components/Navbar.vue'
 
             <div id="barang-beli" class="text-black m-5">
                 
-                <form action="/pilih-pembayaran" method="POST">
+                <form action="/pembeli/pilih-pembayaran" method="POST">
                     <input type="hidden" name="_token" :value="token">
-                    <ul v-for="(barang, index) in stocks" :key="index">
+                    <ul v-for="(barang) in stocks">
                             <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">
-                                <div class="">{{ barang.name }}, {{ toCurrency(barang.harga) }}/kg</div>
+                                <div class="">{{ barang.name }},{{ barang.id }}, {{ toCurrency(barang.harga) }}/kg</div>
                                 <div class="">Stock: {{ barang.total_persediaan }}</div>    
                                 <div class="">
                                     Buy:
-                                    <input type="number" class="form-control" :name="'beli'+index"
+                                    <input type="number" class="form-control" :name="('beli'+barang.id)"
                                     min="0" :max="barang.total_persediaan">
                                 </div>
                             </li>

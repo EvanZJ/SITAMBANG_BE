@@ -47,7 +47,7 @@ import NavBar from '../../components/Navbar.vue'
             </div>
         </div>
         <div class="d-flex justify-content-between mx-5 mb-5">
-            <a href="/pilih-pembayaran" class="btn btn-danger px-4">Back</a>
+            <a href="/pembeli/pilih-pembayaran" class="btn btn-danger px-4">Back</a>
             <a :href="getInfoUrl(metode)" class="btn btn-primary px-4">Konfirmasi</a>     
         </div>
     </div>

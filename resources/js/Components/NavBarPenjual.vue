@@ -18,6 +18,7 @@
     </nav>
     <div class="overlay">
         <div class="menu-list" v-if="menu">
+            <a href="/karyawan/riwayat-transaksi">Riwayat Transaksi</a>
             <router-link class="routing" to="/history-penjual">Riwayat Transaksi</router-link>
             <router-link class="routing" to="/kondisiAlat">Kondisi Peralatan Tambak</router-link>
             <router-link class="routing" to="/stockPenjual">Informasi Barang</router-link>
@@ -82,5 +83,11 @@ export default {
     .overlay{
         position: absolute;
         height: 91%;
+    }
+    a{
+        color: white;
+        text-decoration: none;
+        font-size: 18pt;
+        padding-right: 20px;
     }
 </style>
