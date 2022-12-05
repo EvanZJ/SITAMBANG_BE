@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlatTambakController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
@@ -44,7 +45,18 @@ Route::prefix('karyawan')->group(function () {
     Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
     Route::get('/riwayat-transaksi', [KaryawanController::class, 'riwayatTransaksi'])->name('karyawan.riwayat-transaksi');
     Route::get('/get-pagination', [KaryawanController::class, 'getPagination'])->name('karyawan.get-pagination');
-    Route::get('/stock', [StockController::class, 'index'])->name('karyawan.stock');
+    Route::get('/stock', [StockController::class, 'index'])->name('stock.index');
+    Route::get('/stock/create', [StockController::class, 'create'])->name('stock.create');
+    Route::post('/stock/create', [StockController::class, 'store'])->name('stock.store');
+    Route::get('/stock/edit/{id}', [StockController::class, 'edit'])->name('stock.edit');
+    Route::post('/stock/edit/{id}', [StockController::class, 'update'])->name('stock.update');
+    Route::post('/stock/delete/{id}', [StockController::class, 'destroy'])->name('stock.delete');
+    Route::get('/alat', [AlatTambakController::class, 'index'])->name('alat.index');
+    Route::get('/alat/create', [AlatTambakController::class, 'create'])->name('alat.create');
+    Route::post('/alat/create', [AlatTambakController::class, 'store'])->name('alat.store');
+    Route::get('/alat/edit/{id}', [AlatTambakController::class, 'edit'])->name('alat.edit');
+    Route::post('/alat/edit/{id}', [AlatTambakController::class, 'update'])->name('alat.update');
+    Route::post('/alat/delete/{id}', [AlatTambakController::class, 'destroy'])->name('alat.delete');
 })->middleware(['auth', 'verified', 'karyawan']);
 
 
@@ -59,12 +71,11 @@ Route::prefix('pembeli')->group(function() {
         PemesananController::class, 'index'
     ])->name('pembeli.index');
     
-    Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
-    
-    Route::get('/konfirmasi-pemesanan', function () {
-        return Inertia::render('Pemesanan/KonfirmasiPemesanan');
-    })->name('konfirmasi-pemesanan');
-    
+    Route::post('/proses-pemesanan', [ PemesananController::class, 'proses_pemesanan'])->name('pemesanan.proses_pemesanan');
+    Route::post('/proses-pilih-pembayaran', [ PemesananController::class, 'proses_pilih_pembayaran'])->name('pemesanan.proses_pilih_pembayaran');
+    Route::get('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
+
+    Route::get('/konfirmasi-pemesanan', [ PemesananController::class, 'konfirmasi_pemesanan'])->name('pemesanan.konfirmasi_pemesanan');
     Route::get('/info-pembayaran-bank', function () {
         return Inertia::render('Pemesanan/InfoPembayaranBank');
     })->name('info-pembayaran-bank');
@@ -105,28 +116,9 @@ Route::get('/debug', function(){
     return view('debug');
 });
 
-Route::get('/stock', [
-    StockController::class, 'index'
-])->middleware(['auth', 'verified'])->name('stock.index');
 
-Route::get('/stock/create', [
-    StockController::class, 'create'
-])->middleware(['auth', 'verified'])->name('stock.create');
+//alat route
 
-Route::post('/stock/create', [
-    StockController::class, 'store'
-])->middleware(['auth', 'verified'])->name('stock.store');
 
-Route::get('/stock/edit/{id}', [
-    StockController::class, 'edit'
-])->middleware(['auth', 'verified'])->name('stock.edit');
-
-Route::post('/stock/edit/{id}', [
-    StockController::class, 'update'
-])->middleware(['auth', 'verified'])->name('stock.update');
-
-Route::post('/stock/delete/{id}', [
-    StockController::class, 'destroy'
-])->middleware(['auth', 'verified'])->name('stock.delete');
 
 require __DIR__.'/auth.php';

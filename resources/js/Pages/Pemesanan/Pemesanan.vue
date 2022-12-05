@@ -1,5 +1,9 @@
 <script setup>
+<<<<<<< HEAD
 import NavBar from '@/Components/NavBar.vue';
+=======
+import NavBar from '../../components/NavBar.vue'
+>>>>>>> d55bceb785d13e5e825c87a8c1b939ba043766df
 </script>
 
 
@@ -17,17 +21,17 @@ import NavBar from '@/Components/NavBar.vue';
             </div>
 
             <div id="barang-beli" class="text-black m-5">
-                
-                <form action="/pembeli/pilih-pembayaran" method="POST">
+                <h4 v-if="msg">{{ msg }}</h4>
+                <form action="/pembeli/proses-pemesanan" method="POST">
                     <input type="hidden" name="_token" :value="token">
                     <ul v-for="(barang) in stocks">
                             <li class="list-group-item border border-bg-gray rounded ps-3 fs-4 d-flex justify-content-between">
-                                <div class="">{{ barang.name }},{{ barang.id }}, {{ toCurrency(barang.harga) }}/kg</div>
+                                <div class="">{{ barang.name }}, {{ toCurrency(barang.harga) }}/kg</div>
                                 <div class="">Stock: {{ barang.total_persediaan }}</div>    
                                 <div class="">
                                     Buy:
                                     <input type="number" class="form-control" :name="('beli'+barang.id)"
-                                    min="0" :max="barang.total_persediaan">
+                                    min="0" :max="barang.total_persediaan" :value="total_beli_stock[barang.id]">
                                 </div>
                             </li>
                     </ul>
@@ -46,6 +50,8 @@ export default {
     props:[
         'stocks',
         'token',
+        'total_beli_stock',
+        'msg',
     ],
     components:{
         NavBar
