@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Karyawan extends Model
+class Karyawan extends Authenticatable
 {
+    protected $guard = 'karyawan';
+
     protected $fillable = [
         'name',
         'no_telp',
@@ -18,6 +22,7 @@ class Karyawan extends Model
         'password',
         'jabatan',
         'is_admin',
+        'status',
     ];
 
     protected $hidden = [
@@ -34,7 +39,7 @@ class Karyawan extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     public function AlatTambak(){
         return $this->hasMany(AlatTambak::class);
     }

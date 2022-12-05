@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('no_telp')->required();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->required();
+            $table->tinyInteger('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

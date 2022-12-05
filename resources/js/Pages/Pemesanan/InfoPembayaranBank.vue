@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from '../components/Navbar.vue'
+import NavBar from '../../components/Navbar.vue'
 </script>
 
 <script>
@@ -64,12 +64,8 @@ export default {
         if (typeof value !== "number") {
             return value;
         }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
     },
   },
 }
@@ -125,7 +121,7 @@ export default {
             <!-- d-flex justify-content-between mx-5 mb-5 -->
             <div class="row mx-5 mb-5">
                 <div id="container-back" class="col-8">
-                    <button type="button" class="btn btn-danger px-4">Back</button>
+                    <a href="/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
                 </div>
                 <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
                     <button type="button" class="btn btn-primary px-4">Unggah Bukti Pembayaran</button>     

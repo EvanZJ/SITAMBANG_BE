@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    {{ csrf_token() }}
+
+{{ csrf_token() }}
+
 </body>
 </html>

@@ -1,67 +1,9 @@
 <script setup>
-import NavBar from '../components/Navbar.vue'
-</script>
-
-<script>
-export default {
-  data() {
-    return {
-        navTitle:'Pemesanan',
-        date:'10-05-2022 14:32:21',
-        metode: 'Transfer Bank',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-    }
-  },
-  props: {
-    isAdmin: String,
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
-    },
-    getInfoUrl(metodePembayaran){
-        if(metodePembayaran.toLowerCase() == 'transfer bank'){
-            return 'info-pembayaran-bank';
-        }
-        
-        if(metodePembayaran.toLowerCase() == 'e-wallet'){
-            return 'info-pembayaran-e-wallet';
-        }
-
-        if(metodePembayaran.toLowerCase() == 'tunai'){
-            return 'info-pembayaran-tunai';
-        }
-
-    }
-  },
-}
+import NavBar from '../../components/Navbar.vue'
 </script>
 
 <template>
-<NavBar title="Konfirmasi Pemesanan"/>
+<NavBar title="Pembayaran Tunai"/>
 <div id="all" class="bg-white">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -76,7 +18,7 @@ export default {
             </div>
             <div id="info" class="m-3">
                     <p>
-                        Silakan konfirmasi detail pemesanan Anda
+                        Silakan melakukan pembayaran di kasir terdekat  
                     </p>
                     <p>
                         Metode Pembayaran: {{ metode }}
@@ -110,14 +52,56 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between mx-5 mb-5">
-                <a href="/pilih-pemesanan" class="btn btn-danger px-4">Back</a>
-                <a :href="getInfoUrl(metode)" class="btn btn-primary px-4">Konfirmasi</a>     
+            <!-- d-flex justify-content-between mx-5 mb-5 -->
+            <div class="row mx-5 mb-5">
+                <div id="container-back" class="col-8">
+                    <a href="/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
+                </div>
+                <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-primary px-4">Selesai</button>     
+                </div>
             </div>
         </div>
     </div>
 </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+        navTitle:'Pemesanan',
+        date:'10-05-2022 14:32:21',
+        metode: 'Tunai',
+        purchases: [
+            {   
+                nama:'Udang', 
+                harga:80000,
+                kuantitas: 2,
+                total:160000
+            },
+            {   
+                nama:'Lobster', 
+                harga:150000,
+                kuantitas: 1,
+                total:150000
+            },
+        ],
+        totalPrice: 310000,
+        buyerName:'Udin',
+    }
+  },
+  methods: {
+    toCurrency(value) {
+        if (typeof value !== "number") {
+            return value;
+        }
+        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+        return formatter.format(value);
+    },
+  },
+}
+</script>
 
 <style scoped>
 </style>
