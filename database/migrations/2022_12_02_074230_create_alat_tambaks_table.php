@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('alat_tambaks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->required();
+            $table->unsignedBigInteger('karyawan_id')->required();
+            $table->foreign('karyawan_id')->references('id')->on('karyawans')->onDelete('cascade');
             $table->string('kondisi');
             $table->timestamps();
         });

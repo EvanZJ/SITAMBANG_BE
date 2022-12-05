@@ -1,25 +1,29 @@
 <template>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <NavBar title="Kondisi Peralatan"/>
     <div class="flex-box">
         <div class="box">
             <h2 class="title">Update Peralatan</h2>
-            <form class="forms" @submit.prevent="this.$router.push('/admin')">
+            <form method="POST" :action="'/alat/edit/'+alat.id" class="forms">
+            <input type="hidden" name="_token" :value="csrf">
                 <div class="form-input">
                     <label>Nama Alat</label>
-                    <input type="text" v-model="nama">
+                    <input type="text" name="name" :value="alat.name">
                 </div>
                 <div class="form-input">
                     <label>Penanggun Jawab Terakhir</label>
-                    <!-- <input type="text" v-model="pj"> -->
-                    <select v-model="pj">
-                        <option value="Udin Sukmadi">Udin Sukmadi</option>
-                        <option value="Jotaro Joemama">Jotaro Joemama</option>
-                        <option value="Udin Maharudin">Udin Maharudin</option>
+                    <!-- <input type="text" :value="pj"> -->
+                    <select name="karyawan_id" :value="pj.id">
+                        <option v-for="(karyawan, idx) in karyawans" 
+                                :key="idx"
+                                :value="karyawan.id">
+                                {{ karyawan.name }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-input">
                     <label>Kondisi</label>
-                    <input type="text" v-model="kondisi">
+                    <input type="text" name="kondisi" :value="alat.kondisi">
                 </div>
                 
                 <input type="submit" value="Update">
@@ -34,9 +38,6 @@ import NavBar from '../components/NavBarPenjual.vue'
 export default {
     data(){
         return{
-            nama: 'Aerator I',
-            pj: 'Udin Maharudin',
-            kondisi: 'Normal',
         }
     },
     components:{
@@ -44,7 +45,10 @@ export default {
     },
     methods:{
 
-    }
+    },
+    props:[
+        'alat', 'csrf', 'karyawans', 'pj',
+    ],
 }
 </script>
 
@@ -77,7 +81,7 @@ export default {
     justify-content: space-between;
     margin: 10px;
     width: 100%;
-    
+    border: none;
    }
 
    .forms{

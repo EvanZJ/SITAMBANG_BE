@@ -3,22 +3,26 @@
     <div class="flex-box">
         <div class="box">
             <h2 class="title">Tambah Peralatan</h2>
-            <form class="forms" @submit.prevent="this.$router.push('/admin')">
+            <form class="forms" method="POST" action="/alat/create">
+            <input type="hidden" name="_token" :value="csrf">
                 <div class="form-input">
                     <label>Nama Alat</label>
-                    <input type="text" v-model="nama">
+                    <input type="text" name="name" value="">
                 </div>
                 <div class="form-input">
                     <label>Penanggun Jawab Terakhir</label>
                     <!-- <input type="text" v-model="pj"> -->
-                    <select v-model="pj">
-                        <option value="Udin Sukmadi">Udin Sukmadi</option>
-                        <option value="Jotaro Joemama">Jotaro Joemama</option>
+                    <select name="karyawan_id" value="">
+                        <option v-for="(karyawan, idx) in karyawans" 
+                                :key="idx"
+                                :value="karyawan.id">
+                                {{ karyawan.name }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-input">
                     <label>Kondisi</label>
-                    <input type="text" v-model="kondisi">
+                    <input type="text" name="kondisi" value="">
                 </div>
                 
                 <input type="submit" value="Tambah">
@@ -33,9 +37,6 @@ import NavBar from '../components/NavBarPenjual.vue'
 export default {
     data(){
         return{
-            nama: '',
-            pj: '',
-            kondisi: '',
         }
     },
     components:{
@@ -43,7 +44,10 @@ export default {
     },
     methods:{
 
-    }
+    },
+    props:[
+        'csrf', 'karyawans',
+    ],
 }
 </script>
 
@@ -76,7 +80,7 @@ export default {
     justify-content: space-between;
     margin: 10px;
     width: 100%;
-    
+    border: none;
    }
 
    .forms{
