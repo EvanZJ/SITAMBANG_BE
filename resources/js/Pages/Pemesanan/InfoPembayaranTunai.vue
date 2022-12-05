@@ -3,64 +3,53 @@ import NavBar from '../../components/Navbar.vue'
 </script>
 
 <template>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <NavBar title="Pembayaran Tunai"/>
-<div id="all" class="bg-white">
-    <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid">
-            <h2 class="text-white">{{ navTitle }}</h2>
+<div id="undernav">
+    <div id="window" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
+        <div id="title" class="text-black m-3">
+            <h2>Pemesanan</h2>
         </div>
-    </nav>
-    <!-- <NavBar></NavBar> -->
-    <div id="undernav">
-        <div id="window" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
-            <div id="title" class="text-black m-3">
-                <h2>Pemesanan</h2>
-            </div>
-            <div id="info" class="m-3">
-                    <p>
-                        Silakan melakukan pembayaran di kasir terdekat  
-                    </p>
-                    <p>
-                        Metode Pembayaran: {{ metode }}
-                    </p>
-                    <p>
-                        Rincian:
-                    </p>
-            </div>
-            <div id="detail-transaksi" class="text-black m-5">
-                <div id="table-detail">
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                            <th scope="col">Nama Produk</th>
-                            <th scope="col">Harga/Kg</th>
-                            <th scope="col">Kuantitas</th>
-                            <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody v-for="barang in purchases">
-                            <tr>
-                            <th scope="row">{{ barang.nama }}</th>
-                            <td>Rp{{ toCurrency(barang.harga) }}</td>
-                            <td>{{ barang.kuantitas }}</td>
-                            <td>Rp{{ toCurrency(barang.total) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="total-biaya">
-                        <p>Total: Rp{{ toCurrency(totalPrice) }}</p>
-                    </div>
+        <div id="info" class="m-3">
+                <p>
+                    Silakan melakukan pembayaran di kasir terdekat  
+                </p>
+                <p>
+                    <!-- even tho ini file tunai, mending aku tampilin aja metodenya as variable utk tau apakah udah bener -->
+                    Metode Pembayaran: {{ metode_pembayaran }}
+                </p>
+                <p>
+                    Rincian:
+                </p>
+        </div>
+        <div id="detail-transaksi" class="text-black m-5">
+            <div id="table-detail">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Harga/Kg</th>
+                        <th scope="col">Kuantitas</th>
+                        <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="data in data_pembelian">
+                        <tr>
+                        <th scope="row">{{ data.stock.name }}</th>
+                        <td>{{ toCurrency(data.stock.harga) }}</td>
+                        <td>{{ data.total_pembelian }}</td>
+                        <td>{{ toCurrency(data.total_pembelian * data.stock.harga)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="total-biaya">
+                    <p>Total: {{ toCurrency(total_harga) }}</p>
                 </div>
             </div>
-            <!-- d-flex justify-content-between mx-5 mb-5 -->
-            <div class="row mx-5 mb-5">
-                <div id="container-back" class="col-8">
-                    <a href="/pembeli/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
-                </div>
-                <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn btn-primary px-4">Selesai</button>     
-                </div>
-            </div>
+        </div>
+        <div class="d-flex justify-content-between mx-5 mb-5">
+            <a href="/pembeli/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
+            <a href="/" class="btn btn-primary px-4">Selesai</a>     
         </div>
     </div>
 </div>
@@ -68,38 +57,20 @@ import NavBar from '../../components/Navbar.vue'
 
 <script>
 export default {
-  data() {
-    return {
-        navTitle:'Pemesanan',
-        date:'10-05-2022 14:32:21',
-        metode: 'Tunai',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-    }
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
-        return formatter.format(value);
+    props:[
+        'data_pembelian',
+        'total_harga',
+        'metode_pembayaran'
+    ],
+    methods: {
+        toCurrency(value) {
+            if (typeof value !== "number") {
+                return value;
+            }
+            var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+            return formatter.format(value);
+        },
     },
-  },
 }
 </script>
 
