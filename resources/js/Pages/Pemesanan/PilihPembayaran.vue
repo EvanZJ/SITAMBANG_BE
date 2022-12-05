@@ -39,19 +39,19 @@ import NavBar from '../../components/NavBar.vue'
                 <form action="/pembeli/proses-pilih-pembayaran" method="POST">
                     <input type="hidden" name="_token" :value="token">
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault1" value="Tunai">
                         <label class="form-check-label" for="flexRadioDefault1">
                             Tunai
                         </label>
                     </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault2"  value="Transfer Bank">
                         <label class="form-check-label" for="flexRadioDefault2">
                             Transfer Bank
                         </label>
                     </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+                        <input class="form-check-input" type="radio" name="caraPembayaran" id="flexRadioDefault3"  value="e-Wallet">
                         <label class="form-check-label" for="flexRadioDefault3">
                             e-Wallet
                         </label>
