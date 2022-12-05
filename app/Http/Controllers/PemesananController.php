@@ -18,9 +18,12 @@ class PemesananController extends Controller
 
         $total_beli_stock = [];
         $data_pembelian = session('data_pembelian');
-        foreach($data_pembelian as $data){
-            $total_beli_stock[$data['stock']->id] = $data['total_pembelian'];
+        if($data_pembelian){
+            foreach($data_pembelian as $data){
+                $total_beli_stock[$data['stock']->id] = $data['total_pembelian'];
+            }
         }
+
         return Inertia::render('Pemesanan/Pemesanan', [
             'stocks' => $stocks,
             'token' => csrf_token(),
@@ -82,15 +85,25 @@ class PemesananController extends Controller
             'data_pembelian' => session('data_pembelian'),
             'total_harga' => session('total_harga'),
             'metode_pembayaran' => session('caraPembelian'),
+            'msg' => session('msg'),
             'token' => csrf_token(),
         ]);
     }
 
     public function proses_pilih_pembayaran(Request $r){
-        $r->session()->put('caraPembelian', $r['caraPembayaran']);
+        $caraPembayaran = $r['caraPembayaran'];
+        
+        if($caraPembayaran){
+            $r->session()->put('caraPembelian', $caraPembayaran);
+            return redirect(route('pemesanan.konfirmasi_pemesanan'));
+        }
+        else{
+            $r->session()->put('msg', 'Anda belum memilih metode pembayaran');
+            return redirect(route('pemesanan.pilih_pembayaran'));
+        }
         // dd($r['caraPembayaran']);
         // dd($r->session());
-        return redirect(route('pemesanan.konfirmasi_pemesanan'));
+        
         // dd($r);
 
     }
@@ -126,6 +139,16 @@ class PemesananController extends Controller
             'metode_pembayaran' => session('caraPembelian'),
         ]);
     }
+
+    public function selesai_memesan(){
+        session()->forget('data_pembelian');
+        session()->forget('total_harga');
+        session()->forget('msg');
+        session()->forget('caraPembelian');
+    
+        return redirect(route('pembeli.dashboard'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

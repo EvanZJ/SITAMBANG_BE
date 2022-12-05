@@ -77,6 +77,8 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/info-pembayaran-tunai', [ PemesananController::class, 'info_pembayaran_tunai'])->name('pemesanan.info_pembayaran_tunai');
     Route::get('/info-pembayaran-bank', [ PemesananController::class, 'info_pembayaran_bank'])->name('pemesanan.info_pembayaran_bank');
     Route::get('/info-pembayaran-e-wallet', [ PemesananController::class, 'info_pembayaran_ewallet'])->name('pemesanan.info_pembayaran_ewallet');
+
+    Route::get('/selesai-memesan', [ PemesananController::class, 'selesai_memesan'])->name('pemesanan.selesai_memesan');
     
     
     

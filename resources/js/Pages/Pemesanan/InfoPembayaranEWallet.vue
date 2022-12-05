@@ -37,7 +37,7 @@ import NavBar from '../../components/Navbar.vue'
             <div id="detail-pembayaran" class="col-4 d-flex align-items-center justify-content-center">
                 <div id="isi-detail" class="border border-bg-black rounded p-3">
                     <p>Total Harga Pemesanan:</p>
-                    <p class="fw-bold">Rp{{ toCurrency(total_harga) }}</p>
+                    <p class="fw-bold">{{ toCurrency(total_harga) }}</p>
                     <p>Metode Pembayaran:</p>
                     <p class="fw-bold">{{ metode_pembayaran }}</p>
                 </div>
@@ -62,32 +62,32 @@ export default {
         return {
             eWalletList:[
                 {
-                    namaWallet: 'BNI',
+                    namaWallet: 'OVO',
                     noWallet: '0123456789',
                     namaPemilik: 'Pemilik Udang'
                 },
                 {
-                    namaWallet: 'BCA',
+                    namaWallet: 'GOPAY',
                     noWallet: '0123456789',
                     namaPemilik: 'Pemilik Udang'
                 },
                 {
-                    namaWallet: 'BRI',
+                    namaWallet: 'SHOPEEPAY',
                     noWallet: '0123456789',
                     namaPemilik: 'Pemilik Udang'
                 },
                 {
-                    namaWallet: 'Mandiri',
+                    namaWallet: 'DANA',
                     noWallet: '0123456789',
                     namaPemilik: 'Pemilik Udang'
                 },
                 {
-                    namaWallet: 'DANAMON',
+                    namaWallet: 'FLIP',
                     noWallet: '0123456789',
                     namaPemilik: 'Pemilik Udang'
                 },
                 {
-                    namaWallet: 'CIMB-NIAGA',
+                    namaWallet: 'JENIUS',
                     noWallet: '0123456789',
                     namaPemilik: 'Pemilik Udang'
                 }
