@@ -2,75 +2,6 @@
 import NavBar from '../../components/Navbar.vue'
 </script>
 
-<script>
-export default {
-  data() {
-    return {
-        navTitle:'Pemesanan',
-        date:'10-05-2022 14:32:21',
-        metode: 'e-Wallet',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-        eWalletList:[
-            {
-                namaWallet: 'BNI',
-                noWallet: '0123456789',
-                namaPemilik: 'Pemilik Udang'
-            },
-            {
-                namaWallet: 'BCA',
-                noWallet: '0123456789',
-                namaPemilik: 'Pemilik Udang'
-            },
-            {
-                namaWallet: 'BRI',
-                noWallet: '0123456789',
-                namaPemilik: 'Pemilik Udang'
-            },
-            {
-                namaWallet: 'Mandiri',
-                noWallet: '0123456789',
-                namaPemilik: 'Pemilik Udang'
-            },
-            {
-                namaWallet: 'DANAMON',
-                noWallet: '0123456789',
-                namaPemilik: 'Pemilik Udang'
-            },
-            {
-                namaWallet: 'CIMB-NIAGA',
-                noWallet: '0123456789',
-                namaPemilik: 'Pemilik Udang'
-            }
-        ],
-    }
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
-        return formatter.format(value);
-    },
-  },
-}
-</script>
-
 <template>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <NavBar title="Pembayaran e-Wallet"/>
@@ -106,9 +37,9 @@ export default {
             <div id="detail-pembayaran" class="col-4 d-flex align-items-center justify-content-center">
                 <div id="isi-detail" class="border border-bg-black rounded p-3">
                     <p>Total Harga Pemesanan:</p>
-                    <p class="fw-bold">Rp{{ toCurrency(totalPrice) }}</p>
+                    <p class="fw-bold">Rp{{ toCurrency(total_harga) }}</p>
                     <p>Metode Pembayaran:</p>
-                    <p class="fw-bold">{{ metode }}</p>
+                    <p class="fw-bold">{{ metode_pembayaran }}</p>
                 </div>
             </div>
         </div>
@@ -124,6 +55,61 @@ export default {
     </div>
 </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            eWalletList:[
+                {
+                    namaWallet: 'BNI',
+                    noWallet: '0123456789',
+                    namaPemilik: 'Pemilik Udang'
+                },
+                {
+                    namaWallet: 'BCA',
+                    noWallet: '0123456789',
+                    namaPemilik: 'Pemilik Udang'
+                },
+                {
+                    namaWallet: 'BRI',
+                    noWallet: '0123456789',
+                    namaPemilik: 'Pemilik Udang'
+                },
+                {
+                    namaWallet: 'Mandiri',
+                    noWallet: '0123456789',
+                    namaPemilik: 'Pemilik Udang'
+                },
+                {
+                    namaWallet: 'DANAMON',
+                    noWallet: '0123456789',
+                    namaPemilik: 'Pemilik Udang'
+                },
+                {
+                    namaWallet: 'CIMB-NIAGA',
+                    noWallet: '0123456789',
+                    namaPemilik: 'Pemilik Udang'
+                }
+            ],
+        }
+    },
+    props:[
+        'total_harga',
+        'metode_pembayaran',
+    ],
+    methods: {
+        toCurrency(value) {
+            if (typeof value !== "number") {
+                return value;
+            }
+            var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+            return formatter.format(value);
+        },
+    },
+}
+</script>
+
 
 <style scoped>
 </style>

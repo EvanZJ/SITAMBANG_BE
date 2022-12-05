@@ -104,6 +104,28 @@ class PemesananController extends Controller
         ]);
     }
 
+    public function info_pembayaran_tunai(){
+        // dd(session('caraPembelian'));
+        return Inertia::render('Pemesanan/InfoPembayaranTunai', [
+            'data_pembelian' => session('data_pembelian'),
+            'total_harga' => session('total_harga'),
+            'metode_pembayaran' => session('caraPembelian'),
+        ]);
+    }
+    public function info_pembayaran_bank(){
+        // dd(session('caraPembelian'));
+        return Inertia::render('Pemesanan/InfoPembayaranBank', [
+            'total_harga' => session('total_harga'),
+            'metode_pembayaran' => session('caraPembelian'),
+        ]);
+    }
+    public function info_pembayaran_ewallet(){
+        // dd(session('caraPembelian'));
+        return Inertia::render('Pemesanan/InfoPembayaranEWallet', [
+            'total_harga' => session('total_harga'),
+            'metode_pembayaran' => session('caraPembelian'),
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
