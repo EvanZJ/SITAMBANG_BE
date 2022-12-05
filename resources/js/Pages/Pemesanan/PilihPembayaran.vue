@@ -12,6 +12,7 @@ import NavBar from '@/Components/NavBar.vue'
         </div>
 
         <div id="detail-transaksi" class="text-black m-5">
+            <h4 v-if="msg">{{ msg }}</h4>
             <div id="table-detail">
                 <table class="table">
                     <thead class="thead-light">
@@ -77,6 +78,7 @@ export default {
         'data_pembelian',
         'total_harga',
         'metode_pembayaran',
+        'msg',
         'token',
     ],
     methods: {

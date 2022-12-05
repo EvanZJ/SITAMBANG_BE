@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Pemesanan;
 use App\Models\Stock;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PemesananController extends Controller
 {
@@ -18,9 +22,12 @@ class PemesananController extends Controller
 
         $total_beli_stock = [];
         $data_pembelian = session('data_pembelian');
-        foreach($data_pembelian as $data){
-            $total_beli_stock[$data['stock']->id] = $data['total_pembelian'];
+        if($data_pembelian){
+            foreach($data_pembelian as $data){
+                $total_beli_stock[$data['stock']->id] = $data['total_pembelian'];
+            }
         }
+
         return Inertia::render('Pemesanan/Pemesanan', [
             'stocks' => $stocks,
             'token' => csrf_token(),
@@ -59,7 +66,7 @@ class PemesananController extends Controller
         if($total_harga==0){
             $r->session()->put('msg', 'Keranjang anda kosong');
             // oo dia submit tapi ga beli apa apa
-            return redirect(route('pembeli.index'))
+            return redirect(route('pemesanan.index'))
             // ->with(['msg' => 'Keranjang anda kosong'])
             ;
         }
@@ -78,21 +85,31 @@ class PemesananController extends Controller
     }
 
     public function pilih_pembayaran(){
-        return Inertia::render('Pemesanan/PilihPembayaran', [
-            'data_pembelian' => session('data_pembelian'),
-            'total_harga' => session('total_harga'),
-            'metode_pembayaran' => session('caraPembelian'),
-            'token' => csrf_token(),
-        ]);
+        $total_harga = session('total_harga');
+        if($total_harga){
+            return Inertia::render('Pemesanan/PilihPembayaran', [
+                'data_pembelian' => session('data_pembelian'),
+                'total_harga' => session('total_harga'),
+                'metode_pembayaran' => session('caraPembelian'),
+                'msg' => session('msg'),
+                'token' => csrf_token(),
+            ]);
+        }
+        return redirect(route('pemesanan.index'))->with('msg', 'Anda belum melakukan pemesanan');
+
     }
 
     public function proses_pilih_pembayaran(Request $r){
-        $r->session()->put('caraPembelian', $r['caraPembayaran']);
-        // dd($r['caraPembayaran']);
-        // dd($r->session());
-        return redirect(route('pemesanan.konfirmasi_pemesanan'));
-        // dd($r);
-
+        $caraPembayaran = $r['caraPembayaran'];
+        
+        if($caraPembayaran){
+            $r->session()->put('caraPembelian', $caraPembayaran);
+            $r->session()->forget('msg');
+            return redirect(route('pemesanan.konfirmasi_pemesanan'));
+        }
+        // belum milih metode pembayaran
+        $r->session()->put('msg', 'Anda belum memilih metode pembayaran');
+        return redirect(route('pemesanan.pilih_pembayaran'));
     }
 
     public function konfirmasi_pemesanan(){
@@ -126,6 +143,61 @@ class PemesananController extends Controller
             'metode_pembayaran' => session('caraPembelian'),
         ]);
     }
+
+    public function unggah_bukti_pembayaran(){
+        $metode_pembayaran = session('caraPembelian');
+        if($metode_pembayaran){
+            // oo ada
+            // dd(1);
+            return Inertia::render('Pemesanan/UploadBuktiPembayaran', [
+                'token' => csrf_token() ,
+                'msg' => session('msg'),
+            ]);
+        }
+        // belum pesen
+        return redirect(route('pemesanan.index'))->with('msg', 'Anda belum melakukan pemesanan');
+    }
+
+    public function store_pemesanan(Request $r){
+        $input = [];
+        // dd($r);
+        // dd($r->file('bukti-pembayaran'));
+        if(!$r->hasFile('bukti-pembayaran')){
+            return redirect(route('pemesanan.unggah_bukti_pembayaran'))->with('msg', 'Anda belum mengunggah foto');
+        }
+
+        $r->session()->forget('msg');
+        $bukti = $r->file('bukti-pembayaran');
+        if(filesize($bukti) > 100000){
+            return redirect(route('pemesanan.unggah_bukti_pembayaran'))->with('msg', 'Ukuran bukti melebihi 100Kb, harap dikompress');
+        }
+        $time = time();
+        $fileName =  $time. '.' . $bukti->getClientOriginalExtension();
+        // save bukti
+        Storage::disk('local')->put('images/pemesanan/'.$fileName, $bukti, 'public');
+        
+        // save data pemesanan
+        $input['totalPembayaran'] = session('total_harga');
+        $input['caraPembayaran'] = session('caraPembelian');
+        $input['user_id'] = Auth::id();
+        $input['karyawan_id'] = 1;// default value, nanti diedit sama verifier
+        $input['status'] = 'Belum Terverifikasi';
+
+        Pemesanan::create($input);
+
+        return redirect()->route('pembeli.dashboard');
+
+    }
+
+    public function selesai_memesan(){
+        session()->forget('data_pembelian');
+        session()->forget('total_harga');
+        session()->forget('msg');
+        session()->forget('caraPembelian');
+    
+        return redirect(route('pembeli.dashboard'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

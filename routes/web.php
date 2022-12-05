@@ -67,7 +67,7 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/stock', [StockController::class, 'index'])->name('pembeli.stock');
     Route::get('/detail/{id}', [PembeliController::class, 'detail'])->name('pembeli.detail');
     
-    Route::get('/pemesanan', [ PemesananController::class, 'index'])->name('pembeli.index');
+    Route::get('/pemesanan', [ PemesananController::class, 'index'])->name('pemesanan.index');
     
     Route::post('/proses-pemesanan', [ PemesananController::class, 'proses_pemesanan'])->name('pemesanan.proses_pemesanan');
     Route::post('/proses-pilih-pembayaran', [ PemesananController::class, 'proses_pilih_pembayaran'])->name('pemesanan.proses_pilih_pembayaran');
@@ -77,6 +77,9 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/info-pembayaran-tunai', [ PemesananController::class, 'info_pembayaran_tunai'])->name('pemesanan.info_pembayaran_tunai');
     Route::get('/info-pembayaran-bank', [ PemesananController::class, 'info_pembayaran_bank'])->name('pemesanan.info_pembayaran_bank');
     Route::get('/info-pembayaran-e-wallet', [ PemesananController::class, 'info_pembayaran_ewallet'])->name('pemesanan.info_pembayaran_ewallet');
+    Route::get('/unggah-bukti-pembayaran', [ PemesananController::class, 'unggah_bukti_pembayaran'])->name('pemesanan.unggah_bukti_pembayaran');
+    Route::post('/store-pemesanan' , [ PemesananController::class, 'store_pemesanan'])->name('pemesanan.store_pemesanan');
+    Route::get('/selesai-memesan', [ PemesananController::class, 'selesai_memesan'])->name('pemesanan.selesai_memesan');
     
     
     

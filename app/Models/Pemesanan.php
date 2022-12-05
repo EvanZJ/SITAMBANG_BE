@@ -10,6 +10,9 @@ class Pemesanan extends Model
     protected $fillable = [
         'totalPembayaran',
         'caraPembayaran',
+        'user_id',
+        'status',
+        'karyawan_id'
     ];
     use HasFactory;
 

@@ -49,7 +49,7 @@ import NavBar from '../../components/Navbar.vue'
         </div>
         <div class="d-flex justify-content-between mx-5 mb-5">
             <a href="/pembeli/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
-            <a href="/" class="btn btn-primary px-4">Selesai</a>     
+            <a href="/pembeli/selesai-memesan" class="btn btn-primary px-4">Selesai</a>     
         </div>
     </div>
 </div>
