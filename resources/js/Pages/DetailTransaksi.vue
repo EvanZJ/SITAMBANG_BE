@@ -1,6 +1,6 @@
 <template lang="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <div>
+    <div id="canvas">
         <NavBar title="Detail Transaksi"/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -50,7 +50,10 @@
                         </table>
                         <div class="d-flex justify-content-between mx-5 mb-5">
                             <a href="/pembeli/riwayat-transaksi" class="btn btn-danger px-4">Back</a>
-                            <a href="/pembeli/cetak-nota" class="btn btn-primary px-4">Next</a>
+                            <button class="btn btn-primary px-4" @click="downloadPDF()">
+                                Cetak Nota
+                            </button>
+                            
                         </div>
                     </div>
                 </div>
@@ -60,6 +63,9 @@
 </template>
 <script>
 import NavBar from '@/Components/NavBar.vue';
+import html2PDF from "jspdf-html2canvas";
+import html2canvas from "html2canvas";
+
 export default {
     props: {
         data: Object,
@@ -92,11 +98,52 @@ export default {
             var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
             return formatter.format(value);
         },
+        async downloadPDF() {
+            const page = document.getElementById("canvas");
+            const defaultOptions = {
+                jsPDF: {
+                    unit: "cm",
+                    format: "a4",
+                    orientation: "portrait",
+                },
+                html2canvas: {
+                    imageTimeout: 15000,
+                    logging: true,
+                    useCORS: true,
+                },
+                imageType: "image/jpeg",
+                imageQuality: 1,
+                margin: {
+                    top: 2.5,
+                    right: 1.5,
+                    bottom: 2.5,
+                    left: 1.5,
+                },
+                output: "nota.pdf",
+                init: function () {},
+                success: function (pdf) {
+                    pdf.save(this.output);
+                },
+            };
+            try {
+                await html2PDF(page, defaultOptions);
+            } catch (error) {
+                console.error("jsPDF Error: ", error);
+            } finally {
+                console.log("jsPDF FIM");
+            }
+            // window.html2canvas = html2canvas;
+            // var doc = new jsPDF('p', 'pt', 'a4');
+            // doc.html(document.querySelector("#canvas"), {
+            //     callback: function (doc) {
+            //         doc.save('Nota.pdf');
+            //     }
+            // });
+        },
     },
     mounted() {
         this.getNamaProduct();
         console.log(this.new_product)
-
     }
 }
 </script>
