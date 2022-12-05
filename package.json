@@ -21,7 +21,11 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "html2canvas": "^1.4.1",
+        "jspdf": "^2.5.1",
+        "jspdf-html2canvas": "^1.4.9",
         "laravel-vue-pagination": "^4.0.0",
+        "vue-html2pdf": "^1.8.0",
         "vue-router": "^4.1.6"
     }
 }
