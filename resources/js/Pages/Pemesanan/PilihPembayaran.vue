@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from '../../components/Navbar.vue'
+import NavBar from '../../components/NavBar.vue'
 </script>
 
 <template>
@@ -35,30 +35,33 @@ import NavBar from '../../components/Navbar.vue'
                     <p>Total: {{ toCurrency(total_harga) }}</p>
                 </div>
             </div>
-            <div id="bullet list" class="d-flex">
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Tunai
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Transfer Bank
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
-                    <label class="form-check-label" for="flexRadioDefault3">
-                        e-Wallet
-                    </label>
-                </div>
+            <div id="bullet list">
+                <form action="/pembeli/proses-pilih-pembayaran" method="POST">
+                    <input type="hidden" name="_token" :value="token">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Tunai
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Transfer Bank
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            e-Wallet
+                        </label>
+                    </div>
+                    <div id="submitpart">
+                        <a href="/pembeli/pemesanan" class="btn btn-danger px-4">Back</a>
+                        <input style="cursor:pointer" type="submit" class="btn btn-primary px-4 flex-end" id="submit" value="Next">
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="d-flex justify-content-between mx-5 mb-5">
-            <a href="/pembeli/pemesanan" class="btn btn-danger px-4">Back</a>
-            <a href="/pembeli/konfirmasi-pemesanan" class="btn btn-primary px-4">Next</a>
         </div>
     </div>
 </div>
@@ -69,7 +72,8 @@ export default {
     props: [
         // isAdmin: String,
         'data_pembelian',
-        'total_harga'
+        'total_harga',
+        'token',
     ],
     methods: {
         toCurrency(value) {
@@ -84,4 +88,13 @@ export default {
 </script>
 
 <style scoped>
+#bulletlist{
+    width: 100%;
+}
+#submitpart{
+    /* width: 500px; */
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
 </style>

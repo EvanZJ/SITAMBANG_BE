@@ -70,8 +70,10 @@ Route::prefix('pembeli')->group(function() {
         PemesananController::class, 'index'
     ])->name('pembeli.index');
     
-    Route::post('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
-    
+    Route::post('/proses-pemesanan', [ PemesananController::class, 'proses_pemesanan'])->name('pemesanan.proses_pemesanan');
+    Route::post('/proses-pilih-pembayaran', [ PemesananController::class, 'proses_pilih_pembayaran'])->name('pemesanan.proses_pilih_pembayaran');
+    Route::get('/pilih-pembayaran', [ PemesananController::class, 'pilih_pembayaran'])->name('pemesanan.pilih_pembayaran');
+
     Route::get('/konfirmasi-pemesanan', function () {
         return Inertia::render('Pemesanan/KonfirmasiPemesanan');
     })->name('konfirmasi-pemesanan');
