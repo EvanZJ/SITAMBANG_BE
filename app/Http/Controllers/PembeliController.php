@@ -34,9 +34,7 @@ class PembeliController extends Controller
 
     public function getPagination(){
         if (Auth::guard('web')->check()) {
-            $riwayatTransaksi = Riwayat::select('riwayats.*')
-                                       ->join('pemesanans', 'pemesanans.id', '=', 'riwayats.pemesanan_id')
-                                       ->where('pemesanans.user_id', '=', Auth::user()->id)->paginate(10);
+            $riwayatTransaksi = Pemesanan::where('user_id', Auth::user()->id)->paginate(10);
             return $riwayatTransaksi;
         }
         else{

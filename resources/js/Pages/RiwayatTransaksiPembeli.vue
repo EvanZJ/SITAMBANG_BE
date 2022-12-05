@@ -15,14 +15,29 @@ getResults();
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <label>
-                        Selamat Datang
-                    </label>
-                    <ul>
-                        <li v-for="post in riwayatTransaksi.data" :key="post.id">
-                            {{ post.date }} | {{ post.total }} }}
-                        </li>
-                      </ul>
+                    <h1>
+                        Riwayat Transaksi Pembeli
+                    </h1>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Tanggal Transaksi</th>
+                            <th scope="col">Total Pembelian</th>
+                            <th scope="col">Cara Pembayaran</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="post in riwayatTransaksi.data" :key="post.id">
+                            <th scope="row">{{ post.created_at }}</th>
+                            <td>{{ post.totalPembayaran }}</td>
+                            <td>{{ post.caraPembayaran }}</td>
+                            <td><a :href="'/pembeli/detail/' + post.id">
+                                Detail
+                            </a></td>
+                          </tr>
+                        </tbody>
+                      </table>
                     <Bootstrap5Pagination
                         :data="riwayatTransaksi"
                         @pagination-change-page="getResults"
@@ -34,7 +49,7 @@ getResults();
     </div>
 </template>
 <script>
-import Navbar from '@/Components/Navbar.vue';
+import Navbar from '@/Components/NavBar.vue';
 export default {
     components: {
         Bootstrap5Pagination,

@@ -12,6 +12,8 @@ use App\Models\Pemesanan;
 use App\Models\Riwayat;
 use App\Models\Stock;
 use App\Models\User;
+use Carbon\Factory;
+use Database\Factories\BerisiFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,10 +30,15 @@ class DatabaseSeeder extends Seeder
         Karyawan::factory(10)->create();
         Karyawan::factory(3)->admin()->create();
         AlatTambak::factory(5)->create();
-        Stock::factory(5)->create();
+        Stock::factory(3)->create();
         Pemesanan::factory(1000)->create();
-        Riwayat::factory(500)->create();
-        berisi::factory(5)->create();
+        while(berisi::count() < 500){
+            try{
+                berisi::factory(1)->create();
+            }catch (\Illuminate\Database\QueryException $e){
+                continue;
+            }
+        }
         bertanggungjawab::factory(5)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
