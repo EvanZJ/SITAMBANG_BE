@@ -49,7 +49,7 @@ import NavBar from '../../components/Navbar.vue'
                 <a href="/pembeli/konfirmasi-pemesanan" class="btn btn-danger px-4">Back</a>
             </div>
             <div id="container-unggah" class="col-4 d-flex align-items-center justify-content-center">
-                <button type="button" class="btn btn-primary px-4">Unggah Bukti Pembayaran</button>     
+                <a href="/pembeli/unggah-bukti-pembayaran" class="btn btn-primary px-4">Unggah Bukti Pembayaran</a>   
             </div>
         </div>
     </div>
