@@ -26,6 +26,9 @@ class PemesananFactory extends Factory
             'karyawan_id' => fake()->randomElement($karyawan_id),
             'totalPembayaran' => rand(1,75)*1000,
             'caraPembayaran' => fake()->randomElement(['Tunai', 'Transfer Bank', 'e-Wallet']),
+            'status' => fake()->randomElement(['verified', 'unverified']),
+            'verified_at' => fake()->boolean(50) ? fake()->dateTimeBetween('-1 month', 'now') : null,
+            'bukti_path' => fake()->imageUrl(640, 480, 'animals', true, 'Faker'),
         ];
     }
 }

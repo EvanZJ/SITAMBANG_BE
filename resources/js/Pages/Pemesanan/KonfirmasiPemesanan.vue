@@ -50,9 +50,8 @@ import NavBar from '../../components/NavBar.vue'
             <a href="/pembeli/pilih-pembayaran" class="btn btn-danger px-4">Back</a>
             <a :href="getInfoUrl(metode_pembayaran)" class="btn btn-primary px-4">Konfirmasi</a>     
         </div>
-    </div>
-</div>
-</template>
+    </div>  
+    </template>
 
 <script>
 export default {
@@ -88,5 +87,5 @@ export default {
 </script>
 
 
-<style scoped>
-</style>
+    <style scoped>
+    </style>

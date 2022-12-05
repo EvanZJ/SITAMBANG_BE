@@ -21,6 +21,9 @@ return new class extends Migration
             $table->foreign('karyawan_id')->references('id')->on('karyawans')->onDelete('cascade');
             $table->integer('totalPembayaran')->required();
             $table->string('caraPembayaran')->required();
+            $table->string('status')->required();
+            $table->dateTime('verified_at')->nullable();
+            $table->string('bukti_path')->nullable();
             $table->timestamps();
         });
     }

@@ -13,9 +13,9 @@ class berisi extends Model
     use HasFactory;
 
     public function Stock(){
-        return $this->hasOne(Stock::class);
+        return $this->belongsTo(Stock::class);
     }
     public function Pemesanan(){
-        return $this->hasOne(Pemesanan::class);
+        return $this->belongsTo(Pemesanan::class);
     }
 }

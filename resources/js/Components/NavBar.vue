@@ -18,8 +18,8 @@
     </nav>
     <div class="overlay">
         <div class="menu-list" v-if="menu">
-            <a href="/">Riwayat Transaksi</a>
-            <a href="/">Informasi Barang</a>
+            <a href="/pembeli/riwayat-transaksi">Riwayat Transaksi</a>
+            <a href="/pembeli/stock">Informasi Barang</a>
             <a href="/pembeli/pemesanan">Pemesanan</a>
         </div>
     </div>
@@ -74,7 +74,8 @@ export default {
     }
     .overlay{
         position: absolute;
-        height: 91%;
+        z-index: 99999999999999999999;
+        height: 100%;
     }
     a{
         color: white;

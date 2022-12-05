@@ -65,6 +65,7 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/riwayat-transaksi', [PembeliController::class, 'riwayatTransaksi'])->name('pembeli.riwayat-transaksi');
     Route::get('/get-pagination', [PembeliController::class, 'getPagination'])->name('pembeli.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('pembeli.stock');
+    Route::get('/detail/{id}', [PembeliController::class, 'detail'])->name('pembeli.detail');
     
     Route::get('/pemesanan', [
         PemesananController::class, 'index'
