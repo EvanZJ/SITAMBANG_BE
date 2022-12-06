@@ -171,21 +171,34 @@ class PemesananController extends Controller
         if(filesize($bukti) > 100000){
             return redirect(route('pemesanan.unggah_bukti_pembayaran'))->with('msg', 'Ukuran bukti melebihi 100Kb, harap dikompress');
         }
-        $time = time();
-        $fileName =  $time. '.' . $bukti->getClientOriginalExtension();
-        // save bukti
+        $offset_to_gmt = date('Z');
+        $datetime = date('Y-m-d_H-i-s', time()-$offset_to_gmt+7*3600);// YYYY-mm-dd-HH-ii-ss  but gmt+7
+        
+        $fileName =  $datetime. '.' . $bukti->getClientOriginalExtension();
+        // save bukti (berhasil)
         Storage::disk('local')->put('images/pemesanan/'.$fileName, $bukti, 'public');
         
         // save data pemesanan
-        $input['totalPembayaran'] = session('total_harga');
-        $input['caraPembayaran'] = session('caraPembelian');
-        $input['user_id'] = Auth::id();
-        $input['karyawan_id'] = 1;// default value, nanti diedit sama verifier
-        $input['status'] = 'Belum Terverifikasi';
+        // $input['totalPembayaran'] = session('total_harga');
+        // $input['caraPembayaran'] = session('caraPembelian');
+        // $input['user_id'] = Auth::id();
+        // $input['karyawan_id'] = 1;// default value, nanti diedit sama verifier
+        // $input['status'] = 'unverified';
+        // $input['bukti_path'] = 'images/pemesanan/'.$fileName;
+        // $input['verified_at'] = null;
 
-        Pemesanan::create($input);
+        Pemesanan::create([
+            'user_id' => Auth::id(),
+            'karyawan_id' => 1, // default
+            'totalPembayaran' => session('total_harga'),
+            'caraPembayaran' => session('caraPembelian'),
+            'status' => 'unverified',
+            'verified_at' => null,
+            'bukti_path' => 'images/pemesanan/'.$fileName
+        ]);
+        // Pemesanan::create($input);
 
-        return redirect()->route('pembeli.dashboard');
+        return $this->selesai_memesan();
 
     }
 
