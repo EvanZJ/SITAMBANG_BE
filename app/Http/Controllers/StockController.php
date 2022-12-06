@@ -44,9 +44,16 @@ class StockController extends Controller
      */
     public function create()
     {
-        return Inertia::render('TambahProdukView', [
-            'csrf' => csrf_token(),
-        ]);
+        if (Auth::guard('karyawan')->check()) {
+            return Inertia::render('TambahProdukView', [
+                'isPembeli' => false,
+                'isKaryawan' => true,
+                'csrf' => csrf_token(),
+            ]);
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
     }
 
     /**

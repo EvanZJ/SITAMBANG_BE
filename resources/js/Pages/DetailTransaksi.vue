@@ -1,7 +1,8 @@
 <template lang="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <div id="canvas">
-        <NavBar title="Detail Transaksi"/>
+        <NavBar v-if="isPembeli" title="Detail Transaksi"/>
+        <NavbarPenjual v-else title="Detail Transaksi"/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -49,7 +50,8 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between mx-5 mb-5">
-                            <a href="/pembeli/riwayat-transaksi" class="btn btn-danger px-4">Back</a>
+                            <a v-if='isPembeli' href="/pembeli/riwayat-transaksi" class="btn btn-danger px-4">Back</a>
+                            <a v-else href="/karyawan/riwayat-transaksi" class="btn btn-danger px-4">Back</a>
                             <button class="btn btn-primary px-4" @click="downloadPDF()">
                                 Cetak Nota
                             </button>
@@ -63,6 +65,7 @@
 </template>
 <script>
 import NavBar from '@/Components/NavBar.vue';
+import NavbarPenjual from '@/Components/NavbarPenjual.vue';
 import html2PDF from "jspdf-html2canvas";
 import html2canvas from "html2canvas";
 
@@ -72,9 +75,12 @@ export default {
         product: Object,
         list_product: Array,
         nama: Object,
+        isPembeli: Boolean,
+        isKaryawan: Boolean,
     },
     components: {
         NavBar,
+        NavbarPenjual,
     },
     data() {
         return {
@@ -132,13 +138,6 @@ export default {
             } finally {
                 console.log("jsPDF FIM");
             }
-            // window.html2canvas = html2canvas;
-            // var doc = new jsPDF('p', 'pt', 'a4');
-            // doc.html(document.querySelector("#canvas"), {
-            //     callback: function (doc) {
-            //         doc.save('Nota.pdf');
-            //     }
-            // });
         },
     },
     mounted() {
