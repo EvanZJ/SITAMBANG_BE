@@ -12,7 +12,9 @@ class Pemesanan extends Model
         'caraPembayaran',
         'user_id',
         'status',
-        'karyawan_id'
+        'karyawan_id',
+        'bukti_path',
+        'verified_at'
     ];
     use HasFactory;
 
@@ -31,4 +33,8 @@ class Pemesanan extends Model
     public function Berisi(){
         return $this->hasMany(Berisi::class);
     }
+
+    // percobaan avin
+    protected $table='pemesanans';
+
 }
