@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="/verifikasiPemesanan">Verifikasi Pemesanan</a>
+                        <a href="/karyawan/verifikasi">Verifikasi Pemesanan</a>
                     </td>
                 </tr>
                 <tr>

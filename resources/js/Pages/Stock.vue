@@ -44,8 +44,8 @@
     </div>
 </template>
 <script>
-import NavBarPenjual from '../components/NavBarPenjual.vue'
-import NavBar from '../components/NavBar.vue'
+import NavBarPenjual from '../Components/NavBarPenjual.vue'
+import NavBar from '../Components/NavBar.vue'
 export default {
     components:{
         NavBar, NavBarPenjual

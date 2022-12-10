@@ -1,119 +1,115 @@
-<script setup>
-import NavBar from '../components/Navbar.vue'
-</script>
-
-<script>
-export default {
-  data() {
-    return {
-        navTitle:'Riwayat Transaksi',
-        date:'10-05-2022 14:32:21',
-        metode: 'Transfer',
-        purchases: [
-            {   
-                nama:'Udang', 
-                harga:80000,
-                kuantitas: 2,
-                total:160000
-            },
-            {   
-                nama:'Lobster', 
-                harga:150000,
-                kuantitas: 1,
-                total:150000
-            },
-        ],
-        totalPrice: 310000,
-        buyerName:'Udin',
-    }
-  },
-  props: {
-    isAdmin: String,
-  },
-  components:{
-    NavBar,
-  },
-  methods: {
-    toCurrency(value) {
-        if (typeof value !== "number") {
-            return value;
-        }
-        var formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
-        // cut off the $ sign
-        return formatter.format(value).substring(1,);
-    },
-  },
-}
-</script>
-
-<template>
-<div id="all" class="bg-white">
-    <NavBar title="Verifikasi Pemesanan"/>
-    <div id="undernav">
-        <div id="window" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
-            <div id="title" class="text-black m-3">
-                <h2>Detail Transaksi</h2>
-            </div>
-
-            <div id="detail-transaksi" class="text-black m-5">
-                <div id="info">
-                    <p>
-                        Tanggal Transaksi: {{ date }}
-                    </p>
-                    <p v-if="isAdmin == 'true'">
-                        Pembeli: {{ buyerName }}
-                    </p>
-                    <p v-else>
-
-                    </p>
-                    <p>
-                        Metode Pembayaran: {{ metode }}
-                    </p>
-                    <p>
-                        Rincian:
-                    </p>
-                </div>
-                <div id="table-detail">
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                            <th scope="col">Nama Produk</th>
-                            <th scope="col">Harga/Kg</th>
-                            <th scope="col">Kuantitas</th>
-                            <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody v-for="barang in purchases">
-                            <tr>
-                            <th scope="row">{{ barang.nama }}</th>
-                            <td>Rp{{ toCurrency(barang.harga) }}</td>
-                            <td>{{ barang.kuantitas }}</td>
-                            <td>Rp{{ toCurrency(barang.total) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="total-biaya">
-                        <p>Total: Rp{{ toCurrency(totalPrice) }}</p>
+<template lang="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <div id="canvas">
+        <NavBar v-if="isPembeli" title="Detail Transaksi"/>
+        <NavbarPenjual v-else title="Detail Transaksi"/>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <h1>
+                            Detail Transaksi
+                        </h1>
+                        <p>
+                            <label>
+                                Tanggal Transaksi : 
+                            </label>
+                            {{ data[0].created_at }}
+                        </p>
+                        <p>
+                            <label>
+                                Pembeli : 
+                            </label>
+                            {{ nama.name }}
+                        </p>
+                        <p>
+                            <label>
+                                Tipe Pembayaran : 
+                            </label>
+                            {{ data[0].caraPembayaran }}
+                        </p>
+                        <p>
+                            Rincian:
+                        </p>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nama Barang</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Jumlah</th>
+                                <th scope="col">Subtotal</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="p in new_product" :key="p.id">
+                                <th scope="row">{{ p.nama_product }}</th>
+                                <td>{{ toCurrency(p.harga) }}</td>
+                                <td>{{ p.kuantitas }}</td>
+                                <td>{{ toCurrency(p.kuantitas * p.harga) }}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between mx-5 mb-5">
+                            <a href="/karyawan/verifikasi" class="btn btn-danger px-4">Back</a>
+                            <form method="post" :action="'/karyawan/verifikasi/'+data[0].id">
+                                <input type="hidden" name="_token" :value="csrf">
+                                <button type="submit" class="btn btn-success px-4">Verify</button>
+                            </form>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between mx-5 mb-5">
-                <button type="button" class="btn btn-danger px-4">Back</button>
-                <p v-if="isAdmin == 'true'">
-                    <button type="button" class="btn btn-primary px-4">Verifikasi</button>
-                </p>
-                <p v-else>
-                    <button type="button" class="btn btn-primary px-4">Cetak Nota</button>
-                </p>
-                
-            </div>
         </div>
     </div>
-</div>
 </template>
+<script>
+import NavBar from '@/Components/NavBar.vue';
+import NavbarPenjual from '@/Components/NavbarPenjual.vue';
+import html2PDF from "jspdf-html2canvas";
+import html2canvas from "html2canvas";
 
-<style scoped>
+export default {
+    props: {
+        data: Object,
+        product: Object,
+        list_product: Array,
+        nama: Object,
+        csrf: String,
+    },
+    components: {
+        NavBar,
+        NavbarPenjual,
+    },
+    data() {
+        return {
+            new_product: Object,
+        }
+    },
+    methods: {
+        getNamaProduct() {
+            this.new_product = this.product.map((p) => {
+                return {
+                    ...p,
+                    nama_product: this.list_product.find((lp) => lp.id === p.stock_id).name,
+                    harga: this.list_product.find((lp) => lp.id === p.stock_id).harga,
+                }
+            });
+        },
+        toCurrency(value) {
+            if (typeof value !== "number") {
+                return value;
+            }
+            var formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
+            return formatter.format(value);
+        },
+    },
+    mounted() {
+        this.getNamaProduct();
+        console.log(this.new_product)
+    }
+}
+</script>
+<style lang="">
+    
 </style>

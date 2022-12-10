@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Faker\Calculator\Inn;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\PembeliController;
+use App\Models\Pemesanan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/data/pembeli/edit/{id}', [KaryawanController::class, 'editPembeli'])->name('pembeli.edit');
     Route::post('/data/pembeli/edit/{id}', [KaryawanController::class, 'updatePembeli'])->name('pembeli.update');
     Route::post('/data/pembeli/delete/{id}', [KaryawanController::class, 'destroyPembeli'])->name('pembeli.delete');
+    Route::get('/verifikasi', [PemesananController::class, 'verifikasi'])->name('verifikasi.index');
+    Route::get('/verifikasi/get-pagination', [PemesananController::class, 'verifikasiPagination'])->name('verifikasi.get-pagination');
+    Route::get('/verifikasi/{id}', [PemesananController::class, 'detailVerifikasi'])->name('verifikasi.detail');
+    Route::post('/verifikasi/{id}', [PemesananController::class, 'verify'])->name('verifikasi.verify');
     
 })->middleware(['auth', 'verified', 'karyawan']);
 

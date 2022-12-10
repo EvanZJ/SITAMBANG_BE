@@ -276,4 +276,65 @@ class PemesananController extends Controller
     {
         //
     }
+
+    public function verifikasi(){
+        if (Auth::guard('karyawan')->check()) {
+            return Inertia::render('VerifikasiPemesananView', [
+                'csrf' => csrf_token(),
+            ]);
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
+    }
+
+    public function verifikasiPagination(){
+        if (Auth::guard('karyawan')->check()) {
+            $riwayatTransaksi = Pemesanan::where('status', 'unverified')->paginate(10);
+            //dd($riwayatTransaksi);
+            return $riwayatTransaksi;
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
+    }
+
+    public function detailVerifikasi(Request $request){
+        if (Auth::guard('karyawan')->check()) {
+            $data = Pemesanan::where('id', $request->id)->get();
+            $product = $data[0]->Berisi()->get();
+            $list_product = [];
+            foreach ($product as $p){
+                $list_product[] = $p->Stock()->get()[0];
+            }
+            $nama = $data[0]->User()->get()[0];
+            return Inertia::render('DetailVerifikasiView', [
+                'data' => $data,
+                'product' => $product,
+                'list_product' => $list_product,
+                'nama' => $nama,
+                'csrf' => csrf_token(),
+            ]);
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
+
+    }
+
+    public function verify(Request $request, $id){
+        if (Auth::guard('karyawan')->check()) {
+            $data = Pemesanan::findOrFail($id);
+            $offset_to_gmt = date('Z');
+            $datetime = date('Y-m-d_H-i-s', time()-$offset_to_gmt+7*3600);// YYYY-mm-dd-HH-ii-ss  but gmt+7
+            $data->status = 'verified';
+            $data->verified_at = $datetime;
+            $data->save();
+            return redirect()->route('verifikasi.index');
+        }
+        else{
+            return redirect()->route('karyawan.login');
+        }
+
+    }
 }
