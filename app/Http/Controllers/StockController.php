@@ -16,19 +16,19 @@ class StockController extends Controller
     public function index()
     {
         $stocks = Stock::all();
-        if (Auth::guard('web')->check()) {
-            return Inertia::render('Stock', [
-                'stocks' => $stocks,
-                'isPembeli' => true,
-                'isKaryawan' => false,
-                'csrf' => csrf_token(),
-            ]);
-        }
-        else if (Auth::guard('karyawan')->check()) {
+        if (Auth::guard('karyawan')->check()) {
             return Inertia::render('Stock', [
                 'stocks' => $stocks,
                 'isPembeli' => false,
                 'isKaryawan' => true,
+                'csrf' => csrf_token(),
+            ]);
+        }
+        else if (Auth::guard('web')->check()) {
+            return Inertia::render('Stock', [
+                'stocks' => $stocks,
+                'isPembeli' => true,
+                'isKaryawan' => false,
                 'csrf' => csrf_token(),
             ]);
         }
