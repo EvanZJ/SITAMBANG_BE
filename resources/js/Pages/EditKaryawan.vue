@@ -1,21 +1,21 @@
 <template lang="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <NavbarPenjual title="Edit pembeli"/>
+    <NavbarPenjual title="Edit karyawan" :token="csrf"/>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h1>
-                        Edit pembeli
+                        Edit karyawan
                     </h1>
                     <div>
                         <form method="POST" action="" class="forms">
                             <input type="hidden" name="_token" :value="csrf">
                             <div class="form-input">
                                 <label class="title" for=" ">Nama</label>
-                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" :value="pembeli.name" required>
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" :value="karyawan.name" required>
                             </div>
-                            <div class="form-input" v-if="pembeli.jenis_kelamin == 'Laki-laki'">
+                            <div class="form-input" v-if="karyawan.jenis_kelamin == 'Laki-laki'">
                                 <label class="title"  for=" ">Jenis Kelamin</label>
                                 <input class="form-check-input" type="radio" name="jenis_kelamin" id="flexRadioDefault1" value="Laki-Laki" checked>
                                 <label class="form-check-label" for="flexRadioDefault1">
@@ -39,27 +39,27 @@
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Tanggal Lahir</label>
-                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir" :value="pembeli.tanggal_lahir" required>
+                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir" :value="karyawan.tanggal_lahir" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Tempat Lahir</label>
-                                <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" placeholder="Tempat Lahir" :value="pembeli.tanggal_lahir" required>
+                                <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" placeholder="Tempat Lahir" :value="karyawan.tanggal_lahir" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Alamat</label>
-                                <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" :value="pembeli.alamat" required>
+                                <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" :value="karyawan.alamat" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">HP / Telepon</label>
-                                <input type="text" name="no_hp" id="no_hp" class="form-control" placeholder="HP / Telepon" :value="pembeli.no_telp" required>
+                                <input type="text" name="no_hp" id="no_hp" class="form-control" placeholder="HP / Telepon" :value="karyawan.no_telp" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Email" :value="pembeli.email" required>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email" :value="karyawan.email" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Jabatan</label>
-                                <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Jabatan" :value="pembeli.jabatan" required>
+                                <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Jabatan" :value="karyawan.jabatan" required>
                             </div>
                             <input type="submit" value="Update">
                         </form>
@@ -78,10 +78,10 @@ export default {
     },
     props: {    
         csrf: String,
-        pembeli: Object,
+        karyawan: Object,
     },
     mounted() {
-        console.log(this.csrf);
+        console.log(this.karyawan);
     },
 }
 </script>

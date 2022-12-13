@@ -13,7 +13,7 @@
             </svg>
         </div>
         <h2>
-            {{title}}
+            <a href="/karyawan/dashboard">{{ title }}</a>
         </h2>
     </nav>
     <div class="overlay">
@@ -53,11 +53,10 @@
                     <td>
                         <form method="POST" action="/karyawan/logout">
                             <input type="hidden" name="_token" :value="token">
-                            <button type="submit">Logout</button>
+                            <button type="submit">
+                                <p>Log Out</p>
+                            </button>
                         </form>
-                    </td>
-                    <td>
-                        <a href="">{{ token }}</a>
                     </td>
                 </tr>
             </table>
@@ -117,6 +116,12 @@ export default {
         height: 100%;
     }
     a{
+        color: white;
+        text-decoration: none;
+        font-size: 18pt;
+        padding-right: 20px;
+    }
+    p{
         color: white;
         text-decoration: none;
         font-size: 18pt;

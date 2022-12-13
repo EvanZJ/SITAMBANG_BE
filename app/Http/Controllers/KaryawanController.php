@@ -278,4 +278,25 @@ class KaryawanController extends Controller
         }
         
     }
+
+    public function editPembeli($id){
+        if (Auth::guard('karyawan')->check()) {
+            $isAdmin = Auth::guard('karyawan')->user()->is_admin;
+            if($isAdmin){
+                $pembeli = User::find($id);
+                // dd($pembeli);
+                return Inertia::render('EditPembeli', [
+                    'csrf' => csrf_token(),
+                    'pembeli' => $pembeli,
+                    'token' => csrf_token(),
+                ]);
+            }
+            else{
+                return redirect()->route('karyawan.dashboard');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
 }
