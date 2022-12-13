@@ -45,6 +45,8 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
     Route::post('/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
     Route::get('/riwayat-transaksi', [KaryawanController::class, 'riwayatTransaksi'])->name('karyawan.riwayat-transaksi');
+    Route::get('/edit-pemesanan/{id}', [KaryawanController::class, 'pemesanan'])->name('karyawan.pemesanan');
+    Route::post('/delete-pemesanan/{id}', [KaryawanController::class, 'deletePemesanan'])->name('karyawan.delete-pemesanan');
     Route::get('/detail/{id}', [KaryawanController::class, 'detailTransaksi'])->name('karyawan.detail-transaksi');
     Route::get('/get-pagination', [KaryawanController::class, 'getPagination'])->name('karyawan.get-pagination');
     Route::get('/stock', [StockController::class, 'index'])->name('stock.index');
