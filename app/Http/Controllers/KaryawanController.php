@@ -30,10 +30,11 @@ class KaryawanController extends Controller
 
     public function login(Request $request){
         if(Auth::guard('karyawan')->attempt(['email' => $request->email, 'password' => $request->password])){
+            $request->session()->regenerate();
             return redirect()->route('karyawan.dashboard');
         }
         else{
-            return redirect()->route('karyawan.login')->with('error', 'Email atau password salah');
+            return redirect()->route('login');
         }
     }
 
@@ -47,10 +48,11 @@ class KaryawanController extends Controller
             return Inertia::render('RiwayatTransaksi', [
                 'isPembeli' => false,
                 'isKaryawan' => true,
+                'token' => csrf_token(),
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
         // dd(json_encode($riwayatTransaksi));
     }
@@ -60,10 +62,11 @@ class KaryawanController extends Controller
             return Inertia::render('Dashboard', [
                 'isPembeli' => false,
                 'isKaryawan' => true,
+                'token' => csrf_token(),
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -73,7 +76,7 @@ class KaryawanController extends Controller
             return $riwayatTransaksi;
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -83,7 +86,7 @@ class KaryawanController extends Controller
             return $karyawawan;
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -93,10 +96,11 @@ class KaryawanController extends Controller
             return Inertia::render('KaryawanList', [
                 'isAdmin' => $isAdmin,
                 'csrf' => csrf_token(),
+                'token' => csrf_token(),
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -106,6 +110,7 @@ class KaryawanController extends Controller
             if($isAdmin){
                 return Inertia::render('TambahKaryawan', [
                     'csrf' => csrf_token(),
+                    'token' => csrf_token(),
                 ]);
             }
             else{
@@ -113,7 +118,7 @@ class KaryawanController extends Controller
             }
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -158,6 +163,7 @@ class KaryawanController extends Controller
                 return Inertia::render('EditKaryawan', [
                     'csrf' => csrf_token(),
                     'karyawan' => $karyawan,
+                    'token' => csrf_token(),
                 ]);
             }
             else{
@@ -165,7 +171,7 @@ class KaryawanController extends Controller
             }
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -215,10 +221,11 @@ class KaryawanController extends Controller
                 'nama' => $nama,
                 'isKaryawan' => true,
                 'isPembeli' => false,
+                'token' => csrf_token(),
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
 
     }
@@ -236,7 +243,7 @@ class KaryawanController extends Controller
             }
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -249,6 +256,7 @@ class KaryawanController extends Controller
                     'pembeli' => $pembeli,
                     'isAdmin' => $isAdmin,
                     'csrf' => csrf_token(),
+                    'token' => csrf_token(),
                 ]);
             }
             else{
@@ -256,7 +264,7 @@ class KaryawanController extends Controller
             }
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -266,7 +274,7 @@ class KaryawanController extends Controller
             return $pembeli;
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
         
     }
