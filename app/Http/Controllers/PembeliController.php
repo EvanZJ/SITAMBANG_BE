@@ -16,6 +16,7 @@ class PembeliController extends Controller
             return Inertia::render('Dashboard', [
                 'isPembeli' => true,
                 'isKaryawan' => false,
+                'token' => csrf_token(),
             ]);
         }
         else{
@@ -25,7 +26,9 @@ class PembeliController extends Controller
 
     public function riwayatTransaksi(){
         if (Auth::guard('web')->check()) {
-            return Inertia::render('RiwayatTransaksiPembeli');
+            return Inertia::render('RiwayatTransaksiPembeli', [
+                'token' => csrf_token(),
+            ]);
         }
         else{
             return redirect()->route('login');
@@ -59,6 +62,7 @@ class PembeliController extends Controller
                 'nama' => $nama,
                 'isPembeli' => true,
                 'isKaryawan' => false,
+                'token' => csrf_token(),
             ]);
         }
         else{

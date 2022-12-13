@@ -22,6 +22,7 @@ class StockController extends Controller
                 'isPembeli' => false,
                 'isKaryawan' => true,
                 'csrf' => csrf_token(),
+                'token' => csrf_token(),
             ]);
         }
         else if (Auth::guard('web')->check()) {
