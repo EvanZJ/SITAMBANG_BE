@@ -1,7 +1,7 @@
 <template lang="">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <NavBar title="Informasi Barang" v-if="isPembeli"/>
-    <NavBarPenjual title="Informasi Barang" v-if="isKaryawan"/>
+    <NavBar title="Informasi Barang" v-if="isPembeli" :token="token"/>
+    <NavBarPenjual title="Informasi Barang" v-if="isKaryawan" :token="token"/>
     <div class="container">
         <div class="isi-item" v-for="(stock, idx) in stocks" :key="idx">
             <div class="d-flex row">
@@ -51,7 +51,7 @@ export default {
         NavBar, NavBarPenjual
     },
     props:[
-        'stocks', 'csrf', 'isPembeli', 'isKaryawan'
+        'stocks', 'csrf', 'isPembeli', 'isKaryawan', 'token',
     ],
     methods:{
         toCurrency(value) {

@@ -118,6 +118,7 @@ class PemesananController extends Controller
             'data_pembelian' => session('data_pembelian'),
             'total_harga' => session('total_harga'),
             'metode_pembayaran' => session('caraPembelian'),
+            'token' => csrf_token(),
         ]);
     }
 
@@ -127,6 +128,7 @@ class PemesananController extends Controller
             'data_pembelian' => session('data_pembelian'),
             'total_harga' => session('total_harga'),
             'metode_pembayaran' => session('caraPembelian'),
+            'token' => csrf_token(),
         ]);
     }
     public function info_pembayaran_bank(){
@@ -134,6 +136,7 @@ class PemesananController extends Controller
         return Inertia::render('Pemesanan/InfoPembayaranBank', [
             'total_harga' => session('total_harga'),
             'metode_pembayaran' => session('caraPembelian'),
+            'token' => csrf_token(),
         ]);
     }
     public function info_pembayaran_ewallet(){
@@ -141,6 +144,7 @@ class PemesananController extends Controller
         return Inertia::render('Pemesanan/InfoPembayaranEWallet', [
             'total_harga' => session('total_harga'),
             'metode_pembayaran' => session('caraPembelian'),
+            'token' => csrf_token(),
         ]);
     }
 

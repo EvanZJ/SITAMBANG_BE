@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBar.vue'
 
 <template>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<NavBar title="Konfirmasi Pemesanan"/>
+<NavBar title="Konfirmasi Pemesanan" :token="token"/>
 <div id="undernav">
     <div id="window" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
         <div id="title" class="text-black m-3">
@@ -59,7 +59,8 @@ export default {
     props: [
         'data_pembelian',
         'total_harga',
-        'metode_pembayaran'
+        'metode_pembayaran',
+        'token',
         // isAdmin: String,
     ],
     methods: {
