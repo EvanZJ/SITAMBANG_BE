@@ -13,7 +13,7 @@
             </svg>
         </div>
         <h2>
-            {{ title }}
+            <a href="/pembeli/dashboard">{{ title }}</a>
         </h2>
     </nav>
     <div class="overlay">
