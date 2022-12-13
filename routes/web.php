@@ -75,8 +75,7 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/verifikasi/get-pagination', [PemesananController::class, 'verifikasiPagination'])->name('verifikasi.get-pagination');
     Route::get('/verifikasi/{id}', [PemesananController::class, 'detailVerifikasi'])->name('verifikasi.detail');
     Route::post('/verifikasi/{id}', [PemesananController::class, 'verify'])->name('verifikasi.verify');
-    
-})->middleware(['auth', 'verified', 'karyawan']);
+})->middleware(['auth', 'verified', 'karyawan', 'cors', 'guest']);
 
 
 Route::prefix('pembeli')->group(function() {

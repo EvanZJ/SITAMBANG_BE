@@ -33,11 +33,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->route('pembeli.dashboard');
+        if (Auth::guard('web')->attempt($request->only('email', 'password'))) {
+            // $request->authenticate();
+            $request->session()->regenerate();
+            return redirect()->route('pembeli.dashboard');
+        }
+        else if (Auth::guard('karyawan')->attempt($request->only('email', 'password'))) {
+            // $request->authenticate();
+            $request->session()->regenerate();
+            return redirect()->route('karyawan.dashboard');
+        }
+        else{
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
     }
 
     /**
@@ -49,6 +59,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
+        Auth::guard('karyawan')->logout();
 
         $request->session()->invalidate();
 

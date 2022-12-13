@@ -281,10 +281,11 @@ class PemesananController extends Controller
         if (Auth::guard('karyawan')->check()) {
             return Inertia::render('VerifikasiPemesananView', [
                 'csrf' => csrf_token(),
+                'token' => csrf_token(),
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -295,7 +296,7 @@ class PemesananController extends Controller
             return $riwayatTransaksi;
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -317,7 +318,7 @@ class PemesananController extends Controller
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
 
     }
@@ -333,7 +334,7 @@ class PemesananController extends Controller
             return redirect()->route('verifikasi.index');
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
 
     }
