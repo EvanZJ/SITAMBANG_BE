@@ -51,7 +51,7 @@ export default {
         NavBar, NavBarPenjual
     },
     props:[
-        'stocks', 'csrf', 'isPembeli', 'isKaryawan', 'token'
+        'stocks', 'csrf', 'isPembeli', 'isKaryawan', 'token',
     ],
     methods:{
         toCurrency(value) {

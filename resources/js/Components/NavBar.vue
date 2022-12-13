@@ -21,6 +21,10 @@
             <a href="/pembeli/riwayat-transaksi">Riwayat Transaksi</a>
             <a href="/pembeli/stock">Informasi Barang</a>
             <a href="/pembeli/pemesanan">Pemesanan</a>
+            <form method="post" action="/logout">
+                <input type="hidden" name="_token" :value="token">
+                <button type="submit">Logout</button>
+            </form>
         </div>
     </div>
 </template>
@@ -35,7 +39,7 @@ export default {
         }
     },
     props:{
-        title: String,
+        title: String, token: String,
     },
     methods:{
         toggleMenu(){
@@ -82,5 +86,8 @@ export default {
         text-decoration: none;
         font-size: 18pt;
         padding-right: 20px;
+    }
+    button{
+        font-size: 18pt;
     }
 </style>
