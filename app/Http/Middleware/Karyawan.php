@@ -18,7 +18,7 @@ class Karyawan
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::guard('karyawan')->check()) {
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
         return $next($request);
     }

@@ -49,6 +49,17 @@
                         <a href="/karyawan/data/pembeli">Data Pembeli</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <form method="POST" action="/karyawan/logout">
+                            <input type="hidden" name="_token" :value="token">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a href="">{{ token }}</a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -63,6 +74,7 @@ export default {
     },
     props:{
         title: String,
+        token: String,
     },
     methods:{
         toggleMenu(){
