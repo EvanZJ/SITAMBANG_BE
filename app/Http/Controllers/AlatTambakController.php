@@ -6,6 +6,7 @@ use App\Models\AlatTambak;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class AlatTambakController extends Controller
 {
@@ -16,16 +17,22 @@ class AlatTambakController extends Controller
      */
     public function index()
     {
-        $alats = AlatTambak::all();
-        $karyawans = array();
-        foreach ($alats as $alat){
-            array_push($karyawans, $alat->Karyawan()->get()[0]);
+        if (Auth::guard('karyawan')->check()) {
+            $alats = AlatTambak::all();
+            $karyawans = array();
+            foreach ($alats as $alat){
+                array_push($karyawans, $alat->Karyawan()->get()[0]);
+            }
+            return Inertia::render('KondisiAlatView', [
+                'alats' => $alats,
+                'karyawans' => $karyawans,
+                'csrf' => csrf_token(),
+                'token' => csrf_token(),
+            ]);
         }
-        return Inertia::render('KondisiAlatView', [
-            'alats' => $alats,
-            'karyawans' => $karyawans,
-            'csrf' => csrf_token(),
-        ]);
+        else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -38,6 +45,7 @@ class AlatTambakController extends Controller
         return Inertia::render('TambahAlatView', [
             'csrf' => csrf_token(),
             'karyawans' => Karyawan::all(),
+            'token' => csrf_token(),
         ]);
     }
 
@@ -82,14 +90,20 @@ class AlatTambakController extends Controller
      */
     public function edit($id)
     {
-        $alat = AlatTambak::findOrFail($id);
-        $pj = $alat->Karyawan()->get()[0];
-        return Inertia::render('UpdateAlatView', [
-            'alat' => $alat,
-            'csrf' => csrf_token(),
-            'karyawans' => Karyawan::all(),
-            'pj' => $pj,
-        ]);
+        if (Auth::guard('karyawan')->check()) {
+            $alat = AlatTambak::findOrFail($id);
+            $pj = $alat->Karyawan()->get()[0];
+            return Inertia::render('UpdateAlatView', [
+                'alat' => $alat,
+                'csrf' => csrf_token(),
+                'karyawans' => Karyawan::all(),
+                'pj' => $pj,
+                'token' => csrf_token(),
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 <template>
-    <NavBar title="Kondisi Peralatan"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <NavBar title="Kondisi Peralatan" :token="token"/>
     <div class="flex-box">
         <div class="box">
             <h2 class="title">Tambah Peralatan</h2>
@@ -27,12 +28,13 @@
                 
                 <input type="submit" value="Tambah">
             </form>
+            <a href="">{{ token }}</a>
         </div>
     </div>
 </template>
 
 <script>
-import NavBar from '../components/NavBarPenjual.vue'
+import NavBar from '@/Components/NavBarPenjual.vue'
 
 export default {
     data(){
@@ -45,9 +47,11 @@ export default {
     methods:{
 
     },
-    props:[
-        'csrf', 'karyawans',
-    ],
+    props : {
+        csrf: String,
+        karyawans: Array,
+        token: String
+    }
 }
 </script>
 

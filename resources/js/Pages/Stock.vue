@@ -3,7 +3,7 @@
     <NavBar title="Informasi Barang" v-if="isPembeli" :token="token"/>
     <NavBarPenjual title="Informasi Barang" v-if="isKaryawan" :token="token"/>
     <div class="container">
-        <div class="isi-item" v-for="(stock, idx) in stocks" :key="idx">
+        <div class="isi-item" v-for="(stock, idx) in stocks" :key="idx" :token="token">
             <div class="d-flex row">
                 <h1 class="">
                     {{ idx+1 }}. {{ stock.name }}

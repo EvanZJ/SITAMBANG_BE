@@ -23,6 +23,7 @@ getResults();
                           <tr>
                             <th scope="col">ID Pembeli</th>
                             <th scope="col">Nama</th>
+                            <th scope="col">Alamat</th>
                             <th scope="col">No. Telepon</th>
                             <th scope="col">Email</th>
                             <th scope="col" v-if="isAdmin">Action</th>
@@ -32,8 +33,9 @@ getResults();
                             <tr v-for="post in dataPembeli.data" :key="post.id">
                             <th scope="row">{{ post.id }}</th>
                             <td>{{ post.name }}</td>
+                            <td>{{ post.alamat }}</td>
                             <td>{{ post.no_telp }}</td>
-                            <td>{{ post.email }}</td>   
+                            <td>{{ post.email }}</td>
                             <td v-if="isAdmin">
                                 <a :href="'/karyawan/data/pembeli/edit/' + post.id">
                                     <button type="button" class="btn btn-primary">
