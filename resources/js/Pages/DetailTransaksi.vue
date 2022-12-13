@@ -1,8 +1,8 @@
 <template lang="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <div id="canvas">
-        <NavBar v-if="isPembeli" title="Detail Transaksi"/>
-        <NavbarPenjual v-else title="Detail Transaksi"/>
+        <NavBar v-if="isPembeli" title="Detail Transaksi" :token="token"/>
+        <NavbarPenjual v-else title="Detail Transaksi" :token="token"/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -65,7 +65,7 @@
 </template>
 <script>
 import NavBar from '@/Components/NavBar.vue';
-import NavbarPenjual from '@/Components/NavbarPenjual.vue';
+import NavbarPenjual from '@/Components/NavBarPenjual.vue';
 import html2PDF from "jspdf-html2canvas";
 import html2canvas from "html2canvas";
 
@@ -77,6 +77,7 @@ export default {
         nama: Object,
         isPembeli: Boolean,
         isKaryawan: Boolean,
+        token: String,
     },
     components: {
         NavBar,

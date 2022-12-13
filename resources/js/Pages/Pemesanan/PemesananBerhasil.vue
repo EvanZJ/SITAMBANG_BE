@@ -4,7 +4,7 @@ import NavBar from '../../components/Navbar.vue'
 
 <template>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<NavBar title="Pemesanan"/>
+<NavBar title="Pemesanan" :token="token"/>
 <div id="all" class="bg-white">
     <div id="undernav">
         <div id="window-beli" class="mt-3 mb-3 mx-3 border border-bg-gray rounded">
@@ -32,6 +32,16 @@ import NavBar from '../../components/Navbar.vue'
 </template>
 
 <script>
+export default{
+    data(){
+        return{
+
+        }
+    },
+    props:[
+        'token',
+    ]
+}
 </script>
 
 
