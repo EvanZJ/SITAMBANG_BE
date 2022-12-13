@@ -51,10 +51,11 @@ class StockController extends Controller
                 'isPembeli' => false,
                 'isKaryawan' => true,
                 'csrf' => csrf_token(),
+                'token' => csrf_token(),
             ]);
         }
         else{
-            return redirect()->route('karyawan.login');
+            return redirect()->route('login');
         }
     }
 
@@ -104,6 +105,7 @@ class StockController extends Controller
         return Inertia::render('EditStock', [
             'stock' => $stock,
             'csrf' => csrf_token(),
+            'token' => csrf_token(),
         ]);
     }
 
