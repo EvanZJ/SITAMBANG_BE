@@ -164,10 +164,33 @@ class PemesananController extends Controller
     }
 
     public function store_pemesanan(Request $r){
-        $input = [];
-        // dd($r);
-        // dd($r->file('bukti-pembayaran'));
-        if(!$r->hasFile('bukti-pembayaran')){
+        $caraPembayaran = session('caraPembelian');
+        if($caraPembayaran == 'Tunai' || $caraPembayaran == 'tunai'){
+            $pemesanan = Pemesanan::create([
+                'user_id' => Auth::id(),
+                'karyawan_id' => 1, // default
+                'totalPembayaran' => session('total_harga'),
+                'caraPembayaran' => session('caraPembelian'),
+                'status' => 'unverified',
+                'verified_at' => null,
+                'bukti_path' => null,
+            ]);
+    
+            foreach(session('data_pembelian') as $data){
+                berisi::create([
+                    'pemesanan_id' => $pemesanan->id,
+                    'stock_id' => $data['stock']->id,
+                    'kuantitas' => $data['total_pembelian']
+                ]);
+                // here hilangkan stock ()
+                $the_stock = Stock::findOrFail($data['stock']->id);
+                $the_stock->total_persediaan -=$data['total_pembelian'];
+                $the_stock->save();
+            }
+            return $this->selesai_memesan();
+        }
+
+        if(!$r->hasFile('bukti-pembayaran') && $caraPembayaran != 'tunai'){
             return redirect(route('pemesanan.unggah_bukti_pembayaran'))->with('msg', 'Anda belum mengunggah foto');
         }
 
@@ -182,16 +205,7 @@ class PemesananController extends Controller
         $fileName =  $datetime. '.' . $bukti->getClientOriginalExtension();
         // save bukti (berhasil)
         Storage::disk('local')->put('images/pemesanan/'.$fileName, $bukti, 'public');
-        
-        // save data pemesanan
-        // $input['totalPembayaran'] = session('total_harga');
-        // $input['caraPembayaran'] = session('caraPembelian');
-        // $input['user_id'] = Auth::id();
-        // $input['karyawan_id'] = 1;// default value, nanti diedit sama verifier
-        // $input['status'] = 'unverified';
-        // $input['bukti_path'] = 'images/pemesanan/'.$fileName;
-        // $input['verified_at'] = null;
-
+    
         $pemesanan = Pemesanan::create([
             'user_id' => Auth::id(),
             'karyawan_id' => 1, // default
@@ -201,7 +215,6 @@ class PemesananController extends Controller
             'verified_at' => null,
             'bukti_path' => 'images/pemesanan/'.$fileName
         ]);
-        // Pemesanan::create($input);
 
         foreach(session('data_pembelian') as $data){
             berisi::create([
