@@ -29,6 +29,12 @@
                             {{ data[0].caraPembayaran }}
                         </p>
                         <p>
+                            <label>
+                                Bukti Pembayaran : 
+                            </label>
+                            <img :src="data[0].bukti_path">
+                        </p>
+                        <p>
                             Rincian:
                         </p>
                         <table class="table">
