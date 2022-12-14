@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\berisi;
 use App\Models\Pemesanan;
 use App\Models\Stock;
 use Inertia\Inertia;
@@ -191,7 +192,7 @@ class PemesananController extends Controller
         // $input['bukti_path'] = 'images/pemesanan/'.$fileName;
         // $input['verified_at'] = null;
 
-        Pemesanan::create([
+        $pemesanan = Pemesanan::create([
             'user_id' => Auth::id(),
             'karyawan_id' => 1, // default
             'totalPembayaran' => session('total_harga'),
@@ -201,6 +202,19 @@ class PemesananController extends Controller
             'bukti_path' => 'images/pemesanan/'.$fileName
         ]);
         // Pemesanan::create($input);
+
+        foreach(session('data_pembelian') as $data){
+            berisi::create([
+                'pemesanan_id' => $pemesanan->id,
+                'stock_id' => $data['stock']->id,
+                'kuantitas' => $data['total_pembelian']
+            ]);
+            // here hilangkan stock ()
+            $the_stock = Stock::findOrFail($data['stock']->id);
+            $the_stock->total_persediaan -=$data['total_pembelian'];
+            $the_stock->save();
+        }
+
 
         return $this->selesai_memesan();
 
