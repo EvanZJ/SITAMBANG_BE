@@ -278,4 +278,73 @@ class KaryawanController extends Controller
         }
         
     }
+
+    public function editPembeli($id){
+        if (Auth::guard('karyawan')->check()) {
+            $isAdmin = Auth::guard('karyawan')->user()->is_admin;
+            if($isAdmin){
+                $pembeli = User::find($id);
+                // dd($pembeli);
+                return Inertia::render('EditPembeli', [
+                    'csrf' => csrf_token(),
+                    'pembeli' => $pembeli,
+                    'token' => csrf_token(),
+                ]);
+            }
+            else{
+                return redirect()->route('karyawan.dashboard');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function pemesanan(Request $id){
+        if (Auth::guard('karyawan')->check()) {
+            $isAdmin = Auth::guard('karyawan')->user()->is_admin;
+            if($isAdmin){
+                $pemesanan = Pemesanan::where('id', $id->id)->get();
+                $product = $pemesanan[0]->Berisi()->get();
+                $list_product = [];
+                foreach ($product as $p){
+                    $list_product[] = $p->Stock()->get()[0];
+                }
+                $nama = $pemesanan[0]->User()->get()[0];
+                dd($pemesanan, $product, $list_product, $nama);
+                return Inertia::render('DetailTransaksi', [
+                    'data' => $pemesanan,
+                    'product' => $product,
+                    'list_product' => $list_product,
+                    'nama' => $nama,
+                    'isKaryawan' => true,
+                    'isPembeli' => false,
+                    'token' => csrf_token(),
+                ]);
+            }
+            else{
+                return redirect()->route('karyawan.dashboard');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function deletePemesanan($id){
+        if (Auth::guard('karyawan')->check()) {
+            $isAdmin = Auth::guard('karyawan')->user()->is_admin;
+            if($isAdmin){
+                $pemesanan = Pemesanan::find($id);
+                $pemesanan->delete();
+                return redirect()->route('karyawan.riwayat-transaksi');
+            }
+            else{
+                return redirect()->route('karyawan.dashboard');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
 }

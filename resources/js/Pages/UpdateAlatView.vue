@@ -1,6 +1,6 @@
 <template>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <NavBar title="Kondisi Peralatan"/>
+    <NavBar title="Kondisi Peralatan" :token="token"/>
     <div class="flex-box">
         <div class="box">
             <h2 class="title">Update Peralatan</h2>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBarPenjual.vue'
+import NavBar from '@/Components/NavBarPenjual.vue'
 
 export default {
     data(){
@@ -46,9 +46,13 @@ export default {
     methods:{
 
     },
-    props:[
-        'alat', 'csrf', 'karyawans', 'pj',
-    ],
+    props : {
+        csrf: String,
+        karyawans: Array,
+        alat: Object,
+        pj: Object,
+        token : String,
+    }
 }
 </script>
 
