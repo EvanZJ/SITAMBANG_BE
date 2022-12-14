@@ -2,7 +2,7 @@
     <NavBar />
     <div class="container">
       {{ stock }}
-        <form method="POST" :action="'/stock/edit/'+stock.id" class="isi-item">
+        <form method="POST" :action="'/karyawan/stock/edit/'+stock.id" class="isi-item">
         <input type="hidden" name="_token" :value="csrf">
             <h1>
                 Update Stok

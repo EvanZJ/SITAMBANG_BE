@@ -19,7 +19,7 @@ export default {
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                  <form method="POST" action="/stock/create" class="isi-item">
+                  <form method="POST" action="/karyawan/stock/create" class="isi-item">
                   <input type="hidden" name="_token" :value="csrf">
                       <h1>
                           Tambah Produk

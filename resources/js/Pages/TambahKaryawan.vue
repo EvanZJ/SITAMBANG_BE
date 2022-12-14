@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Tanggal Lahir</label>
-                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir" required>
+                                <input type="date" :max="today" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Tempat Lahir</label>
@@ -48,15 +48,22 @@
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Jabatan</label>
-                                <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Jabatan" required>
-                            </div>
-                            <div class="form-input">
-                                <label class="title" for=" ">Konfirmasi Password</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Konfirmasi Password" required>
+                                <!-- <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Jabatan" required> -->
+                                <select class="form-control" name="jabatan" id="jabatan" value="">
+                                    <option v-for="(jabatan, idx) in jabatans" 
+                                            :key="idx"
+                                            :value="jabatan">
+                                            {{ jabatan }}
+                                    </option>
+                                </select>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Password</label>
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div class="form-input">
+                                <label class="title" for=" ">Konfirmasi Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Konfirmasi Password" required>
                             </div>
                             <input type="submit" value="Update">
                         </form>
@@ -69,6 +76,12 @@
 <script>
 import NavbarPenjual from '@/Components/NavBarPenjual.vue';
 export default {
+    data() {
+        return {
+            jabatans : ['Staff', 'Koordinator', 'Sekretaris', 'Bendahara', 'Satpam', 'Kepala Tambak', 'Kepala Gudang', 'Kepala Produksi', 'Kepala Keuangan', 'Kepala SDM', 'Direktur Utama'],
+            today : new Date().toISOString().substr(0, 10),
+        }
+    },
     components: {
         // Navbar,
         NavbarPenjual,
