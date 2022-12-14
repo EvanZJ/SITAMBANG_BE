@@ -1,12 +1,9 @@
-<template lang="">
-    <NavBar />
+<template>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<NavBar title="Update Stock" :token="token"/>
     <div class="container">
-      {{ stock }}
-        <form method="POST" :action="'/stock/edit/'+stock.id" class="isi-item">
+        <form method="POST" :action="'/karyawan/stock/edit/'+stock.id" class="isi-item">
         <input type="hidden" name="_token" :value="csrf">
-            <h1>
-                Update Stok
-            </h1>
             <div class="text-center">
                 <div class="row g-2">
                   <div class="col-3">
@@ -16,7 +13,7 @@
                     <div class="p-1">
                         <div class="input-group mb-3">
                              <input type="text" name="name" class="form-control" placeholder="Nama Produk" :value="stock.name">
-                             {{ stock.name }}
+                             <!-- {{ stock.name }} -->
                         </div>
                     </div>
                   </div>
@@ -58,6 +55,7 @@
                     </div>
                   </div>
             </div>
+            <!-- <input style="cursor:pointer" type="submit" class="btn btn-primary px-4 flex-end" id="submit" value="Next"> -->
             <button type="submit" class="btn btn-primary btn-submit">
               Ubah Stok
               </button>
