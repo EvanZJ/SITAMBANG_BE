@@ -203,8 +203,10 @@ class PemesananController extends Controller
         $datetime = date('Y-m-d_H-i-s', time()-$offset_to_gmt+7*3600);// YYYY-mm-dd-HH-ii-ss  but gmt+7
         
         $fileName =  $datetime. '.' . $bukti->getClientOriginalExtension();
-        // save bukti (berhasil)
-        Storage::disk('local')->put('images/pemesanan/'.$fileName, $bukti, 'public');
+        $path_asli = 'public/images/pemesanan/';
+        $path_naive = 'storage/images/pemesanan/';
+        $bukti->storeAs($path_asli, $fileName);
+
     
         $pemesanan = Pemesanan::create([
             'user_id' => Auth::id(),
@@ -213,7 +215,7 @@ class PemesananController extends Controller
             'caraPembayaran' => session('caraPembelian'),
             'status' => 'unverified',
             'verified_at' => null,
-            'bukti_path' => 'images/pemesanan/'.$fileName
+            'bukti_path' => $path_naive.$fileName
         ]);
 
         foreach(session('data_pembelian') as $data){
@@ -340,12 +342,14 @@ class PemesananController extends Controller
                 $list_product[] = $p->Stock()->get()[0];
             }
             $nama = $data[0]->User()->get()[0];
+            $src = asset($data[0]->bukti_path);
             return Inertia::render('DetailVerifikasiView', [
                 'data' => $data,
                 'product' => $product,
                 'list_product' => $list_product,
                 'nama' => $nama,
                 'csrf' => csrf_token(),
+                'proof' => $src,
             ]);
         }
         else{
