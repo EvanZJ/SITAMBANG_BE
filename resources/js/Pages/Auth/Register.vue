@@ -12,6 +12,7 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     no_telp: '',
+    alamat: '',
     terms: false,
 });
 
@@ -27,7 +28,7 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
-            <div>
+            <div class="mt-4">
                 <InputLabel for="name" value="Name" />
 
                 <TextInput
@@ -43,7 +44,23 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div>
+            <div class="mt-4">
+                <InputLabel for="alamat" value="Alamat" />
+
+                <TextInput
+                    id="no_telp"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.alamat"
+                    required
+                    autofocus
+                    autocomplete="alamat"
+                />
+
+                <InputError class="mt-2" :message="form.errors.alamat" />
+            </div>
+
+            <div class="mt-4">
                 <InputLabel for="no_telp" value="Nomor Telpon" />
 
                 <TextInput

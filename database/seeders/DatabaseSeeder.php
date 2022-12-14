@@ -31,14 +31,14 @@ class DatabaseSeeder extends Seeder
         Karyawan::factory(3)->admin()->create();
         AlatTambak::factory(5)->create();
         Stock::factory(3)->create();
-        Pemesanan::factory(1000)->create();
-        while(berisi::count() < 500){
-            try{
-                berisi::factory(1)->create();
-            }catch (\Illuminate\Database\QueryException $e){
-                continue;
-            }
-        }
+        // Pemesanan::factory(1000)->create();
+        // while(berisi::count() < 500){
+        //     try{
+        //         berisi::factory(1)->create();
+        //     }catch (\Illuminate\Database\QueryException $e){
+        //         continue;
+        //     }
+        // }
         bertanggungjawab::factory(5)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
