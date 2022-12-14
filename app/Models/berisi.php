@@ -9,6 +9,8 @@ class berisi extends Model
 {
     protected $fillable = [
         'kuantitas',
+        'pemesanan_id',
+        'stock_id',
     ];
     use HasFactory;
 
