@@ -4,7 +4,7 @@
     <div class="flex-box">
         <div class="box">
             <h2 class="title">Update Peralatan</h2>
-            <form method="POST" :action="'/alat/edit/'+alat.id" class="forms">
+            <form method="POST" :action="'/karyawan/alat/edit/'+alat.id" class="forms">
             <input type="hidden" name="_token" :value="csrf">
                 <div class="form-input">
                     <label>Nama Alat</label>
@@ -23,7 +23,14 @@
                 </div>
                 <div class="form-input">
                     <label>Kondisi</label>
-                    <input type="text" name="kondisi" :value="alat.kondisi">
+                    <!-- <input type="text" name="kondisi" :value="alat.kondisi"> -->
+                    <select name="kondisi" :value="alat.kondisi">
+                        <option v-for="(kondisi, idx) in kondisis" 
+                                :key="idx"
+                                :value="kondisi">
+                                {{ kondisi }}
+                        </option>
+                    </select>
                 </div>
                 
                 <input type="submit" value="Update">
@@ -38,6 +45,7 @@ import NavBar from '@/Components/NavBarPenjual.vue'
 export default {
     data(){
         return{
+            kondisis : ['Sangat Baik', 'Baik', 'Normal', 'Kurang Baik', 'Buruk', 'Rusak', 'Hilang', 'Dipinjam']
         }
     },
     components:{

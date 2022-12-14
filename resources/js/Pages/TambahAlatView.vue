@@ -4,7 +4,7 @@
     <div class="flex-box">
         <div class="box">
             <h2 class="title">Tambah Peralatan</h2>
-            <form class="forms" method="POST" action="/alat/create">
+            <form class="forms" method="POST" action="/karyawan/alat/create">
             <input type="hidden" name="_token" :value="csrf">
                 <div class="form-input">
                     <label>Nama Alat</label>
@@ -23,12 +23,18 @@
                 </div>
                 <div class="form-input">
                     <label>Kondisi</label>
-                    <input type="text" name="kondisi" value="">
+                    <!-- <input type="text" name="kondisi" value=""> -->
+                    <select name="kondisi" value="">
+                        <option v-for="(kondisi, idx) in kondisis" 
+                                :key="idx"
+                                :value="kondisi">
+                                {{ kondisi }}
+                        </option>
+                    </select>
                 </div>
                 
                 <input type="submit" value="Tambah">
             </form>
-            <a href="">{{ token }}</a>
         </div>
     </div>
 </template>
@@ -39,6 +45,7 @@ import NavBar from '@/Components/NavBarPenjual.vue'
 export default {
     data(){
         return{
+            kondisis : ['Sangat Baik', 'Baik', 'Normal', 'Kurang Baik', 'Buruk', 'Rusak', 'Hilang', 'Dipinjam']
         }
     },
     components:{

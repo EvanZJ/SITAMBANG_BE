@@ -18,6 +18,9 @@ getResults();
                     <h1>
                         Data Karyawan
                     </h1>
+                    <button class="btn btn-primary">
+                        <a href="/karyawan/data/karyawan/create" class="white-text">Tambah Karyawan</a>
+                    </button>
                     <table class="table">
                         <thead>
                           <tr>
@@ -93,6 +96,9 @@ export default {
     },
 }
 </script>
-<style lang="">
-    
+<style lang="css">
+    .white-text {
+        color: white;
+        text-decoration: none;
+    }
 </style>

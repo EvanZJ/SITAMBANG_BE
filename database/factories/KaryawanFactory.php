@@ -24,7 +24,7 @@ class KaryawanFactory extends Factory
             'alamat' => fake()->address(),
             'tempat_lahir' => fake()->city(),
             'tanggal_lahir' => fake()->dateTimeBetween('1990-01-01', '2004-12-31'),
-            'jabatan' => fake()->randomElement(['Staff', 'Koordinator', 'Sekretaris', 'Bendahara']),
+            'jabatan' => fake()->randomElement(['Staff', 'Koordinator', 'Sekretaris', 'Bendahara', 'Satpam', 'Kepala Tambak', 'Kepala Gudang', 'Kepala Produksi', 'Kepala Keuangan', 'Kepala SDM', 'Direktur Utama']),
             'no_telp' => fake()->unique()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '$2y$10$Bl9PnTzalZDOVjZ3bKVWm.Rwyc4VGQq1KWSHS.zaUKx/2VVivofkW', // password
