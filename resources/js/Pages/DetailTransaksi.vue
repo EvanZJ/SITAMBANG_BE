@@ -16,7 +16,7 @@
                             </label>
                             {{ data[0].created_at }}
                         </p>
-                        <p>
+                        <p v-if="!isPembeli">
                             <label>
                                 Pembeli : 
                             </label>
@@ -27,6 +27,12 @@
                                 Tipe Pembayaran : 
                             </label>
                             {{ data[0].caraPembayaran }}
+                        </p>
+                        <p>
+                            <label>
+                                Total : 
+                            </label>
+                            {{ toCurrency(data[0].totalPembayaran) }}
                         </p>
                         <p>
                             Rincian:
