@@ -30,6 +30,12 @@
                         </p>
                         <p>
                             <label>
+                                Total : 
+                            </label>
+                            {{ toCurrency(data[0].totalPembayaran) }}
+                        </p>
+                        <p>
+                            <label>
                                 Bukti Pembayaran : 
                             </label>
                             <img :src="proof" style="width:224px;">

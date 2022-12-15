@@ -18,7 +18,7 @@ getResults();
                     <h1>
                         Data Karyawan
                     </h1>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" v-if="isAdmin">
                         <a href="/karyawan/data/karyawan/create" class="white-text">Tambah Karyawan</a>
                     </button>
                     <table class="table">
