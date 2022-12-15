@@ -77,7 +77,7 @@
 </template>
 <script>
 import NavBar from '@/Components/NavBar.vue';
-import NavbarPenjual from '@/Components/NavbarPenjual.vue';
+import NavbarPenjual from '@/Components/NavBarPenjual.vue';
 import html2PDF from "jspdf-html2canvas";
 import html2canvas from "html2canvas";
 
