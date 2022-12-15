@@ -158,7 +158,7 @@ class InstallCommand extends Command
 
         if (in_array('meilisearch', $services)) {
             $environment .= "\nSCOUT_DRIVER=meilisearch";
-            $environment .= "\nMEILISEARCH_HOST=http://meilisearch:7700\n";
+            $environment .= "\nMEILISEARCH_HOST=https://meilisearch:7700\n";
         }
 
         file_put_contents($this->laravel->basePath('.env'), $environment);

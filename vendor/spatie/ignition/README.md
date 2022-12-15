@@ -363,9 +363,9 @@ Here are the steps you'll need to perform if you want to work on the UI of Ignit
     - run `composer update`
     - run `cp .env.example .env`
     - run `php artisan key:generate`
-- http://ignition-test.test/ should now work (= show the new UI). If you use valet, you might want to run `valet park` inside the `~/code/flare` directory.
-    - http://ignition-test.test/ has a bit of everything
-    - http://ignition-test.test/sql-error has a solution and SQL exception
+- https://ignition-test.test/ should now work (= show the new UI). If you use valet, you might want to run `valet park` inside the `~/code/flare` directory.
+    - https://ignition-test.test/ has a bit of everything
+    - https://ignition-test.test/sql-error has a solution and SQL exception
 
 ## Security Vulnerabilities
 

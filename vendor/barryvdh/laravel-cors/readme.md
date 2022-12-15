@@ -9,11 +9,11 @@ Implements https://github.com/fruitcake/php-cors for Laravel
 
 ## About
 
-The `laravel-cors` package allows you to send [Cross-Origin Resource Sharing](http://enable-cors.org/)
+The `laravel-cors` package allows you to send [Cross-Origin Resource Sharing](https://enable-cors.org/)
 headers with Laravel middleware configuration.
 
 If you want to have a global overview of CORS workflow, you can  browse
-this [image](http://www.html5rocks.com/static/images/cors_server_flowchart.png).
+this [image](https://www.html5rocks.com/static/images/cors_server_flowchart.png).
 
 ## Upgrading from 0.x (barryvdh/laravel-cors)
 When upgrading from 0.x versions, there are some breaking changes:
@@ -86,11 +86,11 @@ php artisan vendor:publish --tag="cors"
 
 `allowed_origins`, `allowed_headers` and `allowed_methods` can be set to `['*']` to accept any value.
 
-> **Note:** For `allowed_origins` you must include the scheme when not using a wildcard, eg. `['http://example.com', 'https://example.com']`. You must also take into account that the scheme will be present when using `allowed_origins_patterns`.
+> **Note:** For `allowed_origins` you must include the scheme when not using a wildcard, eg. `['https://example.com', 'https://example.com']`. You must also take into account that the scheme will be present when using `allowed_origins_patterns`.
 
 > **Note:** Try to be a specific as possible. You can start developing with loose constraints, but it's better to be as strict as possible!
 
-> **Note:** Because of [http method overriding](http://symfony.com/doc/current/reference/configuration/framework.html#http-method-override) in Laravel, allowing POST methods will also enable the API users to perform PUT and DELETE requests as well.
+> **Note:** Because of [http method overriding](https://symfony.com/doc/current/reference/configuration/framework.html#http-method-override) in Laravel, allowing POST methods will also enable the API users to perform PUT and DELETE requests as well.
 
 > **Note:** Sometimes it's necessary to specify the port _(when you're coding your app in a local environment for example)_. You can specify the port or using a wildcard here too, eg. `localhost:3000`, `localhost:*` or even using a FQDN `app.mydomain.com:8080`
 

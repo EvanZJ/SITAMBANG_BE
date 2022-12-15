@@ -47,8 +47,8 @@ trait InstallsApiStack
         $files->copyDirectory(__DIR__.'/../../stubs/api/config', config_path());
 
         $this->replaceInFile(
-            "'url' => env('APP_URL', 'http://localhost')",
-            "'url' => env('APP_URL', 'http://localhost'),".PHP_EOL.PHP_EOL."    'frontend_url' => env('FRONTEND_URL', 'http://localhost:3000')",
+            "'url' => env('APP_URL', 'https://localhost')",
+            "'url' => env('APP_URL', 'https://localhost'),".PHP_EOL.PHP_EOL."    'frontend_url' => env('FRONTEND_URL', 'https://localhost:3000')",
             config_path('app.php')
         );
 
@@ -59,7 +59,7 @@ trait InstallsApiStack
 
         file_put_contents(
             base_path('.env'),
-            preg_replace('/APP_URL=(.*)/', 'APP_URL=http://localhost:8000'.PHP_EOL.'FRONTEND_URL=http://localhost:3000', file_get_contents(base_path('.env')))
+            preg_replace('/APP_URL=(.*)/', 'APP_URL=https://localhost:8000'.PHP_EOL.'FRONTEND_URL=https://localhost:3000', file_get_contents(base_path('.env')))
         );
 
         // Tests...

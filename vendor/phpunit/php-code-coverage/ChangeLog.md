@@ -1,6 +1,6 @@
 # ChangeLog
 
-All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
 ## [9.2.19] - 2022-11-18
 

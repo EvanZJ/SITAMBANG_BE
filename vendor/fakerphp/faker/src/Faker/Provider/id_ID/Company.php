@@ -12,7 +12,7 @@ class Company extends \Faker\Provider\Company
     ];
 
     /**
-     * @see http://id.wikipedia.org/wiki/Jenis_badan_usaha
+     * @see https://id.wikipedia.org/wiki/Jenis_badan_usaha
      */
     protected static $companyPrefix = ['PT', 'CV', 'UD', 'PD', 'Perum'];
 
@@ -38,7 +38,7 @@ class Company extends \Faker\Provider\Company
     ];
 
     /**
-     * @see http://id.wikipedia.org/wiki/Jenis_badan_usaha
+     * @see https://id.wikipedia.org/wiki/Jenis_badan_usaha
      */
     protected static $companySuffix = ['(Persero) Tbk', 'Tbk'];
 

@@ -6,7 +6,7 @@ use Faker\Provider\Base;
 
 /**
  * Generator of Polish vehicle registration numbers.
- * {@link} http://prawo.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170002355
+ * {@link} https://prawo.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170002355
  * {@link} https://pl.wikipedia.org/wiki/Tablice_rejestracyjne_w_Polsce#Tablice_standardowe
  */
 class LicensePlate extends Base

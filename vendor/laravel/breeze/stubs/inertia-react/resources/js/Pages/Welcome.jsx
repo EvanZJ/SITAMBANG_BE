@@ -31,7 +31,7 @@ export default function Welcome(props) {
                         <svg
                             viewBox="0 0 651 192"
                             fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns="https://www.w3.org/2000/svg"
                             className="h-16 w-auto text-gray-700 sm:h-20"
                         >
                             <g clipPath="url(#clip0)" fill="#EF3B2D">

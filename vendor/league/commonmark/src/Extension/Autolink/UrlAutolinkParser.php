@@ -107,9 +107,9 @@ final class UrlAutolinkParser implements InlineParserInterface
 
         $cursor->advanceBy(\mb_strlen($url));
 
-        // Auto-prefix 'http://' onto 'www' URLs
+        // Auto-prefix 'https://' onto 'www' URLs
         if (\substr($url, 0, 4) === 'www.') {
-            $inlineContext->getContainer()->appendChild(new Link('http://' . $url, $url));
+            $inlineContext->getContainer()->appendChild(new Link('https://' . $url, $url));
 
             return true;
         }
