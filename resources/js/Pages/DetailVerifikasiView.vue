@@ -30,9 +30,15 @@
                         </p>
                         <p>
                             <label>
+                                Total : 
+                            </label>
+                            {{ toCurrency(data[0].totalPembayaran) }}
+                        </p>
+                        <p>
+                            <label>
                                 Bukti Pembayaran : 
                             </label>
-                            <img :src="data[0].bukti_path">
+                            <img :src="proof" style="width:224px;">
                         </p>
                         <p>
                             Rincian:
@@ -82,6 +88,7 @@ export default {
         list_product: Array,
         nama: Object,
         csrf: String,
+        proof:String
     },
     components: {
         NavBar,

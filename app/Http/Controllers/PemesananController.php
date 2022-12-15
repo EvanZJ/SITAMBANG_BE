@@ -164,10 +164,36 @@ class PemesananController extends Controller
     }
 
     public function store_pemesanan(Request $r){
-        $input = [];
-        // dd($r);
-        // dd($r->file('bukti-pembayaran'));
-        if(!$r->hasFile('bukti-pembayaran')){
+        $caraPembayaran = session('caraPembelian');
+        if($caraPembayaran == 'Tunai' || $caraPembayaran == 'tunai'){
+            $pemesanan = Pemesanan::create([
+                'user_id' => Auth::id(),
+                'karyawan_id' => 1, // default
+                'totalPembayaran' => session('total_harga'),
+                'caraPembayaran' => session('caraPembelian'),
+                'status' => 'unverified',
+                'verified_at' => null,
+                'bukti_path' => null,
+            ]);
+    
+            foreach(session('data_pembelian') as $data){
+                berisi::create([
+                    'pemesanan_id' => $pemesanan->id,
+                    'stock_id' => $data['stock']->id,
+                    'kuantitas' => $data['total_pembelian']
+                ]);
+                // here hilangkan stock ()
+                $the_stock = Stock::findOrFail($data['stock']->id);
+                $the_stock->total_persediaan -=$data['total_pembelian'];
+                $the_stock->save();
+            }
+            session()->forget('data_pembelian');
+            session()->forget('msg');
+            session()->forget('caraPembelian');
+            return $this->berhasil_memesan();
+        }
+
+        if(!$r->hasFile('bukti-pembayaran') && $caraPembayaran != 'tunai'){
             return redirect(route('pemesanan.unggah_bukti_pembayaran'))->with('msg', 'Anda belum mengunggah foto');
         }
 
@@ -180,18 +206,11 @@ class PemesananController extends Controller
         $datetime = date('Y-m-d_H-i-s', time()-$offset_to_gmt+7*3600);// YYYY-mm-dd-HH-ii-ss  but gmt+7
         
         $fileName =  $datetime. '.' . $bukti->getClientOriginalExtension();
-        // save bukti (berhasil)
-        Storage::disk('local')->put('images/pemesanan/'.$fileName, $bukti, 'public');
-        
-        // save data pemesanan
-        // $input['totalPembayaran'] = session('total_harga');
-        // $input['caraPembayaran'] = session('caraPembelian');
-        // $input['user_id'] = Auth::id();
-        // $input['karyawan_id'] = 1;// default value, nanti diedit sama verifier
-        // $input['status'] = 'unverified';
-        // $input['bukti_path'] = 'images/pemesanan/'.$fileName;
-        // $input['verified_at'] = null;
+        $path_asli = 'public/images/pemesanan/';
+        $path_naive = 'storage/images/pemesanan/';
+        $bukti->storeAs($path_asli, $fileName);
 
+    
         $pemesanan = Pemesanan::create([
             'user_id' => Auth::id(),
             'karyawan_id' => 1, // default
@@ -199,9 +218,8 @@ class PemesananController extends Controller
             'caraPembayaran' => session('caraPembelian'),
             'status' => 'unverified',
             'verified_at' => null,
-            'bukti_path' => 'images/pemesanan/'.$fileName
+            'bukti_path' => $path_naive.$fileName
         ]);
-        // Pemesanan::create($input);
 
         foreach(session('data_pembelian') as $data){
             berisi::create([
@@ -215,18 +233,38 @@ class PemesananController extends Controller
             $the_stock->save();
         }
 
+        session()->forget('data_pembelian');
+        session()->forget('msg');
+        session()->forget('caraPembelian');
+        return $this->berhasil_memesan();
 
-        return $this->selesai_memesan();
+    }
+
+    public function berhasil_memesan(){
+        $total_beli = session('total_harga');
+        session()->forget('total_harga');
+        if(!is_numeric($total_beli)){
+            // berarti dia null (bukan number)
+            return $this->page_konfirmasi(false);
+        }
+        // is numberic
+        if($total_beli > 0){
+            //  ada yang di beli
+            return $this->page_konfirmasi(true);
+        }
+        return $this->page_konfirmasi(false);
 
     }
 
     public function selesai_memesan(){
-        session()->forget('data_pembelian');
-        session()->forget('total_harga');
-        session()->forget('msg');
-        session()->forget('caraPembelian');
-    
         return redirect(route('pembeli.dashboard'));
+    }
+
+    public function page_konfirmasi($adaPesanan){
+        return Inertia::render('Pemesanan/PemesananBerhasil',[
+            'token' => null,
+            'adaPesanan' =>$adaPesanan,
+        ]);
     }
 
     /**
@@ -327,12 +365,14 @@ class PemesananController extends Controller
                 $list_product[] = $p->Stock()->get()[0];
             }
             $nama = $data[0]->User()->get()[0];
+            $src = asset($data[0]->bukti_path);
             return Inertia::render('DetailVerifikasiView', [
                 'data' => $data,
                 'product' => $product,
                 'list_product' => $list_product,
                 'nama' => $nama,
                 'csrf' => csrf_token(),
+                'proof' => $src,
             ]);
         }
         else{
