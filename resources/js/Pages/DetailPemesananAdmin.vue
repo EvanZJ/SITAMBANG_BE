@@ -1,5 +1,5 @@
 <script setup>
-import DetailPemesanan from '../views/DetailPemesanan.vue'
+import DetailPemesanan from '@/Pages/DetailPemesanan.vue'
 </script>
 
 <template>
