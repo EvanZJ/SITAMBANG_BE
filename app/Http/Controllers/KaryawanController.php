@@ -205,6 +205,28 @@ class KaryawanController extends Controller
         return redirect()->route('karyawan.index');
     }
 
+    public function updatePembeli(Request $req){
+        try{
+            $this->validate($req, [
+                'nama' => 'required',
+                'email' => 'required|email',
+                'alamat' => 'required',
+                'no_hp' => 'required',
+            ]);
+        }
+        catch(\Illuminate\Validation\ValidationException $e){
+            dd($e);
+            return redirect()->route('karyawan.editPembeli', ['id' => $req->id])->with('error', 'Data tidak valid');
+        }
+        $karyawan = User::find($req->id);
+        $karyawan->name = $req->nama;
+        $karyawan->email = $req->email;
+        $karyawan->alamat = $req->alamat;
+        $karyawan->no_telp = $req->no_hp;
+        $karyawan->save();
+        return redirect()->route('pembeli.index');
+    }
+
     public function detailTransaksi(Request $request){
         if (Auth::guard('karyawan')->check()) {
             $data = Pemesanan::where('id', $request->id)->get();
