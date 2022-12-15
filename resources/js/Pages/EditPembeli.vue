@@ -15,7 +15,7 @@
                                 <label class="title" for=" ">Nama</label>
                                 <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" :value="pembeli.name" required>
                             </div>
-                            <div class="form-input" v-if="pembeli.jenis_kelamin == 'Laki-laki'">
+                            <!-- <div class="form-input" v-if="pembeli.jenis_kelamin == 'Laki-laki'">
                                 <label class="title"  for=" ">Jenis Kelamin</label>
                                 <input class="form-check-input" type="radio" name="jenis_kelamin" id="flexRadioDefault1" value="Laki-Laki" checked>
                                 <label class="form-check-label" for="flexRadioDefault1">
@@ -36,7 +36,7 @@
                                 <label class="form-check-label" for="flexRadioDefault2">
                                         Perempuan
                                 </label>
-                            </div>
+                            </div> -->
                             <div class="form-input">
                                 <label class="title" for=" ">No Telp</label>
                                 <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" :value="pembeli.no_telp" required>
