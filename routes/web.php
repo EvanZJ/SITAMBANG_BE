@@ -99,13 +99,10 @@ Route::prefix('pembeli')->group(function() {
     Route::get('/info-pembayaran-e-wallet', [ PemesananController::class, 'info_pembayaran_ewallet'])->name('pemesanan.info_pembayaran_ewallet');
     Route::get('/unggah-bukti-pembayaran', [ PemesananController::class, 'unggah_bukti_pembayaran'])->name('pemesanan.unggah_bukti_pembayaran');
     Route::post('/store-pemesanan' , [ PemesananController::class, 'store_pemesanan'])->name('pemesanan.store_pemesanan');
+    Route::post('/pemesanan-berhasil', [ PemesananController::class, 'berhasil_memesan'])->name('pemesanan.berhasil_memesan');
     Route::get('/selesai-memesan', [ PemesananController::class, 'selesai_memesan'])->name('pemesanan.selesai_memesan');
     
-    
-    
-    Route::get('/pemesanan-berhasil', function () {
-        return Inertia::render('Pemesanan/PemesananBerhasil');
-    })->name('pemesanan-berhasil');
+
 
 })->middleware(['auth', 'verified']);
 

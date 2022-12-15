@@ -187,7 +187,10 @@ class PemesananController extends Controller
                 $the_stock->total_persediaan -=$data['total_pembelian'];
                 $the_stock->save();
             }
-            return $this->selesai_memesan();
+            session()->forget('data_pembelian');
+            session()->forget('msg');
+            session()->forget('caraPembelian');
+            return $this->berhasil_memesan();
         }
 
         if(!$r->hasFile('bukti-pembayaran') && $caraPembayaran != 'tunai'){
@@ -230,18 +233,38 @@ class PemesananController extends Controller
             $the_stock->save();
         }
 
+        session()->forget('data_pembelian');
+        session()->forget('msg');
+        session()->forget('caraPembelian');
+        return $this->berhasil_memesan();
 
-        return $this->selesai_memesan();
+    }
+
+    public function berhasil_memesan(){
+        $total_beli = session('total_harga');
+        session()->forget('total_harga');
+        if(!is_numeric($total_beli)){
+            // berarti dia null (bukan number)
+            return $this->page_konfirmasi(false);
+        }
+        // is numberic
+        if($total_beli > 0){
+            //  ada yang di beli
+            return $this->page_konfirmasi(true);
+        }
+        return $this->page_konfirmasi(false);
 
     }
 
     public function selesai_memesan(){
-        session()->forget('data_pembelian');
-        session()->forget('total_harga');
-        session()->forget('msg');
-        session()->forget('caraPembelian');
-    
         return redirect(route('pembeli.dashboard'));
+    }
+
+    public function page_konfirmasi($adaPesanan){
+        return Inertia::render('Pemesanan/PemesananBerhasil',[
+            'token' => null,
+            'adaPesanan' =>$adaPesanan,
+        ]);
     }
 
     /**
