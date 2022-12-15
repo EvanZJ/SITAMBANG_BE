@@ -269,6 +269,23 @@ class KaryawanController extends Controller
         }
     }
 
+    public function destroyPembeli(Request $id){
+        if (Auth::guard('karyawan')->check()) {
+            $isAdmin = Auth::guard('karyawan')->user()->is_admin;
+            if($isAdmin){
+                $karyawan = User::find($id->id);
+                $karyawan->delete();
+                return redirect()->route('pembeli.index');
+            }
+            else{
+                return redirect()->route('karyawan.dashboard');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
     public function indexPembeli(){
         if (Auth::guard('karyawan')->check()) {
             $isAdmin = Auth::guard('karyawan')->user()->is_admin;
