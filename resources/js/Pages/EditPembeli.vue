@@ -39,7 +39,7 @@
                             </div> -->
                             <div class="form-input">
                                 <label class="title" for=" ">No Telp</label>
-                                <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" :value="pembeli.no_telp" required>
+                                <input type="text" name="no_hp" id="alamat" class="form-control" placeholder="Alamat" :value="pembeli.no_telp" required>
                             </div>
                             <div class="form-input">
                                 <label class="title" for=" ">Alamat</label>
