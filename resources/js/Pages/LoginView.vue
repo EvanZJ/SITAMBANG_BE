@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import PreNavBar from '../components/PreNavBar.vue'
+import PreNavBar from '@/Components/PreNavBar.vue'
 
 export default {
     data(){

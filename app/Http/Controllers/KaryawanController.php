@@ -45,9 +45,11 @@ class KaryawanController extends Controller
 
     public function riwayatTransaksi(){
         if (Auth::guard('karyawan')->check()) {
+            $isAdmin = Auth::guard('karyawan')->user()->is_admin;
             return Inertia::render('RiwayatTransaksi', [
                 'isPembeli' => false,
                 'isKaryawan' => true,
+                'isAdmin' => $isAdmin,
                 'token' => csrf_token(),
             ]);
         }
